@@ -1,8 +1,9 @@
 
+import { Love_Ya_Like_A_Sister } from "next/font/google";
 import React from "react";
 
 export default function Post({ post }) {
-  const { name, price, condition, phone, imageURL } = post;
+  const { name, time, cals, likes, imageURL } = post;
 
   const headerStyle = {
     fontFamily: "Arial",
@@ -38,15 +39,15 @@ export default function Post({ post }) {
 
       <div style={{ display: "flex", alignItems: "center" }}>
         <h1 style={headerStyle}>{name}</h1>
-        <h1 style={priceStyle}>{price}</h1>
+        <h1 style={priceStyle}>{time}</h1>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         {/* Removed the Image component */}
-        <p style={standardTextStyle}>{condition}</p>
+        <p style={standardTextStyle}>{cals}</p>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         {/* Removed the Image component */}
-        <p style={phoneTextStyle}>{phone}</p>
+        <p style={phoneTextStyle}>{likes}</p>
       </div>
     </div>
   );
