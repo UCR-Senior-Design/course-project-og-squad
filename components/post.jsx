@@ -23,8 +23,8 @@ export default function Post({ post }) {
         </div>
   
       <div className="flex">
-        <p style={{ color: '#FFA500' }} className="ml-4"><FaFireFlameCurved /></p>
-        <p className="ml-12"><IoIosTimer /></p>
+        <p className="ml-4"><IoIosTimer /></p>
+        <p style={{ color: '#FFA500' }} className="ml-12"><FaFireFlameCurved /></p>
       </div>
         <div className="flex">
          
