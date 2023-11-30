@@ -1,5 +1,6 @@
 
 import React from "react";
+import Image from "next/image";
 
 export default function Post({ post }) {
   const { name, price, condition, phone, imageURL } = post;
@@ -34,7 +35,7 @@ export default function Post({ post }) {
   return (
     <div>
       {/* Display the image if imageURL is provided */}
-      {imageURL && <img src={imageURL} alt="Post Image" style={{ width: "200px", height: "200px" }} />}
+      {imageURL && <Image src={imageURL} alt="Post Image" width={500} height={500} />}
 
       <div style={{ display: "flex", alignItems: "center" }}>
         <h1 style={headerStyle}>{name}</h1>
