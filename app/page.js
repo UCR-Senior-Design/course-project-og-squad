@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Post post={{ name: "Example", price: 10, condition: "Good", phone: "123-456-7890", imageURL: image }} />
+      <Post post={{ name: "Pizza", time: "30 minutes", calories: "1000 cals", description: "bell pepper", imageURL: image }} />
       <Footer />
     </main>
   );

@@ -3,51 +3,27 @@ import React from "react";
 import Image from "next/image";
 
 export default function Post({ post }) {
-  const { name, price, condition, phone, imageURL } = post;
-
-  const headerStyle = {
-    fontFamily: "Arial",
-    fontSize: "11px",
-    color: "#334257",
-  };
-
-  const priceStyle = {
-    fontFamily: "Arial",
-    fontSize: "15px",
-    color: "#334257",
-    margin: "0 11px",
-  };
-
-  const standardTextStyle = {
-    fontFamily: "Arial",
-    fontSize: "9px",
-    color: "#A3A3A3",
-    // Add any other styles you need
-  };
-
-  const phoneTextStyle = {
-    fontFamily: "Arial",
-    fontSize: "9px",
-    color: "#334257",
-    // Add any other styles you need
-  };
+  const { name, time, calories, description, imageURL } = post;
 
   return (
-    <div>
-      {/* Display the image if imageURL is provided */}
-      {imageURL && <Image src={imageURL} alt="Post Image" width={500} height={500} />}
-
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <h1 style={headerStyle}>{name}</h1>
-        <h1 style={priceStyle}>{price}</h1>
-      </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {/* Removed the Image component */}
-        <p style={standardTextStyle}>{condition}</p>
-      </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {/* Removed the Image component */}
-        <p style={phoneTextStyle}>{phone}</p>
+    <div className="flex-col pl-8 py-4">
+      {/* Display the square image if imageURL is provided */}
+      {imageURL && (
+        <div className="mr-4">
+          <Image src={imageURL} alt="Post Image" width={200} height={200} />
+        </div>
+      )}
+  
+      <div className="flex flex-col">
+        <div className="flex items-center">
+          <h1 className="font-sans text-lg text-gray-800 font-bold">{name}</h1>
+        </div>
+        <div className="flex">
+          <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{time}</p>
+          <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{calories}</p>
+          <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{description}</p>
+        </div>
+        
       </div>
     </div>
   );
