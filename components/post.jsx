@@ -1,4 +1,5 @@
 
+import { Love_Ya_Like_A_Sister } from "next/font/google";
 import React from "react";
 import Image from "next/image";
 
@@ -23,8 +24,6 @@ export default function Post({ post }) {
           <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{calories}</p>
           <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{description}</p>
         </div>
-        
-      </div>
     </div>
   );
 }
