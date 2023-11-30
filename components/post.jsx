@@ -1,3 +1,4 @@
+import { Love_Ya_Like_A_Sister } from "next/font/google";
 import React from "react";
 import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
