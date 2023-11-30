@@ -1,6 +1,9 @@
 
 import React from "react";
 import Image from "next/image";
+import { FaFireFlameCurved } from "react-icons/fa6";
+import { IoIosTimer } from "react-icons/io";
+
 
 export default function Post({ post }) {
   const { name, time, calories, description, imageURL } = post;
@@ -16,11 +19,19 @@ export default function Post({ post }) {
   
       <div className="flex flex-col">
         <div className="flex items-center">
-          <h1 className="font-sans text-lg text-gray-800 font-bold">{name}</h1>
+          <h1 className="font-sans text-lg text-gray-800 font-bold py-2">{name}</h1>
         </div>
+  
+      <div className="flex">
+        <p style={{ color: '#FFA500' }} className="ml-4"><FaFireFlameCurved /></p>
+        <p className="ml-12"><IoIosTimer /></p>
+      </div>
         <div className="flex">
+         
           <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{time}</p>
+          
           <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{calories}</p>
+          
           <p className="font-sans text-xs text-gray-800 mr-4 mt-2">{description}</p>
         </div>
         
