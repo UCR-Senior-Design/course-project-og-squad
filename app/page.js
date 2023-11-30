@@ -26,7 +26,7 @@ async function run() {
     const database = client.db('Snapchef'); // Replace with your database name
       const collection = database.collection('Posts'); // Replace with your collection name
 
-    // Query to get all documents from the collection
+    //query to get all documents from the collection
     const query = {};
 
     // Fetch the documents
@@ -36,7 +36,7 @@ async function run() {
     const documents = await cursor.toArray();
 
     //display on terminal
-    console.log('Documents:');
+    console.log('Testing Database Connection with mockdata:');
     documents.forEach(doc => {
     console.log(`ID: ${doc._id}, Username: ${doc.userName}, Recipe Name: ${doc.recipeName}, Likes: ${doc.postLikes}`);
     });
