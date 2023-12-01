@@ -1,5 +1,3 @@
-
-
 // // Import React
 // import React from "react";
 
@@ -34,7 +32,6 @@
 //         <Image src={ChefHatLogo} alt="ChefHatLogo" className="cursor-pointer" width={27} height={27} />
 //       </div>
 
-
 //       {/* Search field in the middle */}
 //           <div className="flex items-center flex-shrink-0 w-48 px-2">
 //         <AiOutlineSearch className="text-gray-600" />
@@ -66,7 +63,7 @@ import Image from "next/image";
 // Import required components from 'react-icons'
 import { AiOutlineSearch } from "react-icons/ai";
 
-// Import the new SnapChefV1.svg 
+// Import the new SnapChefV1.svg
 import SnapChefLogo from "../assets/SnapChefV1.svg";
 
 // Import the custom home image and other icons
@@ -75,9 +72,6 @@ import BellIcon from "../assets/Bell_duotone_line.svg";
 import EllipseIcon from "../assets/Ellipse 2.svg";
 import BookmarkIcon from "../assets/bookmark.svg";
 import UserCircleIcon from "../assets/user-circle.svg";
-
-// Import navigation links
-import { navLinks } from "../Constants";
 
 function Navbar() {
   return (
@@ -95,16 +89,49 @@ function Navbar() {
       {/* Search field in the middle */}
       <div className="flex items-center flex-shrink-0 w-48 px-2">
         <AiOutlineSearch className="text-gray-600" />
-        <input type="text" className="w-full px-2 py-1 border border-gray-300 rounded" />
+        <input
+          type="text"
+          className="w-full px-2 py-1 border border-gray-300 rounded"
+        />
       </div>
 
       {/* Navigation links on the right */}
       <ul className="flex gap-4 list-none">
-              <Image src={HomeImage} alt="Home" className="cursor-pointer" width={20} height={20} />
-              <Image src={BellIcon} alt="Bell" className="cursor-pointer" width={20} height={20} />
-              <Image src={EllipseIcon} alt="Ellipse" className="cursor-pointer" width={20} height={20} />
-              <Image src={BookmarkIcon} alt="Bookmark" className="cursor-pointer" width={20} height={20} />
-              <Image src={UserCircleIcon} alt="UserCircle" className="cursor-pointer" width={20} height={20} />
+        <Image
+          src={HomeImage}
+          alt="Home"
+          className="cursor-pointer"
+          width={20}
+          height={20}
+        />
+        <Image
+          src={BellIcon}
+          alt="Bell"
+          className="cursor-pointer"
+          width={20}
+          height={20}
+        />
+        <Image
+          src={EllipseIcon}
+          alt="Ellipse"
+          className="cursor-pointer"
+          width={20}
+          height={20}
+        />
+        <Image
+          src={BookmarkIcon}
+          alt="Bookmark"
+          className="cursor-pointer"
+          width={20}
+          height={20}
+        />
+        <Image
+          src={UserCircleIcon}
+          alt="UserCircle"
+          className="cursor-pointer"
+          width={20}
+          height={20}
+        />
       </ul>
     </nav>
   );

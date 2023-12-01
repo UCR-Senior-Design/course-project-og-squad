@@ -1,7 +1,3 @@
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import Post from "@/components/post";
-
 async function getHomePageRecipes() {
   const res = await fetch("http://localhost:3000/api/homeRecipes");
   if (!res.ok) {
