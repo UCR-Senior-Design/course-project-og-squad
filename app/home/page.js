@@ -14,10 +14,8 @@ export default async function Home() {
   const data = await getHomePageRecipes();
 
   return (
-    <main>
-      <Navbar />
+    <div>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-      <Footer />
-    </main>
+    </div>
   );
 }
