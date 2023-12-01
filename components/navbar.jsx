@@ -66,7 +66,7 @@ import Image from "next/image";
 // Import required components from 'react-icons'
 import { AiOutlineSearch } from "react-icons/ai";
 
-// Import the new SnapChefV1.svg
+// Import the new SnapChefV1.svg 
 import SnapChefLogo from "../assets/SnapChefV1.svg";
 
 // Import the custom home image and other icons
@@ -87,8 +87,8 @@ function Navbar() {
         src={SnapChefLogo}
         alt="SnapChefLogo"
         className="cursor-pointer"
-        width={150}
-        height={130}
+        width={180}
+        height={180}
         style={{ position: "relative", top: "0px" }} // Adjust the top value
       />
 
@@ -105,8 +105,6 @@ function Navbar() {
               <Image src={EllipseIcon} alt="Ellipse" className="cursor-pointer" width={20} height={20} />
               <Image src={BookmarkIcon} alt="Bookmark" className="cursor-pointer" width={20} height={20} />
               <Image src={UserCircleIcon} alt="UserCircle" className="cursor-pointer" width={20} height={20} />
-
-
       </ul>
     </nav>
   );

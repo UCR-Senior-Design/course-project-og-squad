@@ -1,7 +1,8 @@
-<svg width="193" height="40" viewBox="0 0 193 40" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 193 40" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <clipPath id="clip0_36_315">
-      <rect width="36" height="36" fill="none"/>
+      <rect width="36" height="36" fill="white"/>
     </clipPath>
   </defs>
   <g clip-path="url(#clip0_36_315)" transform="matrix(0.7428200244903564, 0, 0, 0.7196549773216248, 92.25654602050783, -9.67453384399414)" style="">
