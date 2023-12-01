@@ -66,9 +66,8 @@ import Image from "next/image";
 // Import required components from 'react-icons'
 import { AiOutlineSearch } from "react-icons/ai";
 
-// Import the SnapChef.svg and ChefHat4.svg logos
-import SnapChefLogo from "../assets/SnapChef.svg";
-import ChefHatLogo from "../assets/ChefHat4.svg"; // Updated file name
+// Import the new SnapChefV1.svg
+import SnapChefLogo from "../assets/SnapChefV1.svg";
 
 // Import the custom home image and other icons
 import HomeImage from "../assets/home.svg"; // Replace with the actual path to your home image
@@ -88,15 +87,10 @@ function Navbar() {
         src={SnapChefLogo}
         alt="SnapChefLogo"
         className="cursor-pointer"
-        width={130}
+        width={150}
         height={130}
-        style={{ position: "relative", top: "10px" }} // Adjust the top value
+        style={{ position: "relative", top: "0px" }} // Adjust the top value
       />
-
-      {/* Chef Hat overlay on top of SnapChef logo */}
-      <div className="absolute top-1/3 left-24 transform -translate-x-1/2 -translate-y-5">
-        <Image src={ChefHatLogo} alt="ChefHatLogo" className="cursor-pointer" width={27} height={27} />
-      </div>
 
       {/* Search field in the middle */}
       <div className="flex items-center flex-shrink-0 w-48 px-2">
