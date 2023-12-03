@@ -1,71 +1,104 @@
+"use client";
 import Image from "next/image";
-import HomeImage from "../assets/home.svg"; // Replace with the actual path to your home image
-import BellIcon from "../assets/Bell_duotone_line.svg";
-import EllipseIcon from "../assets/Ellipse 2.svg";
-import BookmarkIcon from "../assets/bookmark.svg";
-import UserCircleIcon from "../assets/user-circle.svg";
-import { AiOutlineSearch } from "react-icons/ai";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import SnapChefLogo from "../assets/SnapChefV1.svg";
+import Search from "../assets/icons/Search.svg";
+import Home from "../assets/icons/home.svg";
+import HomeFill from "../assets/icons/homefill.svg";
+import Bell from "../assets/icons/bell.svg";
+import BellFill from "../assets/icons/bellfill.svg";
+import Post from "../assets/icons/post.svg";
+import PostFill from "../assets/icons/postfill.svg";
+import Fav from "../assets/icons/favorites.svg";
+import FavFill from "../assets/icons/favoritesfill.svg";
+import Profile from "../assets/icons/Profile.svg";
+import ProfileFill from "../assets/icons/profilefill.svg";
 
 function Navbar() {
+  const pathname = usePathname();
+  const [activePath, setActivePath] = useState("");
+
+  useEffect(() => {
+    // Update active path whenever the route changes
+    setActivePath(pathname);
+  }, [pathname]);
+
+  const isLinkActive = (path) => path === activePath;
+
   return (
-    <nav className="flex items-center justify-between p-4 relative">
+    <nav className="flex items-center justify-between p-4 relative mr-6">
       {/* Use the larger SnapChef.svg logo */}
-      <Image
-        src={SnapChefLogo}
-        alt="SnapChefLogo"
-        className="cursor-pointer"
-        width={180}
-        height={180}
-        style={{ position: "relative", top: "0px" }} // Adjust the top value
-      />
+      <Link href="/">
+        <Image
+          src={SnapChefLogo}
+          alt="SnapChefLogo"
+          className="cursor-pointer"
+          width={180}
+          height={180}
+          style={{ position: "relative", top: "0px" }} // Adjust the top value
+        />
+      </Link>
 
       {/* Search field in the middle */}
-      <div className="flex items-center flex-shrink-0 w-48 px-2">
-        <AiOutlineSearch className="text-gray-600" />
+      <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
         <input
           type="text"
-          className="w-full px-2 py-1 border border-gray-300 rounded"
+          placeholder="Search..."
+          className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
         />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-4">
+          <Image src={Search} alt="Search" width={20} height={20} />
+        </div>
       </div>
-
       {/* Navigation links on the right */}
       <ul className="flex gap-4 list-none">
-        <Image
-          src={HomeImage}
-          alt="Home"
-          className="cursor-pointer"
-          width={20}
-          height={20}
-        />
-        <Image
-          src={BellIcon}
-          alt="Bell"
-          className="cursor-pointer"
-          width={20}
-          height={20}
-        />
-        <Image
-          src={EllipseIcon}
-          alt="Ellipse"
-          className="cursor-pointer"
-          width={20}
-          height={20}
-        />
-        <Image
-          src={BookmarkIcon}
-          alt="Bookmark"
-          className="cursor-pointer"
-          width={20}
-          height={20}
-        />
-        <Image
-          src={UserCircleIcon}
-          alt="UserCircle"
-          className="cursor-pointer"
-          width={20}
-          height={20}
-        />
+        <Link href="/home">
+          <Image
+            src={isLinkActive("/home") ? HomeFill : Home}
+            alt="Home"
+            className="cursor-pointer"
+            width={25}
+            height={25}
+          />
+        </Link>
+        <Link href="/notifications">
+          <Image
+            src={isLinkActive("/notifications") ? BellFill : Bell}
+            alt="Bell"
+            className="cursor-pointer"
+            width={25}
+            height={25}
+          />
+        </Link>
+        <Link href="/post">
+          <Image
+            src={isLinkActive("/post") ? PostFill : Post}
+            alt="Post"
+            className="cursor-pointer"
+            width={25}
+            height={25}
+          />
+        </Link>
+        <Link href="/favorites">
+          <Image
+            src={isLinkActive("/favorites") ? FavFill : Fav}
+            alt="Home"
+            className="cursor-pointer"
+            width={25}
+            height={25}
+          />
+        </Link>
+        <Link href="/profile">
+          <Image
+            src={isLinkActive("/profile") ? ProfileFill : Profile}
+            alt="Home"
+            className="cursor-pointer"
+            width={25}
+            height={25}
+          />
+        </Link>
       </ul>
     </nav>
   );
