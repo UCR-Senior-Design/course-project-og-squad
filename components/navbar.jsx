@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
 import SnapChefLogo from "../assets/SnapChefV1.svg";
+import Search from "../assets/icons/Search.svg";
 import Home from "../assets/icons/home.svg";
 import HomeFill from "../assets/icons/homefill.svg";
 import Bell from "../assets/icons/bell.svg";
@@ -28,7 +28,7 @@ function Navbar() {
   const isLinkActive = (path) => path === activePath;
 
   return (
-    <nav className="flex items-center justify-between p-4 relative">
+    <nav className="flex items-center justify-between p-4 relative mr-6">
       {/* Use the larger SnapChef.svg logo */}
       <Link href="/">
         <Image
@@ -42,12 +42,15 @@ function Navbar() {
       </Link>
 
       {/* Search field in the middle */}
-      <div className="flex items-center flex-shrink-0 w-48 px-2">
-        <AiOutlineSearch className="text-gray-600" />
+      <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
         <input
           type="text"
-          className="w-full px-2 py-1 border border-gray-300 rounded"
+          placeholder="Search..."
+          className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
         />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-4">
+          <Image src={Search} alt="Search" width={20} height={20} />
+        </div>
       </div>
       {/* Navigation links on the right */}
       <ul className="flex gap-4 list-none">
