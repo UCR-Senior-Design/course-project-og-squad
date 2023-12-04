@@ -10,7 +10,7 @@ export default function UserProfile() {
           posts: "46",
           followers: "100",
           following: "50",
-          bio: "Hello my name is Yezan. Welcome to my profile!",
+          bio: "Hello my name is Abu Yezan. Welcome to my profile!",
           imageURL: image,
         }}
         
