@@ -7,7 +7,9 @@ export default function UserProfile() {
       <Profile
         profile={{
           userName: "abu_yezan",
+          posts: "46",
           followers: "100",
+          following: "50",
           bio: "Hello my name is Yezan. Welcome to my profile!",
           imageURL: image,
         }}

@@ -1,7 +1,8 @@
 import Image from "next/image";
+import settingIcon from "./Setting_fill.svg"
 
 export default function Profile({ profile }) {
-  const { userName, followers, bio, imageURL } = profile;
+  const { userName, posts, followers, following, bio, imageURL } = profile;
 
   return (
     <div className="flex">
@@ -12,13 +13,27 @@ export default function Profile({ profile }) {
           <div className="mb-4 flex flex-col items-center">
             <Image src={imageURL} alt="Profile Picture" className="rounded-full w-20 h-20 mb-2" />
 
-            {/* Username */}
-            <p className="text-lg font-semibold mb-4">{userName}</p>
+            {/* Username with setting icon */}
+            <div className="flex items-center mb-4">
+              <p className="text-lg font-semibold mr-2">{userName}</p>
+              <Image src={settingIcon} alt="Settings Icon" className="w-5 h-5" />
+            </div>
 
-            {/* Follower count */}
-            <div className="mb-4 flex flex-col items-center">
-              <h2 className="text-lg font-semibold">{followers}</h2>
-              <p className="text-black-500">Followers</p>
+
+            {/* Counts */}
+            <div className="mb-4 flex justify-between">
+              <div className="text-center">
+                <h2 className="text-sm font-semibold mb-1">{posts}</h2>
+                <p className="text-xs text-gray-500">Posts</p>
+              </div>
+              <div className="text-center mx-4">
+                <h2 className="text-sm font-semibold mb-1">{followers}</h2>
+                <p className="text-xs text-gray-500">Followers</p>
+              </div>
+              <div className="text-center">
+                <h2 className="text-sm font-semibold mb-1">{following}</h2>
+                <p className="text-xs text-gray-500">Following</p>
+              </div>
             </div>
 
             {/* Account bio */}
