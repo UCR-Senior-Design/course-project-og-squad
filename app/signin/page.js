@@ -1,7 +1,8 @@
+import SignInBox from "@/components/signInBox";
 export default function SignIn() {
   return (
-    <div>
-      <h1 className="text-xlg font-bold">Sign In Page</h1>
+    <div className="my-10">
+      <SignInBox/>
     </div>
   );
 }
