@@ -1,5 +1,7 @@
 async function getHomePageRecipes() {
-  const res = await fetch("http://localhost:3000/api/homeRecipes");
+  const res = await fetch("http://localhost:3000/api/homeRecipes", {
+    next: { revalidate: 1000 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
