@@ -11,9 +11,6 @@ export default function SignInBox() {
             <div className="rounded-2xl shadow-2xl flex w-2/3 max-w-4xl">
                 {/* Sign In Section */}
                 <div className= "w-3/5 p-5">
-                    <div className="text-left font-bold">
-                        Snap<span className="text-custom-main-dark">Chef</span>
-                    </div>
                     <div className="py-10">
                         <h2 className="text-3xl font-bold text-custom-main-dark mb-2">Sign In</h2>
                         <div className="border-2 w-10 border-custom-main-dark inline-block mb-2"></div> 
