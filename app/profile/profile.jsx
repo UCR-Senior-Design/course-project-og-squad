@@ -1,5 +1,4 @@
 import Image from "next/image";
-import settingIcon from "./Setting_fill.svg";
 import { IoMdSettings } from "react-icons/io";
 
 
@@ -9,7 +8,7 @@ export default function Profile({ profile }) {
   return (
     <div className="flex">
       {/* Left side: Profile information */}
-      <div className="w-1/4 p-10">
+      <div className="w-1/4 p-10 fixed">
         {/* Profile picture */}
         {imageURL && (
           <div className="mb-4 flex flex-col items-center">
