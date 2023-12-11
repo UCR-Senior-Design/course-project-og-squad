@@ -2,31 +2,45 @@ import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
 
-export default function Post({ post }) {
-  const { name, time, calories, description, imageURL } = post;
+export default function Post({ post, staticImg }) {
+  const {
+    _id,
+    user_name,
+    user_pfp, // not yet in DB
+    recipe_name,
+    recipe_attributes,
+    recipe_image, // Image URL will go here, but it needs to be in the database first
+    recipe_description,
+    recipe_instructions,
+    recipe_likes,
+  } = post;
 
   return (
     <div className="bg-orange-200 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
       {/* Display the square image if imageURL is provided */}
-      {imageURL && (
+      {staticImg && (
         <div>
-          <Image src={imageURL} alt="Post Image" width={300} height={300} />
+          <div>{user_name}</div>
+          <Image src={staticImg} alt="Post Image" width={300} height={300} />
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
-            {name}
+            {recipe_name}
           </h2>
+          {/* hardcoded time and cals for now as it should be under recipe_atributes.time and/or recipe_atributes.calories etc.
+          This will later be more dynamic depending on the attributes given  */}
           <div className="flex items-center mt-2">
-            <p className="ml-4">
+            <div className="flex flex-col items-center mr-4">
               <IoIosTimer />
-            </p>
-            <p style={{ color: "#FFA500" }} className="ml-2 pl-10">
-              <FaFireFlameCurved />
-            </p>
+              <p className="font-sans text-xs text-gray-500">30 mins</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaFireFlameCurved style={{ color: "#FFA500" }} />
+              <p className="font-sans text-xs text-gray-500">1069 cals</p>
+            </div>
           </div>
-          <div className="flex mt-1">
-            <p className="font-sans text-xs text-gray-500 mr-4">{time}</p>
-            <p className="font-sans text-xs text-gray-500">{calories}</p>
-          </div>
-          <p className="font-sans text-sm text-gray-800 mt-3">{description}</p>
+
+          <p className="font-sans text-sm text-gray-800 mt-3">
+            {recipe_description}
+          </p>
         </div>
       )}
     </div>
