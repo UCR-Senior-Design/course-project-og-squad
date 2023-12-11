@@ -2,8 +2,6 @@ import Link from "next/link";
 import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-//import SnapChefLogo from "../assets/SnapChefV1.svg";
-
 export default function SignInBox() {
   return (
     <div>
