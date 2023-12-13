@@ -113,7 +113,6 @@ export default function SignUpBox() {
                   )
                   }
                 <button
-                  href="#"
                   className="border-2 border-custom-main-dark text-custom-main-dark rounded-full px-12 py-2 mt-5 inline-block font-semibold
                             hover:bg-custom-main-dark hover:text-white">
                   Sign Up
