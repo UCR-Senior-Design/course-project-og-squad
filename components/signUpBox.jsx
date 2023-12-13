@@ -28,7 +28,7 @@ export default function SignUpBox() {
     
     try {
       //checking user existence
-      const resUser = await fetch( 'api/homeRecipes/userExists', {
+      const resUser = await fetch( 'api/userExists', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function SignUpBox() {
       //END OF: checking user existence
 
       //registering user, passing to DB
-      const res = await fetch( 'api/homeRecipes/signUp', {
+      const res = await fetch( 'api/signUp', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

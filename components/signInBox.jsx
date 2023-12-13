@@ -29,7 +29,7 @@ export default function SignInBox() {
         setError("Invalid Credentials.");
         return;
       }
-      
+
       router.replace("profile");
     } catch (error) {
       console.log(error);
