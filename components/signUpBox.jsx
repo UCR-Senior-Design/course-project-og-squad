@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -13,16 +14,36 @@ export default function SignUpBox() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //if no input is in either field
     if (!username || !password) {
       setError("All fields are necessary.");
       return;
     }
 
+    
     try {
-      const res = await fetch( 'api/homeRecipes', {
+      //checking user existence
+      const resUser = await fetch( 'api/homeRecipes/userExists', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username}),
+      })
+      const {user} = await resUser.json();
+      if (user) {
+        setError("User already exists.");
+        return;
+      }
+      //END OF: checking user existence
+
+      //registering user, passing to DB
+      const res = await fetch( 'api/homeRecipes/signUp', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,12 +56,14 @@ export default function SignUpBox() {
       if (res.ok) {
         const form = e.target;
         form.reset();
+        router.push("/signin")
       } else {
         console.log("User registration failed.", error);
       }
     } catch (error) {
       console.log("Error during registration: ", error);
     }
+    //END OF: registering user, passing to DB
   };
 
   return (

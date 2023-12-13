@@ -1,9 +1,3 @@
-import User from "@/models/user";
-import { NextResponse } from "next/server";
-
-import bcrypt from "bcryptjs";
-import { connectMongoDB } from "@/lib/mongodb";
-
 // const { MongoClient, ServerApiVersion } = require("mongodb");
 // const uri = process.env.URI;
 
