@@ -102,10 +102,7 @@ function Navbar() {
           </Link>
         </ul>
       ) : (
-        <SignInButton
-          isAuthorized={isAuthorized}
-          setIsAuthorized={setIsAuthorized}
-        />
+        <SignInButton />
       )}
     </nav>
   );
