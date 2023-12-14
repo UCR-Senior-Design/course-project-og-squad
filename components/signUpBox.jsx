@@ -1,8 +1,71 @@
+"use client";
+
 import Link from "next/link";
 import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+
 
 export default function SignUpBox() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    //if no input is in either field
+    if (!username || !password) {
+      setError("All fields are necessary.");
+      return;
+    }
+
+    
+    try {
+      //checking user existence
+      const resUser = await fetch( 'api/userExists', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username}),
+      })
+      const {user} = await resUser.json();
+      if (user) {
+        setError("User already exists.");
+        return;
+      }
+      //END OF: checking user existence
+
+      //registering user, passing to DB
+      const res = await fetch( 'api/signUp', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+      if (res.ok) {
+        const form = e.target;
+        form.reset();
+        router.push("/signin")
+      } else {
+        console.log("User registration failed.", error);
+      }
+    } catch (error) {
+      console.log("Error during registration: ", error);
+    }
+    //END OF: registering user, passing to DB
+  };
+
   return (
     <div>
       {/* Sign Up Box */}
@@ -15,12 +78,13 @@ export default function SignUpBox() {
               </h2>
               <div className="border-2 w-10 border-custom-main-dark inline-block mb-2"></div>
               <p className=" text-xs mb-2">Fill in your credentials below.</p>
-              <div className="flex flex-col items-center">
+              <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                
                 {/* Username */}
                 <h1 className="flex w-64 text-xs">Username</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <FaRegUser className="text-gray-400 m-2" />
-                  <input
+                  <input onChange={e => setUsername(e.target.value)}
                     type="username"
                     name="username"
                     placeholder="Enter username"
@@ -33,7 +97,7 @@ export default function SignUpBox() {
                 <h1 className="flex w-64 text-xs">Password</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <RiLockPasswordLine className="text-gray-400 m-2" />
-                  <input
+                  <input onChange={e => setPassword(e.target.value)}
                     type="password"
                     name="password"
                     placeholder="Enter password"
@@ -42,14 +106,18 @@ export default function SignUpBox() {
                   />
                 </div>
                 {/* END OF: Password */}
-                <a
-                  href="#"
+                  { error && (
+                  <div className="flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+                     {error}
+                  </div>
+                  )
+                  }
+                <button
                   className="border-2 border-custom-main-dark text-custom-main-dark rounded-full px-12 py-2 mt-5 inline-block font-semibold
-                            hover:bg-custom-main-dark hover:text-white"
-                >
+                            hover:bg-custom-main-dark hover:text-white">
                   Sign Up
-                  </a>
-              </div>
+                  </button>
+              </form>
             </div>
                 <Link className="text-xs mt-3 text-right" href={"/signin"}>
                     Already have an account? <span 
