@@ -24,7 +24,7 @@ export default function SignInBox() {
         password, 
         redirect: false,
       });
-      
+  
       if (res.error) {
         setError("Invalid Credentials.");
         return;

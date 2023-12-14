@@ -1,11 +1,36 @@
+"use client";
+
 import Profile from "./profile";
 import Posts from "./posts";
 import profileImage from "../../assets/abu_yezan.png";
 import postPic from "../../assets/zeytandzaa.png";
 
+//temporary import locations?
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
 export default function UserProfile() {
+
+  //update profile name, just testing
+  const {data:session} = useSession();
+  
   return (
     <div>
+
+      {/* authentication testing: will relocate eventually */}
+      <div>
+        Temporary:
+        <button onClick={() => signOut()}
+          className="bg-red-500 px-4 py-2 mx-2 rounded-lg text-white hover:bg-opacity-70">
+            Log Out
+        </button>
+      </div>
+      
+      {/* END OF: authentication testing  */}
+      <div>
+        Current User Logged In: <span className="font-bold"> WIP </span>
+      </div>
+
       <Profile
         profile={{
           userName: "abu_yezan",
@@ -84,7 +109,6 @@ export default function UserProfile() {
         }}
 
         />
-
 
 
     </div>
