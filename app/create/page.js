@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import CreatePostButton from "@/components/createPost";
-import PreviewButton from "@/components/PreviewButton";
+//import CreatePostButton from "@/components/createPost";
+import PreviewButton from "@/components/previewButton";
 
 export default function CreatePost() {
   // State to store the form data
