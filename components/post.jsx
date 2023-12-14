@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
-
+import { IoMdSettings } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 export default function Post({ post, staticImg }) {
   const {
     _id,
@@ -20,7 +22,10 @@ export default function Post({ post, staticImg }) {
       {/* Display the square image if imageURL is provided */}
       {staticImg && (
         <div>
-          <div>{user_name}</div>
+          <div className="flex items-center mb-3">
+            <FaUserCircle className="mr-2"style={{ color: "#FF8C00" }} />
+            <div>{user_name}</div>
+          </div>
           <Image src={staticImg} alt="Post Image" width={300} height={300} />
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
             {recipe_name}
@@ -35,6 +40,9 @@ export default function Post({ post, staticImg }) {
             <div className="flex flex-col items-center">
               <FaFireFlameCurved style={{ color: "#FFA500" }} />
               <p className="font-sans text-xs text-gray-500">1069 cals</p>
+            </div>
+            <div className="pl-24">
+              <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
             </div>
           </div>
 
