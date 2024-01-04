@@ -1,8 +1,41 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function SignInBox() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await signIn("credentials", {
+        username, 
+        password, 
+        redirect: false,
+      });
+  
+      if (res.error) {
+        setError("Invalid Credentials.");
+        return;
+      }
+
+      router.replace("profile");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
@@ -14,12 +47,12 @@ export default function SignInBox() {
                 Sign In
               </h2>
               <div className="border-2 w-10 border-custom-main-dark inline-block mb-2"></div>
-              <div className="flex flex-col items-center">
+              <form onSubmit={handleSubmit} className="flex flex-col items-center">
                 {/* Username */}
                 <h1 className="flex w-64 text-xs">Username</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <FaRegUser className="text-gray-400 m-2" />
-                  <input
+                  <input onChange={e => setUsername(e.target.value)}
                     type="username"
                     name="username"
                     placeholder="Enter your username"
@@ -32,7 +65,7 @@ export default function SignInBox() {
                 <h1 className="flex w-64 text-xs">Password</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <RiLockPasswordLine className="text-gray-400 m-2" />
-                  <input
+                  <input onChange={e => setPassword(e.target.value)}
                     type="password"
                     name="password"
                     placeholder="Enter your password"
@@ -50,13 +83,16 @@ export default function SignInBox() {
                     Forgot Password?
                   </a>
                 </div>
-                <a
-                  href="#"
+                { error && (
+                  <div className="flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mb-5">
+                     {error}
+                  </div>
+                  )
+                }
+                <button
                   className="border-2 border-custom-main-dark text-custom-main-dark rounded-full px-12 py-2 inline-block font-semibold
-                            hover:bg-custom-main-dark hover:text-white"
-                >
-                  Sign In
-                </a>
+                            hover:bg-custom-main-dark hover:text-white"> Sign In
+                </button>
                 <p className="text-gray-400 my-4"> or </p>
                 <div className="flex justify-center">
                   <a
@@ -66,7 +102,7 @@ export default function SignInBox() {
                     <FaGoogle className="text-sm" />
                   </a>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
           {/* END OF: Sign In Section */}
