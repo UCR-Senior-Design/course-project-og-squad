@@ -4,14 +4,10 @@ import Profile from "./profile";
 import Posts from "./posts";
 import profileImage from "../../assets/abu_yezan.png";
 import postPic from "../../assets/zeytandzaa.png";
-
-//temporary import locations?
 import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
 
 export default function UserProfile() {
   //update profile name, just testing
-  const { data: session } = useSession();
 
   return (
     <div>

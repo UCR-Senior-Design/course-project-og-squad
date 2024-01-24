@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 //import CreatePostButton from "@/components/createPost";
 import PreviewButton from "@/components/previewButton";
 
 export default function CreatePost() {
   // State to store the form data
   const [formData, setFormData] = useState({
-    recipeName: '',
-    preparationTime: '',
-    calories: '',
-    description: '',
+    recipeName: "",
+    preparationTime: "",
+    calories: "",
+    description: "",
     image: null, // to store the selected file
   });
 
@@ -27,7 +27,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36">
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
       {/* Form for capturing user input */}
@@ -102,7 +102,7 @@ export default function CreatePost() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <PreviewButton formData={formData}/>
+          <PreviewButton formData={formData} />
         </div>
       </form>
     </div>

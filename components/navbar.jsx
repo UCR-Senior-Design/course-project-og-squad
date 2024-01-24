@@ -76,9 +76,9 @@ function Navbar() {
               height={25}
             />
           </Link>
-          <Link href="/post">
+          <Link href="/create">
             <Image
-              src={isLinkActive("/post") ? PostFill : Post}
+              src={isLinkActive("/create") ? PostFill : Post}
               alt="Post"
               className="cursor-pointer"
               width={25}
