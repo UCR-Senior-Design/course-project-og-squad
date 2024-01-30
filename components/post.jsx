@@ -18,7 +18,7 @@ export default function Post({ post, staticImg }) {
   } = post;
 
   return (
-    <div className="bg-orange-200 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
+    <div className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
       {/* Display the square image if imageURL is provided */}
       {staticImg && (
         <div>
