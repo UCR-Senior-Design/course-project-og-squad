@@ -38,65 +38,77 @@ export default function UserProfile() {
           imageURL: profileImage,
         }}
       />
+    <div className="grid gap-y-10 my-10 ml-80 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
 
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
+          />
 
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
 
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
-      <Posts
-        posts={{
-          title: "Zeyt and Zaatar",
-          likeCount: "100",
-          imageURL: postPic,
-        }}
-      />
+          />
+
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+          <Posts
+          posts={{
+            title: "Zeyt and Zaatar",
+            likeCount: "100",
+            imageURL: postPic,
+          }}
+
+          />
+    </div>
+      
+
+
     </div>
   );
 }
