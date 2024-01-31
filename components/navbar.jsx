@@ -17,10 +17,13 @@ import FavFill from "../assets/icons/favoritesfill.svg";
 import Profile from "../assets/icons/Profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
 
+import { useSession } from "next-auth/react";
+
 function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
-  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     // Update active path whenever the route changes
@@ -53,7 +56,7 @@ function Navbar() {
           <Image src={Search} alt="Search" width={20} height={20} />
         </div>
       </div>
-      {isAuthorized ? (
+      {session ? (
         <ul className="flex gap-4 list-none">
           <Link href="/home">
             <Image
@@ -73,9 +76,9 @@ function Navbar() {
               height={25}
             />
           </Link>
-          <Link href="/post">
+          <Link href="/create">
             <Image
-              src={isLinkActive("/post") ? PostFill : Post}
+              src={isLinkActive("/create") ? PostFill : Post}
               alt="Post"
               className="cursor-pointer"
               width={25}
