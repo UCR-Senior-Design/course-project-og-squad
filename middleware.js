@@ -1,4 +1,6 @@
-export {default} from "next-auth/middleware";
+export { default } from "next-auth/middleware";
 
 //take back to profile page if logged in
-export const config = {matcher: ["/profile"]};
+export const config = {
+  matcher: ["/profile", "/create", "/favorites", "/notifications"],
+};

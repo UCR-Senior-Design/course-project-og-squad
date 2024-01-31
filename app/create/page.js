@@ -3,12 +3,14 @@ import { useState } from 'react';
 import Post from "@/components/post";
 import postPic from "@/assets/zeytandzaa.png";
 
+
 const CreatePost = () => {
   const [formData, setFormData] = useState({
     postName: '',
     preparationTime: '',
     calories: '',
     description: '',
+
   });
 
   const [showPreview, setShowPreview] = useState(false);
@@ -23,7 +25,7 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36">
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
       <form className="space-y-4">
@@ -116,6 +118,7 @@ const CreatePost = () => {
           >
             Publish Post
           </button>
+
         </div>
       )}
 
