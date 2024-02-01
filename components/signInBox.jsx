@@ -6,6 +6,7 @@ import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function SignInBox() {
 
@@ -37,7 +38,12 @@ export default function SignInBox() {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{opacity: 0, x: -400}}
+      animate={{opacity: 1, x: 0}}
+      transition={{duration: 1, ease: "easeOut"}}
+      className="mt-8"
+    >
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="rounded-2xl shadow-2xl flex w-2/3 max-w-4xl">
           {/* Sign In Section */}
@@ -122,6 +128,6 @@ export default function SignInBox() {
           {/* END OF: Register Section */}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }

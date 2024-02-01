@@ -5,6 +5,7 @@ import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 
 
@@ -67,7 +68,12 @@ export default function SignUpBox() {
   };
 
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0, x: 400}}
+    animate={{opacity: 1, x: 0}}
+    transition={{duration: 1, ease: "easeOut"}}
+    className="mt-8"
+  >
       {/* Sign Up Box */}
       <main className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center px-10 text-center rounded-2xl shadow-2xl max-w-xl">
@@ -127,6 +133,6 @@ export default function SignUpBox() {
         </div>
       </main>
       {/* END OF: Sign Up Box  */}
-    </div>
+    </motion.div>
   );
 }
