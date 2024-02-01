@@ -1,46 +1,43 @@
 "use client";
+import { useState } from 'react';
+import Post from "@/components/post";
+import postPic from "@/assets/zeytandzaa.png";
 
-import { useState } from "react";
-//import CreatePostButton from "@/components/createPost";
-import PreviewButton from "@/components/previewButton";
-
-export default function CreatePost() {
-  // State to store the form data
+const CreatePost = () => {
   const [formData, setFormData] = useState({
-    recipeName: "",
-    preparationTime: "",
-    calories: "",
-    description: "",
-    image: null, // to store the selected file
+    postName: '',
+    preparationTime: '',
+    calories: '',
+    description: '',
   });
 
-  // Handler for input changes
+  const [showPreview, setShowPreview] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  // Handler for file input change
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevFormData) => ({ ...prevFormData, image: file }));
+  const handlePreview = () => {
+    setShowPreview(true);
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36">
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
-      {/* Form for capturing user input */}
       <form className="space-y-4">
+        {/* Your input fields */}
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipeName">
-            Recipe Name:
+          <label className="text-sm font-medium mb-1" htmlFor="postName">
+            Post Name:
           </label>
           <input
             type="text"
-            name="recipeName"
-            id="recipeName"
-            value={formData.recipeName}
+            name="postName"
+            id="postName"
+            required
+            value={formData.postName}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
@@ -48,12 +45,13 @@ export default function CreatePost() {
 
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" htmlFor="preparationTime">
-            Preparation Time:
+            Preparation Time (min):
           </label>
           <input
             type="text"
             name="preparationTime"
             id="preparationTime"
+            required
             value={formData.preparationTime}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
@@ -68,6 +66,7 @@ export default function CreatePost() {
             type="text"
             name="calories"
             id="calories"
+            required
             value={formData.calories}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
@@ -81,30 +80,49 @@ export default function CreatePost() {
           <textarea
             name="description"
             id="description"
+            required
             value={formData.description}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
-        <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="image">
-            Image:
-          </label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            name="image"
-            id="image"
-            onChange={handleFileChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
+        {/* Preview Button */}
+        <div className="flex items-center space-x-4 mt-4">
+          <button
+            type="button"
+            className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+            onClick={handlePreview}
+          >
+            Preview
+          </button>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <PreviewButton formData={formData} />
+        {/* Preview Section */}
+        {showPreview && (
+          <div className="mt-4">
+            <h2 className="text-xl font-semibold mb-2">Preview</h2>
+            {/* Pass formData to the Post component */}
+              <Post post={{ ...formData, recipe_name: formData.postName, recipe_description: formData.description, user_name: 'Username', user_pfp: null, recipie_calories: formData.calories, recipie_time:formData.preparationTime }} staticImg={postPic} />
+
+          </div>
+        )}
+        {/* Publish Post Button*/}
+          {showPreview && (
+          <div className="flex items-center space-x-4 mt-4">
+          <button
+            type="button"
+            className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+          >
+            Publish Post
+          </button>
         </div>
+      )}
+
+
       </form>
     </div>
   );
-}
+};
+
+export default CreatePost;
