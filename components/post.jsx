@@ -14,11 +14,13 @@ export default function Post({ post, staticImg }) {
     recipe_image, // Image URL will go here, but it needs to be in the database first
     recipe_description,
     recipe_instructions,
-    recipe_likes,
+    recipe_likes, 
+    recipie_time,
+    recipie_calories
   } = post;
 
   return (
-    <div className="bg-orange-200 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
+    <div className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
       {/* Display the square image if imageURL is provided */}
       {staticImg && (
         <div>
@@ -35,11 +37,11 @@ export default function Post({ post, staticImg }) {
           <div className="flex items-center mt-2">
             <div className="flex flex-col items-center mr-4">
               <IoIosTimer />
-              <p className="font-sans text-xs text-gray-500">30 mins</p>
+              <p className="font-sans text-xs text-gray-500">{recipie_time} mins </p>
             </div>
             <div className="flex flex-col items-center">
               <FaFireFlameCurved style={{ color: "#FFA500" }} />
-              <p className="font-sans text-xs text-gray-500">1069 cals</p>
+              <p className="font-sans text-xs text-gray-500">{recipie_calories} cals</p>
             </div>
             <div className="pl-24">
               <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
