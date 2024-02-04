@@ -11,17 +11,16 @@ import { motion } from "framer-motion";
 
 export default function Post({ post, staticImg }) {
   const {
-    _id,
-    user_name,
-    user_pfp, // not yet in DB
-    recipe_name,
-    recipe_attributes,
-    recipe_image, // Image URL will go here, but it needs to be in the database first
+    _id,                    //not yet implemented; for users to link their posts to own profile
+    user_name,              //not yet implemented
+    user_pfp,               //not yet implemented; not yet in DB
+    recipe_name,            
+    recipe_image,           //not yet implemented; image URL will go here, but it needs to be in the database first
     recipe_description,
-    recipe_instructions,
-    recipe_likes, 
-    recipie_time,
-    recipie_calories
+    recipe_instructions,    //not yet implemented
+    recipe_likes,           //not yet implemented
+    recipe_time,         
+    recipe_cals      
   } = post;
 
   return (
@@ -47,11 +46,11 @@ export default function Post({ post, staticImg }) {
           <div className="flex items-center mt-2">
             <div className="flex flex-col items-center mr-4">
               <IoIosTimer />
-              <p className="font-sans text-xs text-gray-500">{recipie_time} mins </p>
+              <p className="font-sans text-xs text-gray-500">{recipe_time} mins </p>
             </div>
             <div className="flex flex-col items-center">
               <FaFireFlameCurved style={{ color: "#FFA500" }} />
-              <p className="font-sans text-xs text-gray-500">{recipie_calories} cals</p>
+              <p className="font-sans text-xs text-gray-500">{recipe_cals} cals</p>
             </div>
             <div className="pl-24">
               <FaRegHeart style={{ color: "#FF8C00" }} size={20} />

@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 import Post from '@/components/post';
 import postPic from '@/assets/zeytandzaa.png';
 
 export default function CreatePost() {
   const [formData, setFormData] = useState({
-    postTitle: "",
-    preparationTime: "",
-    calories: "",
-    description: "",
+    recipe_name: "",
+    recipe_time: "",
+    recipe_cals: "",
+    recipe_description: "",
   });
-  const [error, setError] = useState("");
 
-    //console.log("Recipe Title: ", formData.postTitle);
+  const router = useRouter();
 
   const [showPreview, setShowPreview] = useState(false);
 
@@ -28,11 +28,6 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!formData.postTitle || !formData.preparationTime || !formData.calories || !formData.description){
-      setError("All fields require input.");
-      return;
-    }
   
     try {
         const res = await fetch ('api/createPost', {
@@ -41,10 +36,11 @@ export default function CreatePost() {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            postTitle: formData.postTitle,
-            preparationTime: formData.preparationTime,
-            calories: formData.calories,
-            description: formData.description,
+            user_name: "Anonymous",   //temporarily passing as fixed parameter until we figure out how to link to unique user
+            recipe_name: formData.recipe_name,
+            recipe_time: formData.recipe_time,
+            recipe_cals: formData.recipe_cals,
+            recipe_description: formData.recipe_description,
           }),
         });
 
@@ -58,7 +54,7 @@ export default function CreatePost() {
     } catch (error) {
       console.log("Error during post creation: ", error);
     }
-    //END OF: registering user, passing to DB
+    //END OF: creating new post, passed to DB
   };
 
   return (
@@ -68,63 +64,63 @@ export default function CreatePost() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Your input fields */}
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="postTitle">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_name">
             Recipe Title:
           </label>
           <input
             type="text"
-            name="postTitle"
+            name="recipe_name"
             placeholder=""
-            id="postTitle"
+            id="recipe_name"
             required
-            value={formData.postTitle}
+            value={formData.recipe_name}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="preparationTime">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
             Preparation Time (min):
           </label>
           <input
-            type="text"
-            name="preparationTime"
+            type="number"
+            name="recipe_time"
             placeholder=""
-            id="preparationTime"
+            id="recipe_time"
             required
-            value={formData.preparationTime}
+            value={formData.recipe_time}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="calories">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
             Calories:
           </label>
           <input
-            type="text"
-            name="calories"
+            type="number"
+            name="recipe_cals"
             placeholder=""
-            id="calories"
+            id="recipe_cals"
             required
-            value={formData.calories}
+            value={formData.recipe_cals}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="description">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_description">
             Description:
           </label>
           <textarea
-            name="description"
+            name="recipe_description"
             placeholder="What about this dish..."
-            id="description"
+            id="recipe_description"
             required
-            value={formData.description}
+            value={formData.recipe_description}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
@@ -149,24 +145,18 @@ export default function CreatePost() {
             <Post
               post={{
                 ...formData,
-                recipe_name: formData.postTitle,
-                recipe_description: formData.description,
-                user_name: 'Username',
                 user_pfp: null,
-                recipie_calories: formData.calories,
-                recipie_time: formData.preparationTime,
+                user_name: "Anonymous",
+                recipe_name: formData.recipe_name,
+                recipe_recipe_description: formData.recipe_description,
+                recipie_cals: formData.recipe_cals,
+                recipie_time: formData.recipe_time,
               }}
               staticImg={postPic}
             />
           </div>
         )}
         {/* Publish Post Button*/}
-        { error && (
-            <div className="flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-                {error}
-            </div>
-        )
-        }
         {showPreview && (
           <div className="flex items-center space-x-4 mt-4">
             <button

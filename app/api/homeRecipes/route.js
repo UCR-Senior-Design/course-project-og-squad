@@ -19,8 +19,8 @@ export async function GET() {
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
 
-    const database = client.db("Snapchef"); // Replace with your database name
-    const collection = database.collection("Posts"); // Replace with your collection name
+    const database = client.db("test"); // Replace with database name
+    const collection = database.collection("recipeposts"); // Replace with collection name
 
     //query to get all documents from the collection
     const query = {};
