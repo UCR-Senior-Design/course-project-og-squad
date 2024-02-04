@@ -1,9 +1,14 @@
+"use client"
+
 import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+
+import { motion } from "framer-motion";
+
 export default function Post({ post, staticImg }) {
   const {
     _id,
@@ -20,7 +25,12 @@ export default function Post({ post, staticImg }) {
   } = post;
 
   return (
-    <div className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]">
+    <motion.div 
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]"
+    >
       {/* Display the square image if imageURL is provided */}
       {staticImg && (
         <div>
@@ -53,6 +63,6 @@ export default function Post({ post, staticImg }) {
           </p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

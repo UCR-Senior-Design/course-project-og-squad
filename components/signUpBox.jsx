@@ -7,8 +7,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-
-
 export default function SignUpBox() {
 
   const [username, setUsername] = useState("");
@@ -26,7 +24,6 @@ export default function SignUpBox() {
       return;
     }
 
-    
     try {
       //checking user existence
       const resUser = await fetch( 'api/userExists', {

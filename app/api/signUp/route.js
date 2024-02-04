@@ -7,7 +7,7 @@ import { connectMongoDB } from "@/lib/mongodb";
 //authentication tingz
 export async function POST(req) {
     try {
-        const {username, password} = await req.json();
+        const {post, password} = await req.json();
         const hashedPass = await bcrypt.hash(password, 10);
         //connect to client server
         await connectMongoDB();
