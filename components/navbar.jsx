@@ -33,7 +33,7 @@ function Navbar() {
   const isLinkActive = (path) => path === activePath;
 
   return (
-    <nav className="flex items-center justify-between p-4 relative mr-10">
+    <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
       <Link href="/">
         <Image

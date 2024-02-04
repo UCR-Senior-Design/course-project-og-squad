@@ -37,7 +37,7 @@ export default function Post({ post, staticImg }) {
             <FaUserCircle className="mr-2"style={{ color: "#FF8C00" }} />
             <div>{user_name}</div>
           </div>
-          <Image src={staticImg} alt="Post Image" width={300} height={300} />
+          <Image src={staticImg} alt="Post Image" width={300} height={300} />   {/*image should go here */}
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
             {recipe_name}
           </h2>
