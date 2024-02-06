@@ -33,7 +33,7 @@ function Navbar() {
   const isLinkActive = (path) => path === activePath;
 
   return (
-    <nav className="flex items-center justify-between p-4 relative mr-10">
+    <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
       <Link href="/">
         <Image
@@ -62,7 +62,7 @@ function Navbar() {
             <Image
               src={isLinkActive("/home") ? HomeFill : Home}
               alt="Home"
-              className="cursor-pointer"
+              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
@@ -71,7 +71,7 @@ function Navbar() {
             <Image
               src={isLinkActive("/notifications") ? BellFill : Bell}
               alt="Bell"
-              className="cursor-pointer"
+              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
@@ -80,7 +80,7 @@ function Navbar() {
             <Image
               src={isLinkActive("/create") ? PostFill : Post}
               alt="Post"
-              className="cursor-pointer"
+              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
@@ -89,7 +89,7 @@ function Navbar() {
             <Image
               src={isLinkActive("/favorites") ? FavFill : Fav}
               alt="Home"
-              className="cursor-pointer"
+              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
@@ -98,7 +98,7 @@ function Navbar() {
             <Image
               src={isLinkActive("/profile") ? ProfileFill : Profile}
               alt="Home"
-              className="cursor-pointer"
+              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
