@@ -4,6 +4,9 @@ import image from "app/recipes/zeytandzaa.png"
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
+import { IoIosTimer } from "react-icons/io";
+import { FaFireFlameCurved } from "react-icons/fa6";
+import { LuVegan } from "react-icons/lu";
 
 const Recipes = () => {
     return (
@@ -18,7 +21,22 @@ const Recipes = () => {
           <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
           </div>
           <div className='pl-2'><CiBookmark style={{ color: "#FF8C00" }} size={20} /></div>
+
       </div>
+      <div className="flex items-center mt-2">
+            <div className="flex flex-col items-center mr-4">
+              <IoIosTimer />
+              <p className="font-sans text-xs text-gray-500"> mins </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaFireFlameCurved style={{ color: "#FFA500" }} />
+              <p className="font-sans text-xs text-gray-500">cals</p>
+            </div>
+            <div className=" flex flex-col items-center pl-5 pb-4">
+            <LuVegan  style={{ color: "green" }} size={18} />
+            </div>
+          </div>
+            
     </div>
      
     );
