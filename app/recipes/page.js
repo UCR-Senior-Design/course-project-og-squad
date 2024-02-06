@@ -36,7 +36,24 @@ const Recipes = () => {
             <LuVegan  style={{ color: "green" }} size={18} />
             </div>
           </div>
-            
+          <div className="mt-4">
+          <h2 className="text-lg font-semibold">Ingredients</h2>
+        <ul className="list-none m-0 p-0">
+          <li className="flex items-center">
+            <input type="checkbox" id="ingredient1" className="rounded-full accent-orange-300 w-4 h-4 mr-2" />
+            <label htmlFor="ingredient1">1 cup Olive Oil </label>
+          </li>
+          <li className="flex items-center">
+            <input type="checkbox" id="ingredient2" className="rounded-full accent-orange-300 w-4 h-4 mr-2" />
+            <label htmlFor="ingredient2">1 cup Zaatar</label>
+          </li>
+          <li className="flex items-center">
+            <input type="checkbox" id="ingredient3" className="rounded-full accent-orange-300 w-4 h-4 mr-2" />
+            <label htmlFor="ingredient1">Pita bread</label>
+          </li>
+          {/* Add more ingredients as needed */}
+        </ul>
+        </div>
     </div>
      
     );
