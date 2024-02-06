@@ -30,7 +30,7 @@ export default function UserProfile() {
 
       <Profile
         profile={{
-          userName: "abu_yezan",
+          userName: localStorage.getItem("username"),
           posts: "46",
           followers: "100",
           following: "50",

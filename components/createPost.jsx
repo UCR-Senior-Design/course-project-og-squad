@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { useRouter } from "next/navigation";
 import Post from '@/components/post';
 import postPic from '@/assets/zeytandzaa.png';
+import { formatRevalidate } from 'next/dist/server/lib/revalidate';
 
 export default function CreatePost() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ 
+    user_name: localStorage.getItem("username"),
     recipe_name: "",
     recipe_time: "",
     recipe_cals: "",
@@ -36,7 +38,7 @@ export default function CreatePost() {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            user_name: "Anonymous",   //temporarily passing as fixed parameter until we figure out how to link to unique user
+            user_name: formData.user_name,   //temporarily passing as fixed parameter until we figure out how to link to unique user
             recipe_name: formData.recipe_name,
             recipe_time: formData.recipe_time,
             recipe_cals: formData.recipe_cals,
@@ -146,7 +148,7 @@ export default function CreatePost() {
               post={{
                 ...formData,
                 user_pfp: null,
-                user_name: "Anonymous",
+                user_name: formData.user_name,
                 recipe_name: formData.recipe_name,
                 recipe_recipe_description: formData.recipe_description,
                 recipie_cals: formData.recipe_cals,
