@@ -48,6 +48,11 @@ const Recipes = () => {
         </div>
       </div>
       <div className="mt-4">
+      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" type="button">Ingredients 
+      <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+      </svg>
+</button>
         <h2 className="text-lg font-semibold">Ingredients</h2>
         <ul className="list-none m-0 p-0">
           <li className="flex items-center">
@@ -96,6 +101,10 @@ const Recipes = () => {
             </label>
           </li>
         </ul>
+      </div>
+      <div className="mt-5">
+        <h3 className="text-lg font-semibold">Steps</h3>
+        <p>Step 1 : Pour 1 cup of your favourite zaatar into a bowl</p>
       </div>
     </div>
   );
