@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-icon {
+    transition: transform 0.3s;
+}
+
+.nav-icon:hover {
+    transform: translateY(-3px);
+}

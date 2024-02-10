@@ -5,8 +5,7 @@ import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-
+import { motion } from "framer-motion";
 
 export default function SignUpBox() {
 
@@ -25,7 +24,6 @@ export default function SignUpBox() {
       return;
     }
 
-    
     try {
       //checking user existence
       const resUser = await fetch( 'api/userExists', {
@@ -67,7 +65,12 @@ export default function SignUpBox() {
   };
 
   return (
-    <div>
+    <motion.div
+    initial={{opacity: 0, x: 400}}
+    animate={{opacity: 1, x: 0}}
+    transition={{duration: 1, ease: "easeOut"}}
+    className="mt-8"
+  >
       {/* Sign Up Box */}
       <main className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center px-10 text-center rounded-2xl shadow-2xl max-w-xl">
@@ -114,7 +117,8 @@ export default function SignUpBox() {
                   }
                 <button
                   className="border-2 border-custom-main-dark text-custom-main-dark rounded-full px-12 py-2 mt-5 inline-block font-semibold
-                            hover:bg-custom-main-dark hover:text-white">
+                             transition-colors ease-linear hover:bg-custom-main-dark hover:text-white"
+                  >
                   Sign Up
                   </button>
               </form>
@@ -127,6 +131,7 @@ export default function SignUpBox() {
         </div>
       </main>
       {/* END OF: Sign Up Box  */}
-    </div>
+    </motion.div>
   );
 }
+

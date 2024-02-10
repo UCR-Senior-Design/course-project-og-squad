@@ -1,11 +1,17 @@
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
 
+import { motion } from "framer-motion";
+
 export default function Posts({ posts }) {
   const { title, likeCount, imageURL } = posts;
 
   return (
-    <div className="mx-auto max-w-[300px]">
+    <motion.div 
+      initial={{opacity: 0, y: 100}}
+      animate={{opacity: 1, y: 0}}
+      transition={{duration: 1, ease: "easeOut"}}
+      className="mx-auto max-w-[300px]">
       {/* Left side: Profile information */}
       <div >
         {/* Post Picture */}
@@ -24,6 +30,6 @@ export default function Posts({ posts }) {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
