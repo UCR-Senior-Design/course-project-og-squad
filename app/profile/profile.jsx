@@ -24,25 +24,28 @@ export default function Profile({ profile }) {
             {/* Counts and Bio container */}
 
               {/* Counts */}
-              <div className="mb-3 flex justify-between">
-                <div className="text-center">
-                  <h2 className="text-sm font-semibold mb-1">{posts}</h2>
-                  <p className="text-xs text-gray-500">Posts</p>
+              <div className="mx-28">
+                <div className="mb-3 flex justify-between">
+                  <div className="text-center">
+                    <h2 className="text-sm font-semibold mb-1">{posts}</h2>
+                    <p className="text-xs text-gray-500">Posts</p>
+                  </div>
+                  <div className="text-center mx-5">
+                    <h2 className="text-sm font-semibold mb-1">{followers}</h2>
+                    <p className="text-xs text-gray-500">Followers</p>
+                  </div>
+                  <div className="text-center">
+                    <h2 className="text-sm font-semibold mb-1">{following}</h2>
+                    <p className="text-xs text-gray-500">Following</p>
+                  </div>
                 </div>
-                <div className="text-center mx-5">
-                  <h2 className="text-sm font-semibold mb-1">{followers}</h2>
-                  <p className="text-xs text-gray-500">Followers</p>
-                </div>
-                <div className="text-center">
-                  <h2 className="text-sm font-semibold mb-1">{following}</h2>
-                  <p className="text-xs text-gray-500">Following</p>
-                </div>
-              </div>
 
-              {/* Account bio */}
-              <div>
-                <p className="text-xs text-black-500 mx-7">{bio}</p>
+                {/* Account bio */}
+                <div>
+                  <p className="mt-5 text-xs text-black-500">{bio}</p>
+                </div>
               </div>
+              
 
           </div>
         )}

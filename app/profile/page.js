@@ -42,7 +42,7 @@ export default function UserProfile() {
         }}
         
       />
-    <div className="grid gap-y-10 my-10 ml-80 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid gap-y-10 my-10 ml-96 mr-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
       <Posts
           posts={{
             title: "Zeyt and Zaatar",
