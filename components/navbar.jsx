@@ -17,18 +17,26 @@ import FavFill from "../assets/icons/favoritesfill.svg";
 import Profile from "../assets/icons/Profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
 
+import Notifications from "./notifications";
+
 import { useSession } from "next-auth/react";
 
 function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
+  const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
 
   const { data: session } = useSession();
+
+  const handleBellClick = () => {
+    setShowNotifications(!showNotifications); // Toggle the visibility of Notifications component
+  };
 
   useEffect(() => {
     // Update active path whenever the route changes
     setActivePath(pathname);
   }, [pathname]);
+
 
   const isLinkActive = (path) => path === activePath;
 
@@ -67,15 +75,14 @@ function Navbar() {
               height={25}
             />
           </Link>
-          <Link href="/notifications">
+          <div className="nav-icon cursor-pointer" onClick={handleBellClick}>
             <Image
-              src={isLinkActive("/notifications") ? BellFill : Bell}
+              src={showNotifications ? BellFill : Bell} 
               alt="Bell"
-              className="nav-icon cursor-pointer"
               width={25}
               height={25}
             />
-          </Link>
+          </div>
           <Link href="/create">
             <Image
               src={isLinkActive("/create") ? PostFill : Post}
@@ -107,6 +114,7 @@ function Navbar() {
       ) : (
         <SignInButton />
       )}
+      {showNotifications && <Notifications setShowNotifications={setShowNotifications} />}
     </nav>
   );
 }
