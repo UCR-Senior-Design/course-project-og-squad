@@ -23,6 +23,10 @@ export default function Post({ post, staticImg }) {
     recipe_cals      
   } = post;
 
+  const truncateText = (text) => {
+    return text.length > 50 ? text.slice(0, 50) + "..." : text;
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: -50 }}
@@ -58,7 +62,7 @@ export default function Post({ post, staticImg }) {
           </div>
 
           <p className="font-sans text-sm text-gray-800 mt-3">
-            {recipe_description}
+            {truncateText(recipe_description)}
           </p>
         </div>
       )}
