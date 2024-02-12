@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function ProfileSettings({setShowSettings, profileSettings}) {
@@ -17,7 +18,13 @@ export default function ProfileSettings({setShowSettings, profileSettings}) {
       className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40"
       onClick={handleClickOutside}
     >
-      <div ref={settingsRef} className="border-solid border-2 border-custom-main-dark rounded-lg backdrop-blur-md">
+      <motion.div
+        initial={{opacity: 0, y: 100}}
+        animate={{opacity: 1, y: 0}}
+        transition={{duration: 0.5, ease: "easeOut"}}
+        ref={settingsRef} 
+        className="border-solid border-2 border-custom-main-dark rounded-lg backdrop-blur-md"
+      >
         <div className="bg-custom-main-dark rounded-t-lg p-3"> {/* Orange background for top */}
           {/* Title */}
           <h1 className="text-black text-xl font-bold">Edit Profile</h1>
@@ -48,7 +55,7 @@ export default function ProfileSettings({setShowSettings, profileSettings}) {
             Confirm
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
