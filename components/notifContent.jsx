@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 export default function NotifContent({ notifContent }) {
-    const { profilePic, userName, notifMsg, time, interactedPost, showPost } = notifContent;
+    const { profilePic, userName, notifMsg, time, interactedPost } = notifContent;
 
   return (
     <div className="flex mt-2 justify-between">
         {/* Profile picture */}
-        {showPost && (
+        {interactedPost && (
           <div className="flex m-1 mt-2 items-center w-full justify-between">
             <Image src={profilePic} alt="Profile Picture" className="rounded-full w-10 h-10" />
 
@@ -23,7 +23,7 @@ export default function NotifContent({ notifContent }) {
           </div>
         )}
 
-        {!showPost && (
+        {!interactedPost && (
           <div className="flex my-6 m-1 items-center">
             <Image src={profilePic} alt="Profile Picture" className="rounded-full w-10 h-10" />
             <div className="flex m-1">

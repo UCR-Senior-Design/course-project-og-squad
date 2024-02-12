@@ -48,15 +48,15 @@ function Navbar() {
           src={SnapChefLogo}
           alt="SnapChefLogo"
           className="cursor-pointer"
-          width={180}
-          height={180}
+          width={300}
+          height={300}
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
       {/* Search field in the middle */}
       <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
         <input
-          type="text"
+          type="search"
           placeholder="Search..."
           className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
         />
@@ -65,22 +65,22 @@ function Navbar() {
         </div>
       </div>
       {session ? (
-        <ul className="flex gap-4 list-none">
+        <ul className="flex gap-8 mr-10 list-none">
           <Link href="/home">
             <Image
               src={isLinkActive("/home") ? HomeFill : Home}
               alt="Home"
               className="nav-icon cursor-pointer"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
           </Link>
           <div className="nav-icon cursor-pointer" onClick={handleBellClick}>
             <Image
               src={showNotifications ? BellFill : Bell} 
               alt="Bell"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
           </div>
           <Link href="/create">
@@ -88,8 +88,8 @@ function Navbar() {
               src={isLinkActive("/create") ? PostFill : Post}
               alt="Post"
               className="nav-icon cursor-pointer"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
           </Link>
           <Link href="/favorites">
@@ -97,8 +97,8 @@ function Navbar() {
               src={isLinkActive("/favorites") ? FavFill : Fav}
               alt="Home"
               className="nav-icon cursor-pointer"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
           </Link>
           <Link href="/profile">
@@ -106,8 +106,8 @@ function Navbar() {
               src={isLinkActive("/profile") ? ProfileFill : Profile}
               alt="Home"
               className="nav-icon cursor-pointer"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
           </Link>
         </ul>

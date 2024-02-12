@@ -32,7 +32,6 @@ export default function Notifications({ setShowNotifications}) {
                 notifMsg: "liked your post.",
                 time: "1m",
                 interactedPost: postPic,
-                showPost: true,
             }} />
             <NotifContent notifContent={{
                 profilePic: profileImage,
@@ -40,14 +39,12 @@ export default function Notifications({ setShowNotifications}) {
                 notifMsg: "liked your post.",
                 time: "1h",
                 interactedPost: postPic,
-                showPost: true,
             }} />
             <NotifContent notifContent={{
                 profilePic: profileImage,
                 userName: "user",
                 notifMsg: "started following you.",
                 time: "2h",
-                showPost: false,
             }} />
             <NotifContent notifContent={{
                 profilePic: profileImage,
@@ -55,7 +52,6 @@ export default function Notifications({ setShowNotifications}) {
                 notifMsg: "liked your post.",
                 time: "2h",
                 interactedPost: postPic,
-                showPost: true,
             }} />
         </div>
       </div>
