@@ -111,7 +111,8 @@ export default function SignInBox() {
               >
                 Sign In
               </button>
-              <p className="text-gray-400 my-4"> or </p>
+              {/* removed Google sign-in for now */}
+              {/* <p className="text-gray-400 my-4"> or </p>
               <div className="flex justify-center">
                 <a
                   href="#"
@@ -119,7 +120,7 @@ export default function SignInBox() {
                 >
                   <FaGoogle className="text-sm" />
                 </a>
-              </div>
+              </div> */}
             </form>
           </div>
           {/* END OF: Sign In Section */}

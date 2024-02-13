@@ -2,6 +2,7 @@ import Image from "next/image";
 import { IoMdSettings } from "react-icons/io";
 import { useState } from "react";
 import ProfileSettings from "@/components/profileSettings";
+import { motion } from "framer-motion";
 
 
 export default function Profile({ profile }) {
@@ -17,7 +18,12 @@ export default function Profile({ profile }) {
   return (
     <div className="flex">
       {/* Left side: Profile information */}
-      <div className="w-1/4 p-10 fixed">
+      <motion.div
+        initial={{opacity: 0, scale: 0.7}}
+        animate={{opacity: 1, scale: 1}}
+        transition={{duration: 1, ease: "easeOut"}}
+        className="w-1/4 p-10 fixed"
+      >
         {/* Profile picture */}
         {imageURL && (
           <div className="mb-4 flex flex-col items-center">
@@ -61,7 +67,7 @@ export default function Profile({ profile }) {
 
           </div>
         )}
-      </div>
+      </motion.div>
       {showSettings && <ProfileSettings setShowSettings={setShowSettings} 
                                         profileSettings={{userName: userName,
                                                           bio: bio,

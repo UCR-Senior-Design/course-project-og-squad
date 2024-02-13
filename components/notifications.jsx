@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import NotifContent from "./notifContent";
 
 import profileImage from "../assets/abu_yezan.png";
@@ -19,7 +20,13 @@ export default function Notifications({ setShowNotifications}) {
       className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-40"
       onClick={handleClickOutside}
     >
-      <div ref={notifRef} className="border-solid border-2 border-custom-main-dark rounded-lg backdrop-blur-md">
+      <motion.div
+        initial={{opacity: 0, y: 100}}
+        animate={{opacity: 1, y: 0}}
+        transition={{duration: 0.5, ease: "easeOut"}}
+        ref={notifRef} 
+        className="border-solid border-2 border-custom-main-dark rounded-lg backdrop-blur-md"
+      >
         <div className="bg-custom-main-dark rounded-t-lg p-3"> {/* Orange background for top */}
           {/* Title */}
           <h1 className="text-black text-xl font-bold">Notifications</h1>
@@ -54,7 +61,7 @@ export default function Notifications({ setShowNotifications}) {
                 interactedPost: postPic,
             }} />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
