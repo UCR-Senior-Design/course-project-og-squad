@@ -8,6 +8,10 @@ const postSchema = new Schema(
       ref: "User",
       required: true,
     },
+    user_name: {
+      type: String,
+      required: true,
+    },
     recipe_name: {
       type: String,
       required: true,

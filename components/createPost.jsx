@@ -3,20 +3,21 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Post from "@/components/post";
 import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState({
     recipe_name: "",
     recipe_time: "",
     recipe_cals: "",
     recipe_description: "",
   });
-
-  const router = useRouter();
-
-  const [showPreview, setShowPreview] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +38,8 @@ export default function CreatePost() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: "Anonymous", // I want to get the user_id from mongo db.
+          user_id: session.user?.id,
+          user_name: session.user?.name,
           recipe_name: formData.recipe_name,
           recipe_time: formData.recipe_time,
           recipe_cals: formData.recipe_cals,
@@ -155,7 +157,7 @@ export default function CreatePost() {
               post={{
                 ...formData,
                 user_pfp: null,
-                user_name: "Anonymous",
+                user_name: session.user?.name,
                 recipe_name: formData.recipe_name,
                 recipe_recipe_description: formData.recipe_description,
                 recipie_cals: formData.recipe_cals,

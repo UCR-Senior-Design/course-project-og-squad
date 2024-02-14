@@ -17,7 +17,7 @@ export async function GET() {
     await client.db("admin").command({ ping: 1 });
 
     const database = client.db("test");
-    const collection = database.collection("recipeposts");
+    const collection = database.collection("posts");
 
     //query to get all documents from recipeposts
     const query = {};
