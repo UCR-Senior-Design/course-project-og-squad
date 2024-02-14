@@ -5,10 +5,10 @@ import { FaGoogle, FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
 
 export default function SignUpBox() {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -26,22 +26,23 @@ export default function SignUpBox() {
 
     try {
       //checking user existence
-      const resUser = await fetch( 'api/userExists', {
+      const resUserExists = await fetch("api/userExists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({username}),
-      })
-      const {user} = await resUser.json();
+        body: JSON.stringify({ username }),
+      });
+
+      const { user } = await resUserExists.json();
+
       if (user) {
-        setError("User already exists.");
-        return;
+        setError("Username already exists.");
+        return; // Don't proceed with registration
       }
-      //END OF: checking user existence
 
       //registering user, passing to DB
-      const res = await fetch( 'api/signUp', {
+      const res = await fetch("api/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,26 +52,47 @@ export default function SignUpBox() {
           password,
         }),
       });
+
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/signin")
+        setError("");
+        console.log("Created user!");
+        const res = await signIn("credentials", {
+          username,
+          password,
+          redirect: false,
+        });
+
+        if (res.error) {
+          setError("Invalid Credentials.");
+          setAnimateError(true);
+
+          setTimeout(() => {
+            setAnimateError(false);
+          }, 2500);
+
+          return;
+        }
+
+        router.replace("profile");
+        router.push("/home");
       } else {
+        setError("Error. Refresh and try again.");
         console.log("User registration failed.", error);
       }
     } catch (error) {
       console.log("Error during registration: ", error);
     }
-    //END OF: registering user, passing to DB
   };
 
   return (
     <motion.div
-    initial={{opacity: 0, x: 400}}
-    animate={{opacity: 1, x: 0}}
-    transition={{duration: 1, ease: "easeOut"}}
-    className="mt-8"
-  >
+      initial={{ opacity: 0, x: 400 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="mt-8"
+    >
       {/* Sign Up Box */}
       <main className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center px-10 text-center rounded-2xl shadow-2xl max-w-xl">
@@ -81,13 +103,16 @@ export default function SignUpBox() {
               </h2>
               <div className="border-2 w-10 border-custom-main-dark inline-block mb-2"></div>
               <p className=" text-xs mb-2">Fill in your credentials below.</p>
-              <form onSubmit={handleSubmit} className="flex flex-col items-center">
-                
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col items-center"
+              >
                 {/* Username */}
                 <h1 className="flex w-64 text-xs">Username</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <FaRegUser className="text-gray-400 m-2" />
-                  <input onChange={e => setUsername(e.target.value)}
+                  <input
+                    onChange={(e) => setUsername(e.target.value)}
                     type="username"
                     name="username"
                     placeholder="Enter username"
@@ -100,7 +125,8 @@ export default function SignUpBox() {
                 <h1 className="flex w-64 text-xs">Password</h1>
                 <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
                   <RiLockPasswordLine className="text-gray-400 m-2" />
-                  <input onChange={e => setPassword(e.target.value)}
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     name="password"
                     placeholder="Enter password"
@@ -109,24 +135,23 @@ export default function SignUpBox() {
                   />
                 </div>
                 {/* END OF: Password */}
-                  { error && (
+                {error && (
                   <div className="flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-                     {error}
+                    {error}
                   </div>
-                  )
-                  }
+                )}
                 <button
                   className="border-2 border-custom-main-dark text-custom-main-dark rounded-full px-12 py-2 mt-5 inline-block font-semibold
                              transition-colors ease-linear hover:bg-custom-main-dark hover:text-white"
-                  >
+                >
                   Sign Up
-                  </button>
+                </button>
               </form>
             </div>
-                <Link className="text-xs mt-3 text-right" href={"/signin"}>
-                    Already have an account? <span 
-                    className="underline px-1"> Login </span>
-                </Link>
+            <Link className="text-xs mt-3 text-right" href={"/signin"}>
+              Already have an account?{" "}
+              <span className="underline px-1"> Login </span>
+            </Link>
           </div>
         </div>
       </main>
@@ -134,4 +159,3 @@ export default function SignUpBox() {
     </motion.div>
   );
 }
-

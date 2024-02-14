@@ -1,17 +1,43 @@
 import mongoose, { Schema, models } from "mongoose";
 
 const userSchema = new Schema(
-    {
-        username: {
-            type: String,
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-    }, 
-    {timestamps: true }
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+    postCount: {
+      type: Number,
+      default: 0,
+    },
+    bio: {
+      type: String,
+      default: "Add Bio.",
+    },
+    followerCount: {
+      type: Number,
+      default: 0,
+    },
+    followingCount: {
+      type: Number,
+      default: 0,
+    },
+    followingCount: {
+      type: Number,
+      default: 0,
+    },
+  },
+  { timestamps: true }
 );
 
 const User = models.User || mongoose.model("User", userSchema);
