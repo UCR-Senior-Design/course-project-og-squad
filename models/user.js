@@ -10,6 +10,32 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+    postCount: {
+      type: Number,
+      default: 0,
+    },
+    bio: {
+      type: String,
+      default: "Add Bio.",
+    },
+    followerCount: {
+      type: Number,
+      default: 0,
+    },
+    followingCount: {
+      type: Number,
+      default: 0,
+    },
+    followingCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

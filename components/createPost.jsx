@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Post from '@/components/post';
-import postPic from '@/assets/zeytandzaa.png';
+import { motion } from "framer-motion";
+import Post from "@/components/post";
+import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
   const [formData, setFormData] = useState({
@@ -28,26 +29,26 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-        const res = await fetch ('api/createPost', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            user_name: "Anonymous",   //temporarily passing as fixed parameter until we figure out how to link to unique user
-            recipe_name: formData.recipe_name,
-            recipe_time: formData.recipe_time,
-            recipe_cals: formData.recipe_cals,
-            recipe_description: formData.recipe_description,
-          }),
-        });
+      const res = await fetch("api/createPost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name: "Anonymous", // I want to get the user_id from mongo db.
+          recipe_name: formData.recipe_name,
+          recipe_time: formData.recipe_time,
+          recipe_cals: formData.recipe_cals,
+          recipe_description: formData.recipe_description,
+        }),
+      });
 
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/profile")
+        router.push("/profile");
       } else {
         console.log("New post creation failed.", error);
       }
@@ -58,7 +59,12 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36"
+    >
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -112,7 +118,10 @@ export default function CreatePost() {
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipe_description">
+          <label
+            className="text-sm font-medium mb-1"
+            htmlFor="recipe_description"
+          >
             Description:
           </label>
           <textarea
@@ -168,6 +177,6 @@ export default function CreatePost() {
           </div>
         )}
       </form>
-    </div>
+    </motion.div>
   );
 }
