@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import SignInButton from "./signInButton";
 import SnapChefLogo from "../assets/SnapChefV1.svg";
@@ -22,8 +22,10 @@ import Notifications from "./notifications";
 import { useSession } from "next-auth/react";
 
 function Navbar() {
+  const router = useRouter();
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
 
   const { data: session } = useSession();
@@ -31,6 +33,15 @@ function Navbar() {
   const handleBellClick = () => {
     setShowNotifications(!showNotifications); // Toggle the visibility of Notifications component
   };
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+
+      router.push({
+        pathname: `search/${searchTerm}`,
+      });
+      setSearchTerm("");
+  } 
 
   useEffect(() => {
     // Update active path whenever the route changes
@@ -53,17 +64,23 @@ function Navbar() {
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
-      {/* Search field in the middle */}
-      <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
-        <input
-          type="search"
-          placeholder="Search..."
-          className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
-        />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-4">
-          <Image src={Search} alt="Search" width={20} height={20} />
-        </div>
-      </div>
+      {/* Display only the search field on the homepage */}
+      {pathname == '/home' && (
+        <form onSubmit={handleSubmit}>
+          <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
+            <input
+              type="search"
+              placeholder="Search..."
+              className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+            />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4">
+              <Image src={Search} alt="Search" width={20} height={20} />
+            </div>
+          </div>
+        </form>
+      )}
       {session ? (
         <ul className="flex gap-8 mr-10 list-none">
           <Link href="/home">
