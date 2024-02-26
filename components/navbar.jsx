@@ -76,7 +76,6 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="flex items-center flex-shrink-0 w-50 px-2 relative"
-          
             >
             <input
               type="search"
@@ -92,7 +91,7 @@ function Navbar() {
         </form>
       )}
       {session ? (
-        <ul className="flex gap-8 mr-10 list-none">
+        <ul className="flex gap-8 list-none">
           <Link href="/home">
             <Image
               src={isLinkActive("/home") ? HomeFill : Home}

@@ -2,24 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: auto;
+}
+
 .nav-icon {
-    transition: transform 0.3s;
+  transition: transform 0.3s;
 }
 
 .nav-icon:hover {
-    transform: translateY(-3px);
+  transform: translateY(-3px);
 }
 
 @keyframes pulse {
-    0%, 100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
+  0%, 100% {
+    opacity: 0.5;
   }
+  50% {
+    opacity: 1;
+  }
+}
   
-  .animate-pulse {
-    animation: pulse .9s infinite; /* Adjust the animation duration (0.5s for a faster pulse) */
-  }
+.animate-pulse {
+  animation: pulse .9s infinite;
+}
   

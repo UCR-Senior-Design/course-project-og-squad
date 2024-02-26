@@ -37,10 +37,12 @@ export default function Home() {
       >
       {loading && (
         <>
-          <h1 className="flex justify-center items-center h-screen text-5xl font-bold animate-pulse text-center inset-0">
+          <h1 className="flex justify-center items-center text-5xl font-bold animate-pulse text-center py-96">
             Loading&nbsp;
             <span className="text-custom-main-dark"> Recipes</span>
-              <Image src={LoadingGif} alt="loading" width={100} height={100}/>
+            <div className="ml-4">
+              <Image src={LoadingGif} alt="loading" width={80} height={80}/>
+            </div>
           </h1>
         </>
       )}
