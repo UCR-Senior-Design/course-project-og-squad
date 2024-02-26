@@ -1,10 +1,14 @@
 "use client";
 import FormatPostGrid from "@/components/gridPosts";
+import Image from "next/image";
+import LoadingGif from "@/assets/loading.gif";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import * as Realm from "realm-web";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,17 +18,34 @@ export default function Home() {
       try {
         const user = await app.logIn(credentials);
         const allRecipes = await user.functions.getAllRecipes();
-        setRecipes(() => allRecipes);
+        setRecipes(allRecipes);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false); // Set loading to false regardless of success or error
       }
     };
+    
     fetchData();
   }, []);
 
   return (
-    <div>
-      <FormatPostGrid recipes = { recipes }/>
-    </div>
+    <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+      {loading && (
+        <>
+          <h1 className="flex justify-center items-center h-screen text-5xl font-bold animate-pulse text-center inset-0">
+            Loading&nbsp;
+            <span className="text-custom-main-dark"> Recipes</span>
+              <Image src={LoadingGif} alt="loading" width={100} height={100}/>
+          </h1>
+        </>
+      )}
+      {!loading && <FormatPostGrid recipes={recipes} />}
+    </motion.div>
   );
 }
+

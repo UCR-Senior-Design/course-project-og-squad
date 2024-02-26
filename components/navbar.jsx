@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import SignInButton from "./signInButton";
 import SnapChefLogo from "../assets/SnapChefV1.svg";
 import Search from "../assets/icons/Search.svg";
@@ -70,7 +71,13 @@ function Navbar() {
       {/* Display only the search field on the homepage */}
       {pathname == '/home' && (
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
+          <motion.div 
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex items-center flex-shrink-0 w-50 px-2 relative"
+          
+            >
             <input
               type="search"
               placeholder="Search..."
@@ -81,7 +88,7 @@ function Navbar() {
             <div className="absolute inset-y-0 left-0 flex items-center pl-4">
               <Image src={Search} alt="Search" width={20} height={20} />
             </div>
-          </div>
+          </motion.div>
         </form>
       )}
       {session ? (

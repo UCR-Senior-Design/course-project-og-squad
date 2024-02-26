@@ -9,3 +9,17 @@
 .nav-icon:hover {
     transform: translateY(-3px);
 }
+
+@keyframes pulse {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  .animate-pulse {
+    animation: pulse .9s infinite; /* Adjust the animation duration (0.5s for a faster pulse) */
+  }
+  
