@@ -1,10 +1,12 @@
 "use client";
 import FormatPostGrid from "@/components/gridPosts";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import * as Realm from "realm-web";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
+  const { query } = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,8 +15,8 @@ export default function Home() {
       const credentials = Realm.Credentials.anonymous();
       try {
         const user = await app.logIn(credentials);
-        const allRecipes = await user.functions.getAllRecipes();
-        setRecipes(() => allRecipes);
+        const searchRecipes = await user.functions.searchRecipes(query.term);
+        setRecipes(() => searchRecipes);
       } catch (error) {
         console.error(error);
       }

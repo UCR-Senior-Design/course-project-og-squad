@@ -34,6 +34,8 @@ function Navbar() {
     setShowNotifications(!showNotifications); // Toggle the visibility of Notifications component
   };
 
+
+  //search algo portion
   const handleSubmit = (e) => {
       e.preventDefault();
 
@@ -42,6 +44,7 @@ function Navbar() {
       });
       setSearchTerm("");
   } 
+  //end of search algo portion
 
   useEffect(() => {
     // Update active path whenever the route changes
