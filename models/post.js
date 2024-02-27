@@ -1,7 +1,7 @@
 import mongoose, { Schema, models, mongo } from "mongoose";
 
 //this assigns the variable name with its variable type in MongoDB
-const postSchema = new Schema(
+export const postSchema = new Schema(
   {
     user_id: {
       type: mongoose.Schema.Types.ObjectId,

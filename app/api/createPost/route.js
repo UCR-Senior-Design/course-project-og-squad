@@ -25,11 +25,11 @@ export async function POST(req) {
       recipe_description,
     });
 
-    const postId = createdRecipePost._id;
+    console.log(createdRecipePost);
 
     await User.findOneAndUpdate(
       { _id: user_id },
-      { $inc: { postCount: 1 }, $push: { posts: postId } },
+      { $inc: { postCount: 1 }, $push: { posts: createdRecipePost } },
       { new: true }
     );
 

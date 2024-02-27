@@ -7,12 +7,14 @@ export async function POST(req) {
     await connectMongoDB();
     const { user_id } = await req.json();
     const user = await User.findById(user_id);
-    const { _id, name, bio, followerCount, followingCount, postCount } = user;
+    const { _id, name, bio, followerCount, followingCount, postCount, posts } =
+      user;
     return NextResponse.json({
       username: name,
       bio,
       followerCount,
       followingCount,
+      posts,
       postCount,
       id: _id,
     });
