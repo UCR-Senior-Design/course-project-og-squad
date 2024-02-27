@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Post from "@/components/post";
 import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
-  const router = useRouter();
   const { data: session } = useSession();
 
   const [showPreview, setShowPreview] = useState(false);
+  const [recipeImage, setRecipeImage] = useState("");
   const [formData, setFormData] = useState({
     recipe_name: "",
     recipe_time: "",
@@ -22,6 +22,12 @@ export default function CreatePost() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setRecipeImage(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   const handlePreview = () => {
@@ -44,13 +50,13 @@ export default function CreatePost() {
           recipe_time: formData.recipe_time,
           recipe_cals: formData.recipe_cals,
           recipe_description: formData.recipe_description,
+          recipe_image: recipeImage,
         }),
       });
 
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/profile");
       } else {
         console.log("New post creation failed.", error);
       }
@@ -137,6 +143,21 @@ export default function CreatePost() {
           />
         </div>
 
+        <div className="flex flex-col">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
+            Upload Image
+          </label>
+          <input
+            name="recipe_image"
+            id="recipe_image"
+            type="file"
+            accept="image/*"
+            required
+            onChange={handleImageChange}
+            className="mb-2"
+          />
+        </div>
+
         {/* Preview Button */}
         <div className="flex items-center space-x-4 mt-4">
           <button
@@ -160,10 +181,10 @@ export default function CreatePost() {
                 user_name: session.user?.name,
                 recipe_name: formData.recipe_name,
                 recipe_recipe_description: formData.recipe_description,
-                recipie_cals: formData.recipe_cals,
-                recipie_time: formData.recipe_time,
+                recipe_cals: formData.recipe_cals,
+                recipe_time: formData.recipe_time,
               }}
-              staticImg={postPic}
+              recipeImage={recipeImage}
             />
           </div>
         )}
