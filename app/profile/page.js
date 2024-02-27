@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Profile from "./profile";
-import Posts from "./posts";
+import Profile from "../../components/profile";
+import Posts from "../../components/posts";
 import profileImage from "../../assets/abu_yezan.png";
 import postPic from "../../assets/zeytandzaa.png";
 import { useSession } from "next-auth/react";
