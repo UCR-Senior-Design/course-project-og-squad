@@ -16,6 +16,10 @@ export const postSchema = new Schema(
       type: String,
       required: true,
     },
+    recipe_image: {
+      type: String,
+      required: true,
+    },
     recipe_time: {
       type: Number,
       required: true,

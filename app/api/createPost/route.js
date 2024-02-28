@@ -1,6 +1,5 @@
 import RecipePost from "@/models/post";
 import { NextResponse } from "next/server";
-
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
 
@@ -11,15 +10,19 @@ export async function POST(req) {
       user_name,
       recipe_name,
       recipe_time,
+      recipe_image,
       recipe_cals,
       recipe_description,
     } = await req.json();
+
+    console.log(recipe_image);
 
     await connectMongoDB();
     const createdRecipePost = await RecipePost.create({
       user_id,
       user_name,
       recipe_name,
+      recipe_image,
       recipe_time,
       recipe_cals,
       recipe_description,

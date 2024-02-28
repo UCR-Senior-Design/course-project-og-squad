@@ -11,7 +11,9 @@ export default function CreatePost() {
   const { data: session } = useSession();
 
   const [showPreview, setShowPreview] = useState(false);
-  const [recipeImage, setRecipeImage] = useState("");
+  const [recipeImagePreview, setRecipeImagePreview] = useState(null);
+  const [recipeImageUpload, setRecipeImageUpload] = useState(null);
+
   const [formData, setFormData] = useState({
     recipe_name: "",
     recipe_time: "",
@@ -26,7 +28,8 @@ export default function CreatePost() {
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setRecipeImage(URL.createObjectURL(e.target.files[0]));
+      setRecipeImagePreview(URL.createObjectURL(e.target.files[0]));
+      setRecipeImageUpload(e.target.files[0]);
     }
   };
 
@@ -38,7 +41,34 @@ export default function CreatePost() {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/createPost", {
+      // Step 1: Get pre-signed URL for image upload
+      const presignedUrlResponse = await fetch("api/getUploadImageURL", {
+        method: "GET", // Assuming your backend supports GET request to obtain pre-signed URL
+      });
+
+      if (!presignedUrlResponse.ok) {
+        throw new Error("Failed to obtain pre-signed URL for image upload");
+        return;
+      }
+
+      const { uploadUrl, imageUrl } = await presignedUrlResponse.json();
+
+      // Step 2: Upload image to pre-signed URL
+      const uploadImageResponse = await fetch(uploadUrl, {
+        method: "PUT",
+        body: recipeImageUpload, // Assuming recipeImage contains the Blob/File object of the uploaded image
+        headers: {
+          "Content-Type": "image/jpeg", // Set the Content-Type header to indicate the image type
+        },
+      });
+
+      if (!uploadImageResponse.ok) {
+        throw new Error("Failed to upload image");
+        return;
+      }
+
+      // Step 3: Create post
+      const createPostResponse = await fetch("api/createPost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,20 +80,21 @@ export default function CreatePost() {
           recipe_time: formData.recipe_time,
           recipe_cals: formData.recipe_cals,
           recipe_description: formData.recipe_description,
-          recipe_image: recipeImage,
+          recipe_image: imageUrl,
         }),
       });
 
-      if (res.ok) {
-        const form = e.target;
-        form.reset();
-      } else {
-        console.log("New post creation failed.", error);
+      if (!createPostResponse.ok) {
+        throw new Error("Failed to create post");
+        return;
       }
+
+      // Handle successful post creation
+      console.log("Post created successfully");
     } catch (error) {
-      console.log("Error during post creation: ", error);
+      console.error("Error:", error.message);
+      // Handle error
     }
-    //END OF: creating new post, passed to DB
   };
 
   return (
@@ -184,7 +215,7 @@ export default function CreatePost() {
                 recipe_cals: formData.recipe_cals,
                 recipe_time: formData.recipe_time,
               }}
-              recipeImage={recipeImage}
+              recipeImage={recipeImagePreview}
             />
           </div>
         )}
