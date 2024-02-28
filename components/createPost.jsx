@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Post from "@/components/post";
-import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
   const { data: session } = useSession();
@@ -13,13 +12,14 @@ export default function CreatePost() {
   const [showPreview, setShowPreview] = useState(false);
   const [recipeImagePreview, setRecipeImagePreview] = useState(null);
   const [recipeImageUpload, setRecipeImageUpload] = useState(null);
-
   const [formData, setFormData] = useState({
     recipe_name: "",
     recipe_time: "",
     recipe_cals: "",
     recipe_description: "",
   });
+
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +43,7 @@ export default function CreatePost() {
     try {
       // Step 1: Get pre-signed URL for image upload
       const presignedUrlResponse = await fetch("api/getUploadImageURL", {
-        method: "GET", // Assuming your backend supports GET request to obtain pre-signed URL
+        method: "GET",
       });
 
       if (!presignedUrlResponse.ok) {
@@ -51,14 +51,14 @@ export default function CreatePost() {
         return;
       }
 
+      // Step 2: Get imageUrl and Upload image to pre-signed upload URL
       const { uploadUrl, imageUrl } = await presignedUrlResponse.json();
 
-      // Step 2: Upload image to pre-signed URL
       const uploadImageResponse = await fetch(uploadUrl, {
         method: "PUT",
-        body: recipeImageUpload, // Assuming recipeImage contains the Blob/File object of the uploaded image
+        body: recipeImageUpload,
         headers: {
-          "Content-Type": "image/jpeg", // Set the Content-Type header to indicate the image type
+          "Content-Type": "image/jpeg",
         },
       });
 
@@ -67,7 +67,7 @@ export default function CreatePost() {
         return;
       }
 
-      // Step 3: Create post
+      // Step 3: Create post with imageUrl
       const createPostResponse = await fetch("api/createPost", {
         method: "POST",
         headers: {
@@ -91,6 +91,7 @@ export default function CreatePost() {
 
       // Handle successful post creation
       console.log("Post created successfully");
+      router.push("/profile");
     } catch (error) {
       console.error("Error:", error.message);
       // Handle error
@@ -214,8 +215,8 @@ export default function CreatePost() {
                 recipe_recipe_description: formData.recipe_description,
                 recipe_cals: formData.recipe_cals,
                 recipe_time: formData.recipe_time,
+                recipe_image: recipeImagePreview,
               }}
-              recipeImage={recipeImagePreview}
             />
           </div>
         )}

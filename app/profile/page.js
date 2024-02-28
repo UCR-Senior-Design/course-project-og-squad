@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Profile from "../../components/profile";
-import Posts from "../../components/profilePosts";
+import ProfilePosts from "../../components/profilePosts";
 import profileImage from "../../assets/abu_yezan.png";
 import postPic from "../../assets/zeytandzaa.png";
 import { useSession } from "next-auth/react";
@@ -55,12 +55,12 @@ export default function UserProfile() {
       {userInfo?.postCount > 0 ? (
         <div className="grid gap-y-10 my-10 ml-96 mr-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {userInfo.posts.map((post) => (
-            <Posts
+            <ProfilePosts
               key={post._id}
               posts={{
                 title: post.recipe_name,
                 likeCount: post.recipe_likes,
-                imageURL: postPic,
+                imageURL: post.recipe_image,
               }}
             />
           ))}
