@@ -1,5 +1,3 @@
-
-
 "use client"
 import React, { useState } from 'react';
 import Image from "next/image";
@@ -130,6 +128,8 @@ const Recipes = () => {
       <div className="mt-5">
         <h3 className="text-lg font-semibold">Steps</h3>
         <p>Step 1 : Pour 1 cup of your favourite zaatar into a bowl</p>
+        <p>Step 2: Pour 1 cup of olive oil into a bowl</p>
+        <p>Step 3: Heat up pita bread </p>
       </div>
       )}
     </div>
