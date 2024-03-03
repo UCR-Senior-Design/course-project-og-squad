@@ -1,15 +1,20 @@
-"use client"
-import { useState } from 'react';
-import Post from '@/components/post';
-import postPic from '@/assets/zeytandzaa.png';
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Post from "@/components/post";
+import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
   const [formData, setFormData] = useState({
-    postName: '',
-    preparationTime: '',
-    calories: '',
-    description: '',
+    recipe_name: "",
+    recipe_time: "",
+    recipe_cals: "",
+    recipe_description: "",
   });
+
+  const router = useRouter();
 
   const [showPreview, setShowPreview] = useState(false);
 
@@ -22,66 +27,109 @@ export default function CreatePost() {
     setShowPreview(true);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("api/createPost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name: "Anonymous", // I want to get the user_id from mongo db.
+          recipe_name: formData.recipe_name,
+          recipe_time: formData.recipe_time,
+          recipe_cals: formData.recipe_cals,
+          recipe_description: formData.recipe_description,
+        }),
+      });
+
+      if (res.ok) {
+        const form = e.target;
+        form.reset();
+        router.push("/profile");
+      } else {
+        console.log("New post creation failed.", error);
+      }
+    } catch (error) {
+      console.log("Error during post creation: ", error);
+    }
+    //END OF: creating new post, passed to DB
+  };
+
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36"
+    >
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
-      <form className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Your input fields */}
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="postName">
-            Post Name:
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_name">
+            Recipe Title:
           </label>
           <input
             type="text"
-            name="postName"
-            id="postName"
+            name="recipe_name"
+            placeholder=""
+            id="recipe_name"
             required
-            value={formData.postName}
+            value={formData.recipe_name}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="preparationTime">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
             Preparation Time (min):
           </label>
           <input
-            type="text"
-            name="preparationTime"
-            id="preparationTime"
+            type="number"
+            name="recipe_time"
+            placeholder=""
+            id="recipe_time"
             required
-            value={formData.preparationTime}
+            value={formData.recipe_time}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="calories">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
             Calories:
           </label>
           <input
-            type="text"
-            name="calories"
-            id="calories"
+            type="number"
+            name="recipe_cals"
+            placeholder=""
+            id="recipe_cals"
             required
-            value={formData.calories}
+            value={formData.recipe_cals}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="description">
+          <label
+            className="text-sm font-medium mb-1"
+            htmlFor="recipe_description"
+          >
             Description:
           </label>
           <textarea
-            name="description"
-            id="description"
+            name="recipe_description"
+            placeholder="What about this dish..."
+            id="recipe_description"
             required
-            value={formData.description}
+            value={formData.recipe_description}
             onChange={handleInputChange}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
           />
@@ -106,12 +154,12 @@ export default function CreatePost() {
             <Post
               post={{
                 ...formData,
-                recipe_name: formData.postName,
-                recipe_description: formData.description,
-                user_name: 'Username',
                 user_pfp: null,
-                recipie_calories: formData.calories,
-                recipie_time: formData.preparationTime,
+                user_name: "Anonymous",
+                recipe_name: formData.recipe_name,
+                recipe_recipe_description: formData.recipe_description,
+                recipie_cals: formData.recipe_cals,
+                recipie_time: formData.recipe_time,
               }}
               staticImg={postPic}
             />
@@ -121,7 +169,7 @@ export default function CreatePost() {
         {showPreview && (
           <div className="flex items-center space-x-4 mt-4">
             <button
-              type="button"
+              type="submit"
               className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
             >
               Publish Post
@@ -129,6 +177,6 @@ export default function CreatePost() {
           </div>
         )}
       </form>
-    </div>
+    </motion.div>
   );
 }

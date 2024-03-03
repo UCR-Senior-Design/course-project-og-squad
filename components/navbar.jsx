@@ -17,38 +17,46 @@ import FavFill from "../assets/icons/favoritesfill.svg";
 import Profile from "../assets/icons/Profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
 
+import Notifications from "./notifications";
+
 import { useSession } from "next-auth/react";
 
 function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
+  const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
 
   const { data: session } = useSession();
+
+  const handleBellClick = () => {
+    setShowNotifications(!showNotifications); // Toggle the visibility of Notifications component
+  };
 
   useEffect(() => {
     // Update active path whenever the route changes
     setActivePath(pathname);
   }, [pathname]);
 
+
   const isLinkActive = (path) => path === activePath;
 
   return (
-    <nav className="flex items-center justify-between p-4 relative mr-10">
+    <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
       <Link href="/">
         <Image
           src={SnapChefLogo}
           alt="SnapChefLogo"
           className="cursor-pointer"
-          width={180}
-          height={180}
+          width={300}
+          height={300}
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
       {/* Search field in the middle */}
       <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
         <input
-          type="text"
+          type="search"
           placeholder="Search..."
           className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
         />
@@ -57,56 +65,56 @@ function Navbar() {
         </div>
       </div>
       {session ? (
-        <ul className="flex gap-4 list-none">
+        <ul className="flex gap-8 mr-10 list-none">
           <Link href="/home">
             <Image
               src={isLinkActive("/home") ? HomeFill : Home}
               alt="Home"
-              className="cursor-pointer"
-              width={25}
-              height={25}
+              className="nav-icon cursor-pointer"
+              width={40}
+              height={40}
             />
           </Link>
-          <Link href="/notifications">
+          <div className="nav-icon cursor-pointer" onClick={handleBellClick}>
             <Image
-              src={isLinkActive("/notifications") ? BellFill : Bell}
+              src={showNotifications ? BellFill : Bell} 
               alt="Bell"
-              className="cursor-pointer"
-              width={25}
-              height={25}
+              width={40}
+              height={40}
             />
-          </Link>
+          </div>
           <Link href="/create">
             <Image
               src={isLinkActive("/create") ? PostFill : Post}
               alt="Post"
-              className="cursor-pointer"
-              width={25}
-              height={25}
+              className="nav-icon cursor-pointer"
+              width={40}
+              height={40}
             />
           </Link>
           <Link href="/favorites">
             <Image
               src={isLinkActive("/favorites") ? FavFill : Fav}
               alt="Home"
-              className="cursor-pointer"
-              width={25}
-              height={25}
+              className="nav-icon cursor-pointer"
+              width={40}
+              height={40}
             />
           </Link>
           <Link href="/profile">
             <Image
               src={isLinkActive("/profile") ? ProfileFill : Profile}
               alt="Home"
-              className="cursor-pointer"
-              width={25}
-              height={25}
+              className="nav-icon cursor-pointer"
+              width={40}
+              height={40}
             />
           </Link>
         </ul>
       ) : (
         <SignInButton />
       )}
+      {showNotifications && <Notifications setShowNotifications={setShowNotifications} />}
     </nav>
   );
 }

@@ -1,7 +1,7 @@
-"use client"
-import React, { useState } from 'react';
+("use client");
+import React, { useState } from "react";
 import Image from "next/image";
-import image from "app/recipes/zeytandzaa.png"
+import image from "./zeytandzaa.png";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
@@ -22,17 +22,19 @@ const Recipes = () => {
   };
 
   return (
-    <div className='mt-10 mx-auto max-w-[300px]'>
-      <div><FaUserCircle className="pb-2 text-orange-500" size={25} /></div>
+    <div className="mt-10 mx-auto max-w-[300px]">
+      <div>
+        <FaUserCircle className="pb-2 text-orange-500" size={25} />
+      </div>
       <div className="flex justify-center">
         <Image src={image} alt="zeyt" width={400} height={400} />
       </div>
-      <div className='flex items-center pt-2 '>
-        <p className='font-bold'>Zeyt and Zaatar</p>
-        <div className='pl-32'>
+      <div className="flex items-center pt-2 ">
+        <p className="font-bold">Zeyt and Zaatar</p>
+        <div className="pl-32">
           <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
         </div>
-        <div className='pl-2'>
+        <div className="pl-2">
           <CiBookmark style={{ color: "#FF8C00" }} size={20} />
         </div>
       </div>
@@ -46,7 +48,7 @@ const Recipes = () => {
           <p className="font-sans text-xs text-gray-500">cals</p>
         </div>
         <div className=" flex flex-col items-center pl-5 pb-4">
-          <LuVegan  style={{ color: "green" }} size={18} />
+          <LuVegan style={{ color: "green" }} size={18} />
         </div>
       </div>
       <div className="mt-4">
@@ -57,20 +59,45 @@ const Recipes = () => {
           type="button"
         >
           Ingredients
-          <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+          <svg
+            className="w-2.5 h-2.5 ms-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 10 6"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m1 1 4 4 4-4"
+            />
           </svg>
         </button>
         <button
-    onClick={() => setShowSteps(!showSteps)} // Add this line to toggle the visibility of the steps
-    className="text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700 ml-2" // Add ml-2 for left margin
-    type="button"
-  >
-    Steps
-    <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-    </svg>
-  </button>
+          onClick={() => setShowSteps(!showSteps)} // Add this line to toggle the visibility of the steps
+          className="text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700 ml-2" // Add ml-2 for left margin
+          type="button"
+        >
+          Steps
+          <svg
+            className="w-2.5 h-2.5 ms-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 10 6"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m1 1 4 4 4-4"
+            />
+          </svg>
+        </button>
+
         {showIngredients && (
           <div>
             <h2 className="text-lg font-semibold mt-4">Ingredients</h2>
@@ -138,4 +165,3 @@ const Recipes = () => {
 };
 
 export default Recipes;
-
