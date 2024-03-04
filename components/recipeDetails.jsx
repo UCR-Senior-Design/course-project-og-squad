@@ -55,7 +55,7 @@ function RecipeDetails() {
         <button
           id="dropdownDefaultButton"
           onClick={() => setShowIngredients(!showIngredients)}
-          className="text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700"
+          className="text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-700"
           type="button"
         >
           Ingredients
@@ -97,6 +97,7 @@ function RecipeDetails() {
             />
           </svg>
         </button>
+        
         {showIngredients && (
           <div>
             <h2 className="text-lg font-semibold mt-4">Ingredients</h2>
@@ -149,11 +150,15 @@ function RecipeDetails() {
             </ul>
           </div>
         )}
-      </div>
+        </div>
+      {showSteps && (
       <div className="mt-5">
         <h3 className="text-lg font-semibold">Steps</h3>
         <p>Step 1 : Pour 1 cup of your favourite zaatar into a bowl</p>
+        <p>Step 2: Pour 1 cup of olive oil into a bowl</p>
+        <p>Step 3: Heat up pita bread </p>
       </div>
+      )}
     </div>
   );
 };

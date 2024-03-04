@@ -15,13 +15,14 @@ export default function ProfilePosts({ posts }) {
       <div>
         {/* Post Picture */}
         {imageURL && (
-          <div className="flex bg-orange-100 p-5 rounded-lg flex-col items-center">
+          <div className="flex bg-orange-100 p-5 rounded-lg flex-col items-center border-4 border-black border-opacity-70">
             <img
               src={imageURL}
               alt="My Post"
               className="mb-2"
               height={200}
               width={200}
+              style={{ width: "200px", height: "200px", objectFit: "cover",  borderRadius: "10px", border: "2px solid #000",}}
             />
 
             {/* Title with Likes */}

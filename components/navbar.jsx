@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SignInButton from "./signInButton";
@@ -23,10 +23,8 @@ import Notifications from "./notifications";
 import { useSession } from "next-auth/react";
 
 function Navbar() {
-  const router = useRouter();
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
 
   const { data: session } = useSession();
@@ -35,18 +33,6 @@ function Navbar() {
     setShowNotifications(!showNotifications); // Toggle the visibility of Notifications component
   };
 
-
-  //search algo portion
-  const handleSubmit = (e) => {
-      e.preventDefault();
-
-      router.push({
-        pathname: `search/${searchTerm}`,
-      });
-      setSearchTerm("");
-  } 
-  //end of search algo portion
-
   useEffect(() => {
     // Update active path whenever the route changes
     setActivePath(pathname);
@@ -54,6 +40,7 @@ function Navbar() {
 
 
   const isLinkActive = (path) => path === activePath;
+
 
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
@@ -70,7 +57,7 @@ function Navbar() {
       </Link>
       {/* Display only the search field on the homepage */}
       {pathname == '/home' && (
-        <form onSubmit={handleSubmit}>
+        <form>
           <motion.div 
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,8 +68,6 @@ function Navbar() {
               type="search"
               placeholder="Search..."
               className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-4">
               <Image src={Search} alt="Search" width={20} height={20} />
