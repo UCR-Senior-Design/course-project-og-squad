@@ -32,16 +32,19 @@ export default function Post({ post }) {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[300px]"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (
         <div>
           <div className="flex items-center mb-3">
             <FaUserCircle className="mr-2" style={{ color: "#FF8C00" }} />
-            <div>{user_name}</div>
+            <div className= "font-semibold">{user_name}</div>
           </div>
-          <img src={recipe_image} alt="Post Image" width={300} height={300} />
+          <img 
+            src={recipe_image} alt="Post Image" width={300} height={300} 
+            style={{ width: "300px", height: "250px", objectFit: "cover",  borderRadius: "10px", border: "2px solid #000",}}
+          />
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
             {recipe_name}
           </h2>
