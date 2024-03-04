@@ -1,26 +1,40 @@
 import RecipePost from "@/models/post";
 import { NextResponse } from "next/server";
-
 import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/models/user";
 
 export async function POST(req) {
   try {
     const {
       user_id,
+      user_name,
       recipe_name,
       recipe_time,
+      recipe_image,
       recipe_cals,
       recipe_description,
-    } = await req.json(); //add variables when necessary
+    } = await req.json();
+
+    console.log(recipe_image);
 
     await connectMongoDB();
-    await RecipePost.create({
+    const createdRecipePost = await RecipePost.create({
       user_id,
+      user_name,
       recipe_name,
+      recipe_image,
       recipe_time,
       recipe_cals,
       recipe_description,
     });
+
+    console.log(createdRecipePost);
+
+    await User.findOneAndUpdate(
+      { _id: user_id },
+      { $inc: { postCount: 1 }, $push: { posts: createdRecipePost } },
+      { new: true }
+    );
 
     return NextResponse.json(
       { message: "New Post Added to DB." },

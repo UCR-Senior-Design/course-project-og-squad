@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Profile from "./profile";
-import Posts from "./posts";
+import Profile from "../../components/profile";
+import ProfilePosts from "../../components/profilePosts";
 import profileImage from "../../assets/abu_yezan.png";
 import postPic from "../../assets/zeytandzaa.png";
 import { useSession } from "next-auth/react";
@@ -40,7 +40,7 @@ export default function UserProfile() {
   };
 
   return (
-    <div>
+    <div className="h-[85vh]">
       <Profile
         profile={{
           id: userInfo?.id,
@@ -52,66 +52,24 @@ export default function UserProfile() {
           imageURL: profileImage,
         }}
       />
-      <div className="grid gap-y-10 my-10 ml-96 mr-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-        <Posts
-          posts={{
-            title: "Zeyt and Zaatar",
-            likeCount: "100",
-            imageURL: postPic,
-          }}
-        />
-      </div>
+      {userInfo?.postCount > 0 ? (
+        <div className="grid gap-y-10 my-10 ml-96 mr-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+          {userInfo.posts.map((post) => (
+            <ProfilePosts
+              key={post._id}
+              posts={{
+                title: post.recipe_name,
+                likeCount: post.recipe_likes,
+                imageURL: post.recipe_image,
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-gray-500 flex items-center justify-center mt-36">
+          No posts yet.
+        </div>
+      )}
     </div>
   );
 }
