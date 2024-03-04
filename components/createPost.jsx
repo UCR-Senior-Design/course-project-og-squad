@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Post from "@/components/post";
+import StepSection from "./stepsSection";
+import IngredientSection from "./ingredientSection";
+import AttributeSelector from "./attributeSelector";
 
 export default function CreatePost() {
   const { data: session } = useSession();
@@ -17,6 +20,9 @@ export default function CreatePost() {
     recipe_time: "",
     recipe_cals: "",
     recipe_description: "",
+    steps: [{ description: "" }],
+    ingredients: [{ name: "" }],
+    selectedOption: "",
   });
 
   const router = useRouter();
@@ -35,6 +41,7 @@ export default function CreatePost() {
 
   const handlePreview = () => {
     setShowPreview(true);
+    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
@@ -108,7 +115,7 @@ export default function CreatePost() {
       <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Your input fields */}
+        {/* Recipe name section */}
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" htmlFor="recipe_name">
             Recipe Title:
@@ -125,6 +132,7 @@ export default function CreatePost() {
           />
         </div>
 
+        {/* Preperation section */}
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
             Preparation Time (min):
@@ -141,6 +149,7 @@ export default function CreatePost() {
           />
         </div>
 
+        {/* Calories section */}
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
             Calories:
@@ -157,6 +166,7 @@ export default function CreatePost() {
           />
         </div>
 
+        {/* Short Description section */}
         <div className="flex flex-col">
           <label
             className="text-sm font-medium mb-1"
@@ -175,6 +185,7 @@ export default function CreatePost() {
           />
         </div>
 
+        {/* Upload image section */}
         <div className="flex flex-col">
           <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
             Upload Image
@@ -189,6 +200,15 @@ export default function CreatePost() {
             className="mb-2"
           />
         </div>
+
+        {/* Step Section */}
+        <StepSection formData={formData} setFormData={setFormData} />
+
+        {/* Ingredient Section */}
+        <IngredientSection formData={formData} setFormData={setFormData} />
+
+        {/* Attribute Section */}
+        <AttributeSelector formData={formData} setFormData={setFormData} />
 
         {/* Preview Button */}
         <div className="flex items-center space-x-4 mt-4">

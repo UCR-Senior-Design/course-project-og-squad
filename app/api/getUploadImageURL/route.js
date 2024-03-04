@@ -35,8 +35,6 @@ export async function GET() {
     const uploadUrl = await s3.getSignedUrlPromise("putObject", params);
     const imageUrl = "https://d205s045u32g9w.cloudfront.net/" + objectKey;
 
-    console.log(uploadUrl);
-
     // Return the pre-signed URL to the client
     return NextResponse.json({ uploadUrl, imageUrl }, { status: 200 });
   } catch (error) {
