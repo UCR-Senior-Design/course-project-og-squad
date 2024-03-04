@@ -22,7 +22,7 @@ export default function Home() {
       } catch (error) {
         console.error(error);
       } finally {
-        setLoading(false); // Set loading to false regardless of success or error
+        setLoading(false);
       }
     };
     

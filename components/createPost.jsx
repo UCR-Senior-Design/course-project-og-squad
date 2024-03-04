@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Post from "@/components/post";
-import postPic from "@/assets/zeytandzaa.png";
 
 export default function CreatePost() {
+  const { data: session } = useSession();
+
+  const [showPreview, setShowPreview] = useState(false);
+  const [recipeImagePreview, setRecipeImagePreview] = useState(null);
+  const [recipeImageUpload, setRecipeImageUpload] = useState(null);
   const [formData, setFormData] = useState({
     recipe_name: "",
     recipe_time: "",
@@ -16,11 +21,16 @@ export default function CreatePost() {
 
   const router = useRouter();
 
-  const [showPreview, setShowPreview] = useState(false);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setRecipeImagePreview(URL.createObjectURL(e.target.files[0]));
+      setRecipeImageUpload(e.target.files[0]);
+    }
   };
 
   const handlePreview = () => {
@@ -31,31 +41,61 @@ export default function CreatePost() {
     e.preventDefault();
 
     try {
-      const res = await fetch("api/createPost", {
+      // Step 1: Get pre-signed URL for image upload
+      const presignedUrlResponse = await fetch("api/getUploadImageURL", {
+        method: "GET",
+      });
+
+      if (!presignedUrlResponse.ok) {
+        throw new Error("Failed to obtain pre-signed URL for image upload");
+        return;
+      }
+
+      // Step 2: Get imageUrl and Upload image to pre-signed upload URL
+      const { uploadUrl, imageUrl } = await presignedUrlResponse.json();
+
+      const uploadImageResponse = await fetch(uploadUrl, {
+        method: "PUT",
+        body: recipeImageUpload,
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+      });
+
+      if (!uploadImageResponse.ok) {
+        throw new Error("Failed to upload image");
+        return;
+      }
+
+      // Step 3: Create post with imageUrl
+      const createPostResponse = await fetch("api/createPost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: "Anonymous", // I want to get the user_id from mongo db.
+          user_id: session.user?.id,
+          user_name: session.user?.name,
           recipe_name: formData.recipe_name,
           recipe_time: formData.recipe_time,
           recipe_cals: formData.recipe_cals,
           recipe_description: formData.recipe_description,
+          recipe_image: imageUrl,
         }),
       });
 
-      if (res.ok) {
-        const form = e.target;
-        form.reset();
-        router.push("/profile");
-      } else {
-        console.log("New post creation failed.", error);
+      if (!createPostResponse.ok) {
+        throw new Error("Failed to create post");
+        return;
       }
+
+      // Handle successful post creation
+      console.log("Post created successfully");
+      router.push("/profile");
     } catch (error) {
-      console.log("Error during post creation: ", error);
+      console.error("Error:", error.message);
+      // Handle error
     }
-    //END OF: creating new post, passed to DB
   };
 
   return (
@@ -135,6 +175,21 @@ export default function CreatePost() {
           />
         </div>
 
+        <div className="flex flex-col">
+          <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
+            Upload Image
+          </label>
+          <input
+            name="recipe_image"
+            id="recipe_image"
+            type="file"
+            accept="image/*"
+            required
+            onChange={handleImageChange}
+            className="mb-2"
+          />
+        </div>
+
         {/* Preview Button */}
         <div className="flex items-center space-x-4 mt-4">
           <button
@@ -155,13 +210,13 @@ export default function CreatePost() {
               post={{
                 ...formData,
                 user_pfp: null,
-                user_name: "Anonymous",
+                user_name: session.user?.name,
                 recipe_name: formData.recipe_name,
                 recipe_recipe_description: formData.recipe_description,
-                recipie_cals: formData.recipe_cals,
-                recipie_time: formData.recipe_time,
+                recipe_cals: formData.recipe_cals,
+                recipe_time: formData.recipe_time,
+                recipe_image: recipeImagePreview,
               }}
-              staticImg={postPic}
             />
           </div>
         )}
