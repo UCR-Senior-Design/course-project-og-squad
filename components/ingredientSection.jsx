@@ -31,7 +31,7 @@ export default function IngredientSection({ formData, setFormData }) {
 
   return (
     <>
-      <ul className="list-disc pl-5">
+      <ul>
         {formData.ingredients.map((ingredient, index) => (
           <li key={index} className="flex flex-col mb-4">
             <div className="flex items-center">
@@ -40,6 +40,7 @@ export default function IngredientSection({ formData, setFormData }) {
                 value={ingredient.name}
                 onChange={(e) => handleIngredientChange(index, e.target.value)}
                 className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 flex-grow"
+                required
               />
               <button
                 type="button"

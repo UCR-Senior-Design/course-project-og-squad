@@ -9,9 +9,6 @@ import { useEffect } from "react";
 export default function LandingPage() {
   const { data: session } = useSession();
 
-  useEffect(() => {
-    console.log(session); // This will be undefined initially
-  }, [session]);
   return (
     <main className="flex tems-center justify-center ml-10 h-screen">
       <div className="flex flex-col items-center justify-center">

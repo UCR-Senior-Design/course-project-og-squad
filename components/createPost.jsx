@@ -22,7 +22,7 @@ export default function CreatePost() {
     recipe_description: "",
     steps: [{ description: "" }],
     ingredients: [{ name: "" }],
-    selectedOption: "",
+    attributes: [],
   });
 
   const router = useRouter();
