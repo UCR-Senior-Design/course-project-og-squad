@@ -118,9 +118,9 @@ export default function CreatePost() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36"
+      className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md my-26 border-4 border-black"
     >
-      <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
+      <h1 className="text-3xl font-semibold mb-4">Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Recipe name section */}
@@ -141,37 +141,39 @@ export default function CreatePost() {
         </div>
 
         {/* Preperation section */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
-            Preparation Time (min):
-          </label>
-          <input
-            type="number"
-            name="recipe_time"
-            placeholder=""
-            id="recipe_time"
-            required
-            value={formData.recipe_time}
-            onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
+        <div className="flex space-x-4 justify-between">
+          <div className="flex flex-col">
+            <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
+              Preparation Time (min):
+            </label>
+            <input
+              type="number"
+              name="recipe_time"
+              placeholder=""
+              id="recipe_time"
+              required
+              value={formData.recipe_time}
+              onChange={handleInputChange}
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-        {/* Calories section */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
-            Calories:
-          </label>
-          <input
-            type="number"
-            name="recipe_cals"
-            placeholder=""
-            id="recipe_cals"
-            required
-            value={formData.recipe_cals}
-            onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
+          {/* Calories section */}
+          <div className="flex flex-col">
+            <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
+              Calories:
+            </label>
+            <input
+              type="number"
+              name="recipe_cals"
+              placeholder=""
+              id="recipe_cals"
+              required
+              value={formData.recipe_cals}
+              onChange={handleInputChange}
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
 
         {/* Short Description section */}

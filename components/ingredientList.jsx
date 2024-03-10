@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function IngredientList({ ingredients }) {
   const [checkedItems, setCheckedItems] = useState({});
@@ -37,31 +38,38 @@ export default function IngredientList({ ingredients }) {
           />
         </svg>
       </button>
-      {showIngredients && (
-        <div className="mt-4">
-          <ul>
-            {ingredients.map((ingredient, index) => (
-              <li key={index} className="mb-2">
-                <input
-                  type="checkbox"
-                  id={`ingredient${index}`}
-                  className="rounded-full accent-orange-300 w-4 h-4 mr-2"
-                  checked={checkedItems[`ingredient${index}`] || false}
-                  onChange={handleCheckboxChange}
-                />
-                <label
-                  htmlFor={`ingredient${index}`}
-                  className={
-                    checkedItems[`ingredient${index}`] ? "line-through" : ""
-                  }
-                >
-                  {ingredient.name}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <AnimatePresence>
+        {showIngredients && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mt-4"
+          >
+            <ul>
+              {ingredients.map((ingredient, index) => (
+                <li key={index} className="mb-2">
+                  <input
+                    type="checkbox"
+                    id={`ingredient${index}`}
+                    className="rounded-full accent-orange-300 w-4 h-4 mr-2"
+                    checked={checkedItems[`ingredient${index}`] || false}
+                    onChange={handleCheckboxChange}
+                  />
+                  <label
+                    htmlFor={`ingredient${index}`}
+                    className={
+                      checkedItems[`ingredient${index}`] ? "line-through text-opacity-5" : ""
+                    }
+                  >
+                    {ingredient.name}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

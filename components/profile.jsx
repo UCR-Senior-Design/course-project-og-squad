@@ -41,7 +41,7 @@ export default function Profile({ profile }) {
 
             {/* Username with setting icon */}
             <div className="flex items-center mb-4">
-              <p className="text-xl font-bold mr-2">{userName}</p>
+              <p className="text-xl font-sand font-bold mr-2">{userName}</p>
               <IoMdSettings
                 className="cursor-pointer"
                 onClick={handleSettingsClick}

@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'pacifico': ['Pacifico', 'cursive'],
+        'sand': ['Quicksand', 'sans-serif' ],
+        'basker': ['Baskervville', 'serif' ],
+        'gara': ['EB Garamond', 'serif' ],
+      },
       colors: {
         "custom-main-dark": "#FF9103",
         "custom-main-light": "#FEEACC",
