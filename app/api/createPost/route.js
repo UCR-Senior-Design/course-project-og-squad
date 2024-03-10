@@ -13,11 +13,15 @@ export async function POST(req) {
       recipe_image,
       recipe_cals,
       recipe_description,
+      recipe_steps,
+      recipe_ingredients,
+      recipe_attributes,
     } = await req.json();
 
-    console.log(recipe_image);
+    const recipe_likes = 0;
 
     await connectMongoDB();
+
     const createdRecipePost = await RecipePost.create({
       user_id,
       user_name,
@@ -26,13 +30,18 @@ export async function POST(req) {
       recipe_time,
       recipe_cals,
       recipe_description,
+      recipe_steps,
+      recipe_ingredients,
+      recipe_attributes,
+      recipe_likes,
     });
 
     console.log(createdRecipePost);
 
+    // Find user and push post id to users posts
     await User.findOneAndUpdate(
       { _id: user_id },
-      { $inc: { postCount: 1 }, $push: { posts: createdRecipePost } },
+      { $inc: { postCount: 1 }, $push: { posts: createdRecipePost._id } },
       { new: true }
     );
 

@@ -17,7 +17,6 @@ export default function Post({ post }) {
     recipe_name,
     recipe_image, // stores image url from cloudfront stored in s3 bucket
     recipe_description,
-    recipe_instructions, //not yet implemented
     recipe_likes,
     recipe_time,
     recipe_cals,
@@ -39,29 +38,40 @@ export default function Post({ post }) {
         <div>
           <div className="flex items-center mb-3">
             <FaUserCircle className="mr-2" style={{ color: "#FF8C00" }} />
-            <div className= "font-semibold">{user_name}</div>
+            <div className="font-semibold">{user_name}</div>
           </div>
-          <img 
-            src={recipe_image} alt="Post Image" width={300} height={300} 
-            style={{ width: "300px", height: "250px", objectFit: "cover",  borderRadius: "10px", border: "2px solid #000",}}
+          <img
+            src={recipe_image}
+            alt="Post Image"
+            width={300}
+            height={300}
+            style={{
+              width: "300px",
+              height: "250px",
+              objectFit: "cover",
+              borderRadius: "10px",
+              border: "2px solid #000",
+            }}
           />
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
             {recipe_name}
           </h2>
-          <div className="flex items-center mt-2">
-            <div className="flex flex-col items-center mr-4">
-              <IoIosTimer />
-              <p className="font-sans text-xs text-gray-500">
-                {recipe_time} mins
-              </p>
+          <div className="flex items-center mt-2 justify-between">
+            <div className="flex">
+              <div className="flex flex-col items-center mr-4">
+                <IoIosTimer />
+                <p className="font-sans text-xs text-gray-500">
+                  {recipe_time} mins
+                </p>
+              </div>
+              <div className="flex flex-col items-center">
+                <FaFireFlameCurved className="text-red-500" />
+                <p className="font-sans text-xs text-gray-500">
+                  {recipe_cals} cals
+                </p>
+              </div>
             </div>
             <div className="flex flex-col items-center">
-              <FaFireFlameCurved style={{ color: "#FFA500" }} />
-              <p className="font-sans text-xs text-gray-500">
-                {recipe_cals} cals
-              </p>
-            </div>
-            <div className="pl-24">
               <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
               {recipe_likes}
             </div>
