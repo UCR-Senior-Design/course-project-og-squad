@@ -17,11 +17,11 @@ const StepList = ({ steps }) => {
   };
 
   return (
-    <div className="mb-8">
-      <p className="text-2xl font-bold mb-2">Steps</p>
+    <div className="mb-8 max-w-lg">
+      <p className="text-2xl font-bold mb-5">Steps</p>
       <ul>
         {steps.map((step, index) => (
-          <li key={index} className="mb-2">
+          <li key={index} className="mb-5">
             <button
               onClick={() => toggleStep(index)}
               className="flex items-center  focus:outline-none"
