@@ -39,11 +39,14 @@ export default function StepSection({ formData, setFormData }) {
           <div className="flex items-center mb-2">
             <input
               type="text"
-              value={step.header === `Step ${index + 1}` ? "" : step.header} // Display default if not changed
+              value={
+                step.header === `Step ${index + 1}`
+                  ? `Step ${index + 1}`
+                  : step.header
+              } // Display default if not changed
               onChange={(e) => handleHeaderChange(index, e.target.value)}
               placeholder={`Step ${index + 1}`} // Placeholder for the input
               className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-              required
             />
           </div>
           <textarea

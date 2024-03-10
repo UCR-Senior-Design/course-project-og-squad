@@ -36,6 +36,9 @@ export default function CreatePost() {
     if (e.target.files && e.target.files[0]) {
       setRecipeImagePreview(URL.createObjectURL(e.target.files[0]));
       setRecipeImageUpload(e.target.files[0]);
+    } else {
+      setRecipeImagePreview(null);
+      setRecipeImageUpload(null);
     }
   };
 
@@ -74,6 +77,8 @@ export default function CreatePost() {
         return;
       }
 
+      console.log("image uploaded to bucket");
+
       // Step 3: Create post with imageUrl
       const createPostResponse = await fetch("api/createPost", {
         method: "POST",
@@ -88,6 +93,9 @@ export default function CreatePost() {
           recipe_cals: formData.recipe_cals,
           recipe_description: formData.recipe_description,
           recipe_image: imageUrl,
+          recipe_steps: formData.steps,
+          recipe_ingredients: formData.ingredients,
+          recipe_attributes: formData.attributes,
         }),
       });
 
@@ -214,8 +222,11 @@ export default function CreatePost() {
         <div className="flex items-center space-x-4 mt-4">
           <button
             type="button"
-            className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+            className={`bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70 ${
+              !recipeImageUpload ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             onClick={handlePreview}
+            disabled={!recipeImagePreview}
           >
             Preview
           </button>

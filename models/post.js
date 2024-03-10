@@ -36,6 +36,31 @@ export const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+    recipe_steps: [
+      {
+        header: {
+          type: String,
+          default: "",
+        },
+        description: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+    recipe_ingredients: [
+      {
+        name: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
+    recipe_attributes: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );

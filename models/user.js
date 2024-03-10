@@ -1,5 +1,4 @@
 import mongoose, { Schema, models } from "mongoose";
-import { postSchema } from "./post";
 
 const userSchema = new Schema(
   {
@@ -11,7 +10,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    posts: [postSchema],
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     postCount: {
       type: Number,
       default: 0,
