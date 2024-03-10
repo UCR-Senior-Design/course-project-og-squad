@@ -1,9 +1,9 @@
 import React from "react";
 
 const options = [
-  { label: "Gluten Free", icon: "🌾" },
-  { label: "High Protein", icon: "💪" },
-  { label: "Vegan", icon: "🌱" },
+  { label: "Gluten Free", icon: "🌾", tag: "glutenFree" },
+  { label: "High Protein", icon: "💪", tag: "highProtein" },
+  { label: "Vegan", icon: "🌱", tag: "vegan" },
   // Add other relevant options here
 ];
 
