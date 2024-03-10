@@ -22,8 +22,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <Navbar />
-          {children}
+          <div className="wrapper">
+            <Navbar />
+            {children}
+          </div>
           <Footer />
         </AuthProvider>
       </body>
