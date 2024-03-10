@@ -23,7 +23,7 @@ export default function AttributeSelector({ formData, setFormData }) {
           <label key={index} className="flex items-center space-x-2">
             <input
               type="checkbox"
-              value={option.label}
+              value={option.tag}
               onChange={(e) => {
                 const isChecked = e.target.checked;
                 const selectedOption = e.target.value;
