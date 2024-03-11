@@ -29,7 +29,7 @@ export default function Post({ post }) {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70 mb-6"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (

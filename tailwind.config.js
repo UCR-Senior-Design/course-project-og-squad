@@ -12,6 +12,7 @@ module.exports = {
         'sand': ['Quicksand', 'sans-serif' ],
         'basker': ['Baskervville', 'serif' ],
         'gara': ['EB Garamond', 'serif' ],
+        'madimi': ['Madimi One', 'sans-serif' ],
       },
       colors: {
         "custom-main-dark": "#FF9103",

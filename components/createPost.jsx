@@ -126,7 +126,7 @@ export default function CreatePost() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md my-26 border-4 border-black"
+      className="max-w-xl mx-auto p-6 shadow-md bg-orange-100 rounded-md my-26 border-4 border-black"
     >
       <h1 className="text-3xl font-semibold mb-4">Create New Post</h1>
 
@@ -212,7 +212,7 @@ export default function CreatePost() {
               <button
                 type="button"
                 onClick={handleButtonClick}
-                className="bg-custom-main-dark hover:bg-opacity-70 transition-colors ease-linear text-white px-3 py-1 rounded-md"
+                className="bg-orange-400 hover:bg-orange-500 transition-colors ease-linear text-white px-3 py-1 rounded-md"
               >
                 Choose File
               </button>
@@ -257,21 +257,23 @@ export default function CreatePost() {
 
         {/* Preview Section */}
         {showPreview && (
-          <div className="mt-4">
-            <h2 className="text-xl font-semibold mb-2">Preview</h2>
-            {/* Pass formData to the Post component */}
-            <Post
-              post={{
-                ...formData,
-                user_pfp: null,
-                user_name: session.user?.name,
-                recipe_name: formData.recipe_name,
-                recipe_recipe_description: formData.recipe_description,
-                recipe_cals: formData.recipe_cals,
-                recipe_time: formData.recipe_time,
-                recipe_image: recipeImagePreview,
-              }}
-            />
+          <div className="bg-white rounded-md border-4 border-black border-opacity-100 ">
+            <div className="mt-4">
+              <h2 className="text-xl font-semibold mb-2 ml-3">Preview</h2>
+              {/* Pass formData to the Post component */}
+              <Post
+                post={{
+                  ...formData,
+                  user_pfp: null,
+                  user_name: session.user?.name,
+                  recipe_name: formData.recipe_name,
+                  recipe_recipe_description: formData.recipe_description,
+                  recipe_cals: formData.recipe_cals,
+                  recipe_time: formData.recipe_time,
+                  recipe_image: recipeImagePreview,
+                }}
+              />
+            </div>
           </div>
         )}
         {/* Publish Post Button*/}
