@@ -1,12 +1,10 @@
 "use client";
-
 import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-
 import { motion } from "framer-motion";
 
 export default function Post({ post }) {
@@ -31,14 +29,14 @@ export default function Post({ post }) {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70 mb-6"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (
         <div>
           <div className="flex items-center mb-3">
             <FaUserCircle className="mr-2" style={{ color: "#FF8C00" }} />
-            <div className="font-semibold">{user_name}</div>
+            <div className="font-sand font-extrabold">{user_name}</div>
           </div>
           <img
             src={recipe_image}
@@ -53,7 +51,7 @@ export default function Post({ post }) {
               border: "2px solid #000",
             }}
           />
-          <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
+          <h2 className="font-sans text-xl text-gray-800 font-bold mt-3">
             {recipe_name}
           </h2>
           <div className="flex items-center mt-2 justify-between">

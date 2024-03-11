@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -26,6 +26,8 @@ export default function CreatePost() {
   });
 
   const router = useRouter();
+  const fileInputRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,7 @@ export default function CreatePost() {
     if (e.target.files && e.target.files[0]) {
       setRecipeImagePreview(URL.createObjectURL(e.target.files[0]));
       setRecipeImageUpload(e.target.files[0]);
+      setSelectedFile(e.target.files[0]);
     } else {
       setRecipeImagePreview(null);
       setRecipeImageUpload(null);
@@ -45,6 +48,11 @@ export default function CreatePost() {
   const handlePreview = () => {
     setShowPreview(true);
     console.log(formData);
+  };
+
+  // custom button for "Choose File"
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
@@ -118,9 +126,9 @@ export default function CreatePost() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md my-36"
+      className="max-w-xl mx-auto p-6 shadow-md bg-orange-100 rounded-md my-26 border-4 border-black"
     >
-      <h1 className="text-2xl font-semibold mb-4">Create New Post</h1>
+      <h1 className="text-3xl font-semibold mb-4">Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Recipe name section */}
@@ -141,37 +149,39 @@ export default function CreatePost() {
         </div>
 
         {/* Preperation section */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
-            Preparation Time (min):
-          </label>
-          <input
-            type="number"
-            name="recipe_time"
-            placeholder=""
-            id="recipe_time"
-            required
-            value={formData.recipe_time}
-            onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
+        <div className="flex space-x-4 justify-between">
+          <div className="flex flex-col">
+            <label className="text-sm font-medium mb-1" htmlFor="recipe_time">
+              Preparation Time (min):
+            </label>
+            <input
+              type="number"
+              name="recipe_time"
+              placeholder=""
+              id="recipe_time"
+              required
+              value={formData.recipe_time}
+              onChange={handleInputChange}
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-        {/* Calories section */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
-            Calories:
-          </label>
-          <input
-            type="number"
-            name="recipe_cals"
-            placeholder=""
-            id="recipe_cals"
-            required
-            value={formData.recipe_cals}
-            onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
-          />
+          {/* Calories section */}
+          <div className="flex flex-col">
+            <label className="text-sm font-medium mb-1" htmlFor="recipe_cals">
+              Calories:
+            </label>
+            <input
+              type="number"
+              name="recipe_cals"
+              placeholder=""
+              id="recipe_cals"
+              required
+              value={formData.recipe_cals}
+              onChange={handleInputChange}
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
 
         {/* Short Description section */}
@@ -198,15 +208,28 @@ export default function CreatePost() {
           <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
             Upload Image
           </label>
-          <input
-            name="recipe_image"
-            id="recipe_image"
-            type="file"
-            accept="image/*"
-            required
-            onChange={handleImageChange}
-            className="mb-2"
-          />
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={handleButtonClick}
+                className="bg-orange-400 hover:bg-orange-500 transition-colors ease-linear text-white px-3 py-1 rounded-md"
+              >
+                Choose File
+              </button>
+              <span className="text-gray-600">
+                {selectedFile ? `File selected: ${selectedFile.name}` : "No file selected."}
+              </span>
+              <input
+                ref={fileInputRef}
+                name="recipe_image"
+                id="recipe_image"
+                type="file"
+                accept="image/*"
+                required
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
         </div>
 
         {/* Step Section */}
@@ -234,21 +257,23 @@ export default function CreatePost() {
 
         {/* Preview Section */}
         {showPreview && (
-          <div className="mt-4">
-            <h2 className="text-xl font-semibold mb-2">Preview</h2>
-            {/* Pass formData to the Post component */}
-            <Post
-              post={{
-                ...formData,
-                user_pfp: null,
-                user_name: session.user?.name,
-                recipe_name: formData.recipe_name,
-                recipe_recipe_description: formData.recipe_description,
-                recipe_cals: formData.recipe_cals,
-                recipe_time: formData.recipe_time,
-                recipe_image: recipeImagePreview,
-              }}
-            />
+          <div className="bg-white rounded-md border-4 border-black border-opacity-100 ">
+            <div className="mt-4">
+              <h2 className="text-xl font-semibold mb-2 ml-3">Preview</h2>
+              {/* Pass formData to the Post component */}
+              <Post
+                post={{
+                  ...formData,
+                  user_pfp: null,
+                  user_name: session.user?.name,
+                  recipe_name: formData.recipe_name,
+                  recipe_recipe_description: formData.recipe_description,
+                  recipe_cals: formData.recipe_cals,
+                  recipe_time: formData.recipe_time,
+                  recipe_image: recipeImagePreview,
+                }}
+              />
+            </div>
           </div>
         )}
         {/* Publish Post Button*/}

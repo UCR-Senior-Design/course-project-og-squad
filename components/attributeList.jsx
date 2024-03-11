@@ -17,16 +17,16 @@ export default function AttributeList({ attributes, time, cals }) {
     <div>
       <div className="flex items-center">
         <div className="flex flex-col items-center mr-4">
-          <IoIosTimer />
-          <p className="font-sans text-xs text-gray-500">{time} mins </p>
+          <IoIosTimer className="text-2xl" />
+          <p className="font-sans text-xs mt-1 text-gray-500">{time} mins </p>
         </div>
         <div className="flex flex-col items-center">
-          <FaFireFlameCurved className="text-red-500" />
-          <p className="font-sans text-xs text-gray-500">{cals} cals</p>
+          <FaFireFlameCurved className="text-red-500 text-2xl" />
+          <p className="font-sans text-xs mt-1 text-gray-500">{cals} cals</p>
         </div>
 
         {attributes.map((attribute, index) => (
-          <div key={index} className="flex items-center justify-center ml-4">
+          <div key={index} className="flex items-center justify-center ml-7 mb-5">
             {attributeIcons[attribute]}
           </div>
         ))}

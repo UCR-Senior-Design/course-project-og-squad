@@ -36,18 +36,23 @@ export default async function RecipePage({ params }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto my-16">
+    <div className="max-w-3xl mx-auto my-16 bg-orange-100 p-7 rounded-xl border-4 border-black border-opacity-70">
       <div className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70">
-        <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
-        <p className="text-xl ">{data.recipe.user_name}</p>
+        <FaUserCircle className="mr-2 mb-3 text-2xl text-custom-main-dark" />
+        <p className="text-2xl font-extrabold font-sand mb-3">{data.recipe.user_name}</p>
       </div>
       <img
         src={data.recipe.recipe_image}
         alt={data.recipe_name}
         className="mb-3"
+        style={{
+          objectFit: "cover",
+          borderRadius: "30px",
+          border: "3px solid #000",
+        }}
       />
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold mb-4">{data.recipe.recipe_name}</h1>
+        <h1 className="text-4xl font-bold mb-4">{data.recipe.recipe_name}</h1>
         <div className="flex-row items-center justify-center">
           <FaRegHeart className="text-custom-main-dark text-2xl hover:cursor-pointer" />
           <p className="text-lg text-center">{data.recipe.recipe_likes}</p>
