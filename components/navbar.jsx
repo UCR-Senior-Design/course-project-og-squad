@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import SignInButton from "./signInButton";
 import SnapChefLogo from "../assets/SnapChefV1.svg";
 import Search from "../assets/icons/Search.svg";
@@ -39,6 +40,7 @@ function Navbar() {
 
   const isLinkActive = (path) => path === activePath;
 
+
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
@@ -52,19 +54,28 @@ function Navbar() {
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
-      {/* Search field in the middle */}
-      <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
-        <input
-          type="search"
-          placeholder="Search..."
-          className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
-        />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-4">
-          <Image src={Search} alt="Search" width={20} height={20} />
-        </div>
-      </div>
+      {/* Display only the search field on the homepage */}
+      {pathname == '/home' && (
+        <form>
+          <motion.div 
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex items-center flex-shrink-0 w-50 px-2 relative"
+            >
+            <input
+              type="search"
+              placeholder="Search..."
+              className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
+            />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4">
+              <Image src={Search} alt="Search" width={20} height={20} />
+            </div>
+          </motion.div>
+        </form>
+      )}
       {session ? (
-        <ul className="flex gap-8 mr-10 list-none">
+        <ul className="flex gap-8 list-none">
           <Link href="/home">
             <Image
               src={isLinkActive("/home") ? HomeFill : Home}
