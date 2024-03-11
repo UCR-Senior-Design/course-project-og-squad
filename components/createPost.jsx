@@ -126,7 +126,7 @@ export default function CreatePost() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="max-w-xl mx-auto p-6 shadow-md bg-orange-100 rounded-md my-26 border-4 border-black"
+      className="max-w-xl mx-auto p-6 shadow-md rounded-md my-26 border-4 border-black"
     >
       <h1 className="text-3xl font-semibold mb-4">Create New Post</h1>
 
@@ -257,7 +257,6 @@ export default function CreatePost() {
 
         {/* Preview Section */}
         {showPreview && (
-          <div className="bg-white rounded-md border-4 border-black border-opacity-100 ">
             <div className="mt-4">
               <h2 className="text-xl font-semibold mb-2 ml-3">Preview</h2>
               {/* Pass formData to the Post component */}
@@ -274,19 +273,18 @@ export default function CreatePost() {
                 }}
               />
             </div>
-          </div>
-        )}
-        {/* Publish Post Button*/}
-        {showPreview && (
-          <div className="flex items-center space-x-4 mt-4">
-            <button
-              type="submit"
-              className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
-            >
-              Publish Post
-            </button>
-          </div>
-        )}
+          )}
+          {/* Publish Post Button*/}
+          {showPreview && (
+            <div className="flex items-center space-x-4 mt-4">
+              <button
+                type="submit"
+                className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+              >
+                Publish Post
+              </button>
+            </div>
+          )}
       </form>
     </motion.div>
   );
