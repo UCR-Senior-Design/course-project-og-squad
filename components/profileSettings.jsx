@@ -53,7 +53,7 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
         <div className="bg-custom-main-dark rounded-t-lg p-3">
           {/* Orange background for top */}
           {/* Title */}
-          <h1 className="text-black text-xl font-bold">Edit Profile</h1>
+          <h1 className="text-black text-2xl font-bold">Edit Profile</h1>
         </div>
         <div className="bg-white rounded-b-lg p-4">
           {/* White background for rest */}
@@ -66,12 +66,12 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
                   alt="Profile Picture"
                   className="rounded-full w-16 h-16"
                 />
-                <div className="mx-3 px-1 font-bold border-solid border border-[#A3A3A3] rounded-xl">
+                <div className="mx-3 px-1 font-bold text-xl border-solid border border-[#A3A3A3] rounded-xl">
                   {userName}
                 </div>
               </div>
 
-              <button className="ml-12 bg-custom-main-dark p-2 rounded-xl font-semibold">
+              <button className="ml-12 bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 rounded-xl font-semibold">
                 Change Photo
               </button>
             </div>
@@ -87,12 +87,12 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
           <div>
             <button
               onClick={() => signOut()}
-              className="bg-red-500 px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+              className="bg-[#575A65] bg-opacity-60 hover:bg-opacity-100 transition-colors ease-linear px-4 py-2 rounded-lg text-white"
             >
               Log Out
             </button>
             <button
-              className=" bg-custom-main-dark p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
+              className=" bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
               onClick={handleConfirmClick}
             >
               Confirm

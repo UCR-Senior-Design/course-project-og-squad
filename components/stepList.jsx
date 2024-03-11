@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
 
 const StepList = ({ steps }) => {
   const [expandedStep, setExpandedStep] = useState([
@@ -33,9 +34,17 @@ const StepList = ({ steps }) => {
                 <IoIosArrowDropdown className="ml-1" />
               )}
             </button>
+          <AnimatePresence>
             {expandedStep.includes(index) && (
-              <p className="text-md">{step.description}</p>
+              <motion.p
+                initial={{ opacity: 0, y: -10, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto"}}
+                exit={{ opacity: 0, y: -10, height: 0 }}
+                className="text-md">
+                {step.description}
+              </motion.p>
             )}
+          </AnimatePresence>
           </li>
         ))}
       </ul>

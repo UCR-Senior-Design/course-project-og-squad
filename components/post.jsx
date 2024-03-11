@@ -1,12 +1,10 @@
 "use client";
-
 import Image from "next/image";
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -56,7 +54,7 @@ export default function Post({ post }) {
               borderRadius: "10px",
             }}
           />
-          <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
+          <h2 className="font-sans text-xl text-gray-800 font-bold mt-3">
             {recipe_name}
           </h2>
           <div className="flex items-center mt-2 justify-between">

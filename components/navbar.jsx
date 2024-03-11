@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SignInButton from "./signInButton";
-import SnapChefLogo from "../assets/SnapChefV1.svg";
+import SnapChefLogo from "../assets/LogoDesign1.svg";
 import Search from "../assets/icons/Search.svg";
 import Home from "../assets/icons/home.svg";
 import HomeFill from "../assets/icons/homefill.svg";

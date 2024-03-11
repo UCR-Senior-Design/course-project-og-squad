@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville&family=EB+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,16 +31,19 @@ html, body {
   transform: translateY(-3px);
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.5;
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
   }
   50% {
-    opacity: 1;
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
-  
-.animate-pulse {
-  animation: pulse .9s infinite;
+
+.text-bounce {
+  animation: bounce 4s infinite;
 }
   
