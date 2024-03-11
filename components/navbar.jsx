@@ -38,7 +38,6 @@ function Navbar() {
     setActivePath(pathname);
   }, [pathname]);
 
-
   const isLinkActive = (path) => path === activePath;
 
 
@@ -88,7 +87,7 @@ function Navbar() {
           </Link>
           <div className="nav-icon cursor-pointer" onClick={handleBellClick}>
             <Image
-              src={showNotifications ? BellFill : Bell} 
+              src={showNotifications ? BellFill : Bell}
               alt="Bell"
               width={40}
               height={40}
@@ -112,7 +111,7 @@ function Navbar() {
               height={40}
             />
           </Link>
-          <Link href="/profile">
+          <Link href={`/profile/${session?.user?.name}`}>
             <Image
               src={isLinkActive("/profile") ? ProfileFill : Profile}
               alt="Home"
@@ -125,7 +124,9 @@ function Navbar() {
       ) : (
         <SignInButton />
       )}
-      {showNotifications && <Notifications setShowNotifications={setShowNotifications} />}
+      {showNotifications && (
+        <Notifications setShowNotifications={setShowNotifications} />
+      )}
     </nav>
   );
 }

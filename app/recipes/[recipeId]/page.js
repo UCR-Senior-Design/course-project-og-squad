@@ -2,30 +2,10 @@ import IngredientList from "@/components/ingredientList";
 import AttributeList from "@/components/attributeList";
 import StepList from "@/components/stepList";
 import NotFoundPage from "@/app/not-found";
+import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
-
-async function fetchRecipe(recipeId) {
-  try {
-    const response = await fetch(
-      `http://localhost:3000//api/fetchRecipe?id=${recipeId}`,
-      {
-        next: {
-          revalidate: 0, // use 0 to opt out of using cache
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch recipe");
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching recipe:", error.message);
-    return null; // Return null in case of error
-  }
-}
+import { fetchRecipe } from "@/constants";
 
 export default async function RecipePage({ params }) {
   const { recipeId } = params;
@@ -36,11 +16,14 @@ export default async function RecipePage({ params }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto my-16 bg-orange-100 p-7 rounded-xl border-4 border-black border-opacity-70">
-      <div className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70">
-        <FaUserCircle className="mr-2 mb-3 text-2xl text-custom-main-dark" />
-        <p className="text-2xl font-extrabold font-sand mb-3">{data.recipe.user_name}</p>
-      </div>
+    <div className="max-w-3xl mx-auto my-16">
+      <Link
+        href={`/profile/${data.recipe.user_name}`}
+        className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70"
+      >
+        <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+        <p className="text-xl ">{data.recipe.user_name}</p>
+      </Link>
       <img
         src={data.recipe.recipe_image}
         alt={data.recipe_name}
