@@ -68,8 +68,10 @@ export default function StepSection({ formData, setFormData }) {
               type="button"
               onClick={() => removeStep(index)}
               className={`mt-2 ${
-                formData.steps.length === 1 ? "bg-gray-500 opacity-50 cursor-not-allowed" : ""
-              } bg-red-500 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-red-600`}
+                formData.steps.length === 1 
+                ? "bg-[#575A65] opacity-50 cursor-not-allowed" 
+                : "bg-red-500"
+              } transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-red-600`}
               disabled={formData.steps.length === 1}
             >
               Remove Step
