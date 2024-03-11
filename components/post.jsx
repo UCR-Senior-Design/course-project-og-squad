@@ -8,6 +8,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Post({ post }) {
   const {
@@ -31,15 +32,18 @@ export default function Post({ post }) {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] border-4 border-black border-opacity-70"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px]"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (
         <div>
-          <div className="flex items-center mb-3">
-            <FaUserCircle className="mr-2" style={{ color: "#FF8C00" }} />
-            <div className="font-semibold">{user_name}</div>
-          </div>
+          <Link
+            href={`/profile/${user_name}`}
+            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 mb-2"
+          >
+            <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+            <p className="text-lg ">{user_name}</p>
+          </Link>
           <img
             src={recipe_image}
             alt="Post Image"
@@ -50,7 +54,6 @@ export default function Post({ post }) {
               height: "250px",
               objectFit: "cover",
               borderRadius: "10px",
-              border: "2px solid #000",
             }}
           />
           <h2 className="font-sans text-lg text-gray-800 font-bold mt-3">
