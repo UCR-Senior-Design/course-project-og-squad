@@ -37,7 +37,7 @@ export default function Post({ post }) {
         <div>
           <Link
             href={`/profile/${user_name}`}
-            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 mb-2"
+            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear mb-2"
           >
             <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
             <p className="text-lg ">{user_name}</p>
