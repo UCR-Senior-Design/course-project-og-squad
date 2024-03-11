@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { IoMdSettings } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileSettings from "@/components/profileSettings";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 export default function Profile({ profile }) {
   const {
@@ -15,11 +18,22 @@ export default function Profile({ profile }) {
     imageURL,
   } = profile;
 
+  const { data: session } = useSession();
   const [showSettings, setShowSettings] = useState(false); // State to control the visibility of Settings component
+  const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
 
   const handleSettingsClick = () => {
     setShowSettings(!showSettings); // Toggle the visibility of Notifications component
   };
+
+  useEffect(() => {
+    // Check if session data is available and if the current user is viewing their own profile
+    if (session && session.user.id === id) {
+      setIsCurrentUserProfile(true);
+    } else {
+      setIsCurrentUserProfile(false);
+    }
+  }, [session, id]);
 
   return (
     <div className="flex">
@@ -42,12 +56,14 @@ export default function Profile({ profile }) {
             {/* Username with setting icon */}
             <div className="flex items-center mb-4">
               <p className="text-xl font-bold mr-2">{userName}</p>
-              <IoMdSettings
-                className="cursor-pointer"
-                onClick={handleSettingsClick}
-                color={showSettings ? "#FF9103" : "#A3A3A3"}
-                size={30}
-              />
+              {isCurrentUserProfile && (
+                <IoMdSettings
+                  className="cursor-pointer"
+                  onClick={handleSettingsClick}
+                  color={showSettings ? "#FF9103" : "#A3A3A3"}
+                  size={30}
+                />
+              )}
             </div>
 
             {/* Counts and Bio container */}

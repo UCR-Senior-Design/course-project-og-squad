@@ -1,35 +1,53 @@
-import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
-import Post from "@/models/post";
-import { NextResponse } from "next/server";
+// import { connectMongoDB } from "@/lib/mongodb";
+// import User from "@/models/user";
+// import Post from "@/models/post";
+// import { NextResponse } from "next/server";
 
-export async function POST(req) {
-  try {
-    await connectMongoDB();
-    const { user_id } = await req.json();
-    const user = await User.findById(user_id);
+// export async function GET(req) {
+//   try {
+//     const searchParams = req.nextUrl.searchParams;
+//     const username = searchParams.get("username");
 
-    const { _id, name, bio, followerCount, followingCount, postCount } = user;
+//     if (!username) {
+//       return NextResponse.json(
+//         { message: "Username is required" },
+//         { status: 400 }
+//       );
+//     }
 
-    // Get the post IDs from the user's document
-    const postIds = user.posts;
+//     await connectMongoDB();
+//     const user = await User.findOne({ username });
 
-    // Use the post IDs to find the corresponding posts
-    const posts = await Post.find({ _id: { $in: postIds } });
+//     if (!user) {
+//       return NextResponse.json({ message: "User not found" }, { status: 404 });
+//     }
 
-    return NextResponse.json({
-      username: name,
-      bio,
-      followerCount,
-      followingCount,
-      posts, // Return the found posts
-      postCount,
-      id: _id,
-    });
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json({
-      error,
-    });
-  }
-}
+//     // Extract user info
+//     const { _id, name, bio, followerCount, followingCount, postCount } = user;
+
+//     // Get the post IDs from the user's document
+//     const postIds = user.posts;
+
+//     // Use the post IDs to find the corresponding posts
+//     const posts = await Post.find({ _id: { $in: postIds } });
+
+//     // Return user info along with their posts
+//     return NextResponse.json({
+//       user: {
+//         id: _id,
+//         username: name,
+//         bio,
+//         followerCount,
+//         followingCount,
+//         postCount,
+//       },
+//       posts, // Return the found posts
+//     });
+//   } catch (error) {
+//     console.error("Error fetching user and posts:", error);
+//     return NextResponse.json(
+//       { message: "Internal server error" },
+//       { status: 500 }
+//     );
+//   }
+// }

@@ -1,3 +1,5 @@
+"use client";
+
 import { FaRegHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 
