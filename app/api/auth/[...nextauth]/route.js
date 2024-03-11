@@ -48,7 +48,7 @@ export const authOptions = {
 
     async session({ session, token, user }) {
       // Send id to the client form provider
-      console.log(user);
+      // console.log(user);
       session.accessToken = token.accessToken;
       session.user.id = token.id;
       session.user.username = token.username;

@@ -23,7 +23,7 @@ export async function fetchProfile(username) {
 export async function fetchRecipe(recipeId) {
   try {
     const response = await fetch(
-      `http://localhost:3000//api/fetchRecipe?id=${recipeId}`,
+      `http://localhost:3000/api/fetchRecipe?id=${recipeId}`,
       {
         next: {
           revalidate: 0, // use 0 to opt out of using cache
@@ -40,4 +40,14 @@ export async function fetchRecipe(recipeId) {
     console.error("Error fetching recipe:", error.message);
     return null; // Return null in case of error
   }
+}
+
+export async function getHomePageRecipes() {
+  const res = await fetch("http://localhost:3000/api/homeRecipes", {
+    next: { revalidate: 3 },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
 }
