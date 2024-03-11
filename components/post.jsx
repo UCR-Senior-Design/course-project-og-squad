@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
+
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { IoIosTimer } from "react-icons/io";
-import { IoMdSettings } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -40,46 +39,48 @@ export default function Post({ post }) {
             className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear mb-2"
           >
             <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
-            <p className="text-lg ">{user_name}</p>
+            <p className="text-xl">{user_name}</p>
           </Link>
-          <img
-            src={recipe_image}
-            alt="Post Image"
-            width={300}
-            height={300}
-            style={{
-              width: "300px",
-              height: "250px",
-              objectFit: "cover",
-              borderRadius: "10px",
-            }}
-          />
-          <h2 className="font-sans text-xl text-gray-800 font-bold mt-3">
-            {recipe_name}
-          </h2>
-          <div className="flex items-center mt-2 justify-between">
-            <div className="flex">
-              <div className="flex flex-col items-center mr-4">
-                <IoIosTimer />
-                <p className="font-sans text-xs text-gray-500">
-                  {recipe_time} mins
-                </p>
+          <Link href={`/recipes/${_id}`} className="hover:opacity-80">
+            <img
+              src={recipe_image}
+              alt="Post Image"
+              width={300}
+              height={300}
+              style={{
+                width: "300px",
+                height: "250px",
+                objectFit: "cover",
+                borderRadius: "10px",
+              }}
+            />
+            <h2 className="font-sans text-xl text-gray-800 font-bold mt-3">
+              {recipe_name}
+            </h2>
+            <div className="flex items-center mt-2 justify-between">
+              <div className="flex">
+                <div className="flex flex-col items-center mr-4">
+                  <IoIosTimer />
+                  <p className="font-sans text-xs text-gray-500">
+                    {recipe_time} mins
+                  </p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <FaFireFlameCurved className="text-red-500" />
+                  <p className="font-sans text-xs text-gray-500">
+                    {recipe_cals} cals
+                  </p>
+                </div>
               </div>
               <div className="flex flex-col items-center">
-                <FaFireFlameCurved className="text-red-500" />
-                <p className="font-sans text-xs text-gray-500">
-                  {recipe_cals} cals
-                </p>
+                <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
+                {recipe_likes}
               </div>
             </div>
-            <div className="flex flex-col items-center">
-              <FaRegHeart style={{ color: "#FF8C00" }} size={20} />
-              {recipe_likes}
-            </div>
-          </div>
-          <p className="font-sans text-sm text-gray-800 mt-3">
-            {truncateText(recipe_description)}
-          </p>
+            <p className="font-sans text-sm text-gray-800 mt-3">
+              {truncateText(recipe_description)}
+            </p>
+          </Link>
         </div>
       )}
     </motion.div>

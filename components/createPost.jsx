@@ -114,7 +114,7 @@ export default function CreatePost() {
 
       // Handle successful post creation
       console.log("Post created successfully");
-      router.push("/profile");
+      router.push(`/profile/${session?.user?.name}`);
     } catch (error) {
       console.error("Error:", error.message);
       // Handle error
@@ -208,28 +208,30 @@ export default function CreatePost() {
           <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
             Upload Image
           </label>
-            <div className="flex items-center space-x-2">
-              <button
-                type="button"
-                onClick={handleButtonClick}
-                className="bg-orange-400 hover:bg-orange-500 transition-colors ease-linear text-white px-3 py-1 rounded-md"
-              >
-                Choose File
-              </button>
-              <span className="text-gray-600">
-                {selectedFile ? `File selected: ${selectedFile.name}` : "No file selected."}
-              </span>
-              <input
-                ref={fileInputRef}
-                name="recipe_image"
-                id="recipe_image"
-                type="file"
-                accept="image/*"
-                required
-                onChange={handleImageChange}
-                className="hidden"
-              />
-            </div>
+          <div className="flex items-center space-x-2">
+            <button
+              type="button"
+              onClick={handleButtonClick}
+              className="bg-orange-400 hover:bg-orange-500 transition-colors ease-linear text-white px-3 py-1 rounded-md"
+            >
+              Choose File
+            </button>
+            <span className="text-gray-600">
+              {selectedFile
+                ? `File selected: ${selectedFile.name}`
+                : "No file selected."}
+            </span>
+            <input
+              ref={fileInputRef}
+              name="recipe_image"
+              id="recipe_image"
+              type="file"
+              accept="image/*"
+              required
+              onChange={handleImageChange}
+              className="hidden"
+            />
+          </div>
         </div>
 
         {/* Step Section */}
@@ -257,34 +259,34 @@ export default function CreatePost() {
 
         {/* Preview Section */}
         {showPreview && (
-            <div className="mt-4">
-              <h2 className="text-xl font-semibold mb-2 ml-3">Preview</h2>
-              {/* Pass formData to the Post component */}
-              <Post
-                post={{
-                  ...formData,
-                  user_pfp: null,
-                  user_name: session.user?.name,
-                  recipe_name: formData.recipe_name,
-                  recipe_recipe_description: formData.recipe_description,
-                  recipe_cals: formData.recipe_cals,
-                  recipe_time: formData.recipe_time,
-                  recipe_image: recipeImagePreview,
-                }}
-              />
-            </div>
-          )}
-          {/* Publish Post Button*/}
-          {showPreview && (
-            <div className="flex items-center space-x-4 mt-4">
-              <button
-                type="submit"
-                className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
-              >
-                Publish Post
-              </button>
-            </div>
-          )}
+          <div className="mt-4">
+            <h2 className="text-xl font-semibold mb-2 ml-3">Preview</h2>
+            {/* Pass formData to the Post component */}
+            <Post
+              post={{
+                ...formData,
+                user_pfp: null,
+                user_name: session.user?.name,
+                recipe_name: formData.recipe_name,
+                recipe_recipe_description: formData.recipe_description,
+                recipe_cals: formData.recipe_cals,
+                recipe_time: formData.recipe_time,
+                recipe_image: recipeImagePreview,
+              }}
+            />
+          </div>
+        )}
+        {/* Publish Post Button*/}
+        {showPreview && (
+          <div className="flex items-center space-x-4 mt-4">
+            <button
+              type="submit"
+              className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+            >
+              Publish Post
+            </button>
+          </div>
+        )}
       </form>
     </motion.div>
   );
