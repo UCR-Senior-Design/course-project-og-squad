@@ -41,3 +41,13 @@ export async function fetchRecipe(recipeId) {
     return null; // Return null in case of error
   }
 }
+
+export async function getHomePageRecipes() {
+  const res = await fetch("http://localhost:3000/api/homeRecipes", {
+    next: { revalidate: 3 },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
