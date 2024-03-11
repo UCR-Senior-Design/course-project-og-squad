@@ -21,9 +21,9 @@ export default function Post({ post }) {
   } = post;
 
   const truncateText = (text) => {
-    return text.length > 80 ? text.slice(0, 80) + "..." : <pre className="font-sans">{ text + "\n " }</pre>;  //add new line for single-lined descriptions for uniformity
+    return text.length > 50 ? text.slice(0, 50) + "..." : text;
   };
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
@@ -36,7 +36,7 @@ export default function Post({ post }) {
         <div>
           <Link
             href={`/profile/${user_name}`}
-            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear mb-2"
+            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear"
           >
             <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
             <p className="text-xl">{user_name}</p>

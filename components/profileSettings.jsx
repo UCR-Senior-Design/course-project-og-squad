@@ -71,7 +71,7 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
                 </div>
               </div>
 
-              <button className="ml-12 bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 rounded-xl font-semibold">
+              <button className="ml-12 bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 rounded-xl font-semibold">
                 Change Photo
               </button>
             </div>
@@ -92,7 +92,7 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
               Log Out
             </button>
             <button
-              className=" bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
+              className=" bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
               onClick={handleConfirmClick}
             >
               Confirm
