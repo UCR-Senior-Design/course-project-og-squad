@@ -57,7 +57,7 @@ export default function IngredientSection({ formData, setFormData }) {
                     formData.ingredients.length === 1
                       ? "opacity-50 cursor-not-allowed"
                       : ""
-                  } bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600`}
+                  } bg-red-500 hover:bg-opacity-60 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-red-600`}
                   disabled={formData.ingredients.length === 1}
                 >
                   Remove
@@ -70,7 +70,7 @@ export default function IngredientSection({ formData, setFormData }) {
       <button
         type="button"
         onClick={addIngredient}
-        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+        className="bg-green-500 hover:bg-opacity-60 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-green-600"
       >
         Add Ingredient
       </button>

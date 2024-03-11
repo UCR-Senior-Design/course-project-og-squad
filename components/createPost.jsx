@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -26,6 +26,8 @@ export default function CreatePost() {
   });
 
   const router = useRouter();
+  const fileInputRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,7 @@ export default function CreatePost() {
     if (e.target.files && e.target.files[0]) {
       setRecipeImagePreview(URL.createObjectURL(e.target.files[0]));
       setRecipeImageUpload(e.target.files[0]);
+      setSelectedFile(e.target.files[0]);
     } else {
       setRecipeImagePreview(null);
       setRecipeImageUpload(null);
@@ -45,6 +48,11 @@ export default function CreatePost() {
   const handlePreview = () => {
     setShowPreview(true);
     console.log(formData);
+  };
+
+  // custom button for "Choose File"
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
@@ -200,15 +208,28 @@ export default function CreatePost() {
           <label className="text-sm font-medium mb-1" htmlFor="recipe_image">
             Upload Image
           </label>
-          <input
-            name="recipe_image"
-            id="recipe_image"
-            type="file"
-            accept="image/*"
-            required
-            onChange={handleImageChange}
-            className="mb-2"
-          />
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={handleButtonClick}
+                className="bg-custom-main-dark hover:bg-opacity-70 transition-colors ease-linear text-white px-3 py-1 rounded-md"
+              >
+                Choose File
+              </button>
+              <span className="text-gray-600">
+                {selectedFile ? `File selected: ${selectedFile.name}` : "No file selected."}
+              </span>
+              <input
+                ref={fileInputRef}
+                name="recipe_image"
+                id="recipe_image"
+                type="file"
+                accept="image/*"
+                required
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
         </div>
 
         {/* Step Section */}

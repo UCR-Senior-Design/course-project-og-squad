@@ -52,7 +52,7 @@ export default async function RecipePage({ params }) {
         }}
       />
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold mb-4">{data.recipe.recipe_name}</h1>
+        <h1 className="text-4xl font-bold mb-4">{data.recipe.recipe_name}</h1>
         <div className="flex-row items-center justify-center">
           <FaRegHeart className="text-custom-main-dark text-2xl hover:cursor-pointer" />
           <p className="text-lg text-center">{data.recipe.recipe_likes}</p>

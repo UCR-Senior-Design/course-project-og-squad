@@ -69,7 +69,7 @@ export default function StepSection({ formData, setFormData }) {
               onClick={() => removeStep(index)}
               className={`mt-2 ${
                 formData.steps.length === 1 ? "opacity-50 cursor-not-allowed" : ""
-              } bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600`}
+              } bg-red-500 hover:bg-opacity-60 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-red-600`}
               disabled={formData.steps.length === 1}
             >
               Remove Step
@@ -80,7 +80,7 @@ export default function StepSection({ formData, setFormData }) {
       <button
         type="button"
         onClick={addStep}
-        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+        className="bg-green-500 hover:bg-opacity-60 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-green-600"
       >
         Add Step
       </button>
