@@ -40,7 +40,6 @@ function Navbar() {
 
   const isLinkActive = (path) => path === activePath;
 
-
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
@@ -55,14 +54,14 @@ function Navbar() {
         />
       </Link>
       {/* Display only the search field on the homepage */}
-      {pathname == '/home' && (
+      {pathname == "/home" && (
         <form>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="flex items-center flex-shrink-0 w-50 px-2 relative"
-            >
+          >
             <input
               type="search"
               placeholder="Search..."
@@ -113,7 +112,11 @@ function Navbar() {
           </Link>
           <Link href={`/profile/${session?.user?.name}`}>
             <Image
-              src={isLinkActive("/profile") ? ProfileFill : Profile}
+              src={
+                isLinkActive(`/profile/${session?.user?.name}`)
+                  ? ProfileFill
+                  : Profile
+              }
               alt="Home"
               className="nav-icon cursor-pointer"
               width={40}
