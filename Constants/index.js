@@ -1,21 +1,21 @@
-// import { AiFillHome } from "react-icons/ai";
-// import { ImBook } from "react-icons/im";
-// import { BsFillPenFill } from "react-icons/bs";
+export async function fetchProfile(username) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/fetchProfile?username=${username}`,
+      {
+        next: {
+          revalidate: 0, // use 0 to opt out of using cache
+        },
+      }
+    );
 
-// export const navLinks = [
-//   {
-//     id: "home",
-//     title: "Home",
-//     icon: <AiFillHome />,
-//   },
-//   {
-//     id: "post",
-//     title: "Post",
-//     icon: <BsFillPenFill />,
-//   },
-//   {
-//     id: "saved",
-//     title: "Saved",
-//     icon: <ImBook />,
-//   },
-// ];
+    if (!response.ok) {
+      throw new Error("Failed to fetch profile!");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching profile:", error.message);
+    return null; // Return null in case of error
+  }
+}
