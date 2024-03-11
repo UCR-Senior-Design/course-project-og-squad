@@ -22,15 +22,15 @@ export default function Post({ post }) {
   } = post;
 
   const truncateText = (text) => {
-    return text.length > 50 ? text.slice(0, 50) + "..." : text;
+    return text.length > 80 ? text.slice(0, 80) + "..." : <pre className="font-sans">{ text + "\n " }</pre>;  //add new line for single-lined descriptions for uniformity
   };
-
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px]"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] transition-all ease-linear border-opacity-0 border-custom-main-dark hover:border-opacity-50 border-2"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (

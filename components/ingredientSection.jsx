@@ -55,7 +55,7 @@ export default function IngredientSection({ formData, setFormData }) {
                   onClick={() => removeIngredient(index)}
                   className={`ml-2 ${
                     formData.ingredients.length === 1
-                      ? "opacity-50 cursor-not-allowed"
+                      ? "bg-gray-500 opacity-50 cursor-not-allowed"
                       : ""
                   } bg-red-500 transition-colors ease-linear text-white px-4 py-2 rounded-md hover:bg-red-600`}
                   disabled={formData.ingredients.length === 1}

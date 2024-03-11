@@ -17,7 +17,7 @@ export default function ProfilePosts({ posts }) {
       <div>
         {/* Post Picture */}
         {imageURL && (
-          <div className="flex bg-orange-100 p-5 rounded-lg flex-col items-center">
+          <div className="flex bg-orange-100 p-5 rounded-lg flex-col items-center transition-all ease-linear border-opacity-0 border-custom-main-dark hover:border-opacity-50 border-2">
             <img
               src={imageURL}
               alt="My Post"
