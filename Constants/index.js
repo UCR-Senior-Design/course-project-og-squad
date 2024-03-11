@@ -23,7 +23,7 @@ export async function fetchProfile(username) {
 export async function fetchRecipe(recipeId) {
   try {
     const response = await fetch(
-      `http://localhost:3000//api/fetchRecipe?id=${recipeId}`,
+      `http://localhost:3000/api/fetchRecipe?id=${recipeId}`,
       {
         next: {
           revalidate: 0, // use 0 to opt out of using cache
