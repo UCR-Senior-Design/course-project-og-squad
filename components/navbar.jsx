@@ -26,6 +26,7 @@ function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
   const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { data: session } = useSession();
 
@@ -40,6 +41,11 @@ function Navbar() {
 
   const isLinkActive = (path) => path === activePath;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location.href = `/search/${searchTerm}`;
+    //setSearchTerm("");
+  };
 
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
@@ -54,24 +60,21 @@ function Navbar() {
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
-      {/* Display only the search field on the homepage */}
-      {pathname == '/home' && (
-        <form>
-          <motion.div 
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex items-center flex-shrink-0 w-50 px-2 relative"
-            >
+      {/* Display only the search field on the home and search page */}
+      { (pathname === '/home' || pathname.startsWith('/search/')) && (
+        <form onSubmit={handleSubmit}>
+          <div className="flex items-center flex-shrink-0 w-50 px-2 relative">
             <input
               type="search"
               placeholder="Search..."
-              className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
+              className="w-full px-2 py-1 border-2 border-gray-300 rounded pl-8"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-4">
               <Image src={Search} alt="Search" width={20} height={20} />
             </div>
-          </motion.div>
+          </div>
         </form>
       )}
       {session ? (
