@@ -23,7 +23,15 @@ export async function GET(req) {
     }
 
     // Extract user info
-    const { _id, name, bio, followerCount, followingCount, postCount } = user;
+    const {
+      _id,
+      name,
+      bio,
+      followerCount,
+      followingCount,
+      postCount,
+      likedPosts,
+    } = user;
 
     // Get the post IDs from the user's document
     const postIds = user.posts;
@@ -40,6 +48,7 @@ export async function GET(req) {
         followerCount,
         followingCount,
         postCount,
+        likedPosts,
       },
       posts, // Return the found posts
     });

@@ -3,9 +3,9 @@ import AttributeList from "@/components/attributeList";
 import StepList from "@/components/stepList";
 import NotFoundPage from "@/app/not-found";
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { fetchRecipe } from "@/constants";
+import Likes from "@/components/Likes";
 
 export default async function RecipePage({ params }) {
   const { recipeId } = params;
@@ -31,10 +31,10 @@ export default async function RecipePage({ params }) {
       />
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-4">{data.recipe.recipe_name}</h1>
-        <div className="flex-row items-center justify-center">
-          <FaRegHeart className="text-custom-main-dark text-2xl hover:cursor-pointer" />
-          <p className="text-lg text-center">{data.recipe.recipe_likes}</p>
-        </div>
+        <Likes
+          likeCount={data.recipe.recipe_likes}
+          recipeId={data.recipe._id}
+        />
       </div>
 
       <AttributeList

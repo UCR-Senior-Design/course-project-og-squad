@@ -15,6 +15,7 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    likedPosts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     bio: {
       type: String,
       default: "Add Bio.",

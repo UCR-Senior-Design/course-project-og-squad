@@ -29,14 +29,14 @@ export default function Post({ post }) {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px]"
+      className="bg-orange-100 p-7 rounded-xl flex items-center justify-center mx-auto max-w-[400px] transition-all ease-linear border-opacity-0 border-custom-main-dark hover:border-opacity-50 border-2"
     >
       {/* Display the square image if imageURL is provided */}
       {recipe_image && (
         <div>
           <Link
             href={`/profile/${user_name}`}
-            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70"
+            className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear"
           >
             <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
             <p className="text-xl">{user_name}</p>

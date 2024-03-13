@@ -45,10 +45,11 @@ export async function POST(req) {
       { new: true }
     );
 
-    return NextResponse.json(
-      { message: "New Post Added to DB." },
-      { status: 201 }
-    );
+    return NextResponse.json({
+      message: "New Post Added to DB.",
+      status: 201,
+      recipeId: createdRecipePost._id,
+    });
   } catch (error) {
     return NextResponse.json(
       { message: "An error has occured while adding new post to DB." },

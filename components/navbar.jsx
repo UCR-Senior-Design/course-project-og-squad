@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import SignInButton from "./signInButton";
 import SnapChefLogo from "../assets/LogoDesign1.svg";
 import Search from "../assets/icons/Search.svg";
@@ -17,6 +16,8 @@ import Fav from "../assets/icons/favorites.svg";
 import FavFill from "../assets/icons/favoritesfill.svg";
 import Profile from "../assets/icons/Profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
+import Autosuggest from "react-autosuggest";
+import { fetchRecipeNames } from "@/constants";
 
 import Notifications from "./notifications";
 
@@ -26,6 +27,8 @@ function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
   const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   const { data: session } = useSession();
 
@@ -40,6 +43,46 @@ function Navbar() {
 
   const isLinkActive = (path) => path === activePath;
 
+  // sets URL to fetch recipes based on search term
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location.href = `/search/${searchTerm}`;
+    setSearchTerm("");
+  };
+
+  // autocomplete feature
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      fetchRecipeNames(searchTerm)
+        .then((data) => setSuggestions(data?.recipeNames || []))
+        .catch((error) => console.error("Error fetching recipe names:", error));
+    } else {
+      setSuggestions([]);
+    }
+  }, [searchTerm]);
+
+  const autosuggestProps = {
+    suggestions: suggestions.slice(0, 5), // displays top 5 suggestions
+    onSuggestionsFetchRequested: ({ value }) => {
+      setSearchTerm(value);
+    },
+    onSuggestionsClearRequested: () => {
+      setSuggestions([]);
+    },
+    getSuggestionValue: (suggestion) => suggestion, // dropdown
+    renderSuggestion: (suggestion, { isHighlighted }) => (
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderBottom: "1px solid #ccc",
+          padding: "8px",
+          backgroundColor: isHighlighted ? "#eee" : "white",
+        }}
+      >
+        {suggestion}
+      </div>
+    ),
+  };
 
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
@@ -54,26 +97,30 @@ function Navbar() {
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
-      {/* Display only the search field on the homepage */}
-      {pathname == '/home' && (
-        <form>
-          <motion.div 
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex items-center flex-shrink-0 w-50 px-2 relative"
-            >
-            <input
-              type="search"
-              placeholder="Search..."
-              className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
-            />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-4">
-              <Image src={Search} alt="Search" width={20} height={20} />
+      {/* Display only the search field on the home and search page */}
+      {(pathname === "/home" || pathname.startsWith("/search/")) && (
+        <form onSubmit={handleSubmit} className="z-10">
+          <div className="fixed top-8 transform -translate-x-1/2">
+            <div className="relative">
+              <div className="absolute top-0 left-0 flex items-center m-2">
+                <Image src={Search} alt="Search" width={20} height={20} />
+              </div>
+              <Autosuggest
+                {...autosuggestProps}
+                inputProps={{
+                  type: "search",
+                  placeholder: "Search...",
+                  className:
+                    "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
+                  onChange: (_, { newValue }) => setSearchTerm(newValue),
+                  value: searchTerm,
+                }}
+              />
             </div>
-          </motion.div>
+          </div>
         </form>
       )}
+
       {session ? (
         <ul className="flex gap-8 list-none">
           <Link href="/home">
@@ -113,7 +160,11 @@ function Navbar() {
           </Link>
           <Link href={`/profile/${session?.user?.name}`}>
             <Image
-              src={isLinkActive("/profile") ? ProfileFill : Profile}
+              src={
+                isLinkActive(`/profile/${session?.user?.name}`)
+                  ? ProfileFill
+                  : Profile
+              }
               alt="Home"
               className="nav-icon cursor-pointer"
               width={40}

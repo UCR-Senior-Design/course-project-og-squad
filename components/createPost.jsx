@@ -112,9 +112,12 @@ export default function CreatePost() {
         return;
       }
 
+      const responseData = await createPostResponse.json();
+      console.log(responseData, responseData.recipeId);
+
       // Handle successful post creation
       console.log("Post created successfully");
-      router.push(`/profile/${session?.user?.name}`);
+      router.push(`/recipes/${responseData.recipeId}`);
     } catch (error) {
       console.error("Error:", error.message);
       // Handle error
@@ -247,7 +250,7 @@ export default function CreatePost() {
         <div className="flex items-center space-x-4 mt-4">
           <button
             type="button"
-            className={`bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70 ${
+            className={`bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70 transition-all ease-linear ${
               !recipeImageUpload ? "opacity-50 cursor-not-allowed" : ""
             }`}
             onClick={handlePreview}
@@ -273,6 +276,7 @@ export default function CreatePost() {
                 recipe_time: formData.recipe_time,
                 recipe_image: recipeImagePreview,
               }}
+              disabled
             />
           </div>
         )}
@@ -281,7 +285,7 @@ export default function CreatePost() {
           <div className="flex items-center space-x-4 mt-4">
             <button
               type="submit"
-              className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70"
+              className="bg-custom-main-dark px-4 py-2 rounded-lg text-white hover:bg-opacity-70 transition-all ease-linear"
             >
               Publish Post
             </button>

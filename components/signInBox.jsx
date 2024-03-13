@@ -36,7 +36,7 @@ export default function SignInBox() {
         return;
       }
 
-      router.replace("profile");
+      router.replace("/home");
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,10 @@ export default function SignInBox() {
               Sign In
             </h2>
             <div className="border-2 w-10 border-custom-main-dark inline-block mb-2"></div>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center"
+            >
               {/* Username */}
               <h1 className="flex w-64 text-xs">Username</h1>
               <div className="bg-gray-200 w-64 p-2 flex items-center m-2 rounded-2xl">
@@ -100,7 +103,9 @@ export default function SignInBox() {
                   key={Date.now()}
                   initial={{ scale: 0 }}
                   animate={animateError && { scale: 1 }}
-                  className={"flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md"}
+                  className={
+                    "flex w-64 bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md"
+                  }
                 >
                   {error}
                 </motion.div>
