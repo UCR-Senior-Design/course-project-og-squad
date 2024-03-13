@@ -36,6 +36,12 @@ export const postSchema = new Schema(
       type: Number,
       default: 0,
     },
+    liked_user_ids: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     recipe_steps: [
       {
         header: {

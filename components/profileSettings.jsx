@@ -15,6 +15,76 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
     }
   };
 
+  // const computeSHA256 = async (file) => {
+  //   const buffer = await file.arrayBuffer()
+  //   const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
+  //   const hashArray = Array.from(new Uint8Array(hashBuffer))
+  //   const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("")
+  //   return hashHex
+  // }
+
+  // const handleImageUpload = async (file) => {
+  //   const signedURLResult = await getSignedURL({
+  //     fileSize: file.size,
+  //     fileType: file.type,
+  //     checksum: await computeSHA256(file),
+  //   })
+  //   if (signedURLResult.failure !== undefined) {
+  //     throw new Error(signedURLResult.failure)
+  //   }
+  //   const { url, id: fileId } = signedURLResult.success
+  //   await fetch(url, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": file.type,
+  //     },
+  //     body: file,
+  //   })
+
+  //   const fileUrl = url.split("?")[0]
+  //   return fileId
+  // }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   setLoading(true)
+  //   try {
+  //     let fileId = undefined
+  //     if (file) {
+  //       setStatusMessage("Uploading...")
+  //       fileId = await handleFileUpload(file)
+  //     }
+
+  //     setStatusMessage("Posting post...")
+
+  //     await createPost({
+  //       content,
+  //       fileId: fileId,
+  //     })
+
+  //     setStatusMessage("Post Successful")
+  //   } catch (error) {
+  //     console.error(error)
+  //     setStatusMessage("Post failed")
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0] ?? null
+  //   setFile(file)
+  //   if (previewUrl) {
+  //     URL.revokeObjectURL(previewUrl)
+  //   }
+  //   if (file) {
+  //     const url = URL.createObjectURL(file)
+  //     setPreviewUrl(url)
+  //   } else {
+  //     setPreviewUrl(null)
+  //   }
+  // }
+
   const handleConfirmClick = async () => {
     try {
       const res = await fetch("/api/updateUserInfo", {
@@ -70,10 +140,14 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
                   {userName}
                 </div>
               </div>
-
-              <button className="ml-12 bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 rounded-xl font-semibold">
+              {/* <form action={uploadPfp} method="POST"> */}
+              <button
+                type="submit"
+                className="ml-12 bg-custom-main-dark bg-opacity-70 hover:bg-opacity-100 transition-colors ease-linear p-2 rounded-xl font-semibold"
+              >
                 Change Photo
               </button>
+              {/* </form> */}
             </div>
             <p className="font-semibold mt-4">Bio</p>
             <textarea
