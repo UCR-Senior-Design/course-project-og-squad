@@ -64,6 +64,28 @@ export async function fetchSearchTerm(term) {
   }
 }
 
+export async function fetchRecipeNames(searchTerm) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/fetchRecipeNames?searchTerm=${searchTerm}`,
+      {
+        next: {
+          revalidate: 0, // use 0 to opt out of using cache
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch recipe names");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching recipe names:", error.message);
+    return null; // Return null in case of error
+  }
+}
+
 export async function getHomePageRecipes() {
   const res = await fetch("http://localhost:3000/api/homeRecipes", {
     next: { revalidate: 3 },
