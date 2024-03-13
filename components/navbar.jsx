@@ -19,7 +19,6 @@ import ProfileFill from "../assets/icons/profilefill.svg";
 import Autosuggest from "react-autosuggest";
 import { fetchRecipeNames } from "@/constants";
 
-
 import Notifications from "./notifications";
 
 import { useSession } from "next-auth/react";
@@ -44,8 +43,6 @@ function Navbar() {
 
   const isLinkActive = (path) => path === activePath;
 
-<<<<<<< HEAD
-=======
   // sets URL to fetch recipes based on search term
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +60,6 @@ function Navbar() {
       setSuggestions([]);
     }
   }, [searchTerm]);
-  
 
   const autosuggestProps = {
     suggestions: suggestions.slice(0, 5), // displays top 5 suggestions
@@ -73,14 +69,14 @@ function Navbar() {
     onSuggestionsClearRequested: () => {
       setSuggestions([]);
     },
-    getSuggestionValue: (suggestion) => suggestion,   // dropdown
+    getSuggestionValue: (suggestion) => suggestion, // dropdown
     renderSuggestion: (suggestion, { isHighlighted }) => (
       <div
         style={{
-          border: "1px solid #ccc", 
-          borderBottom: "1px solid #ccc", 
+          border: "1px solid #ccc",
+          borderBottom: "1px solid #ccc",
           padding: "8px",
-          backgroundColor: isHighlighted ? "#eee" : "white", 
+          backgroundColor: isHighlighted ? "#eee" : "white",
         }}
       >
         {suggestion}
@@ -88,7 +84,6 @@ function Navbar() {
     ),
   };
 
->>>>>>> 521592db0ea06830e0f6386191660d2dce296ee7
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
@@ -102,43 +97,28 @@ function Navbar() {
           style={{ position: "relative", top: "0px" }} // Adjust the top value
         />
       </Link>
-<<<<<<< HEAD
-      {/* Display only the search field on the homepage */}
-      {pathname == "/home" && (
-        <form>
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex items-center flex-shrink-0 w-50 px-2 relative"
-          >
-            <input
-              type="search"
-              placeholder="Search..."
-              className="w-full px-2 py-1 border border-2 border-gray-300 rounded pl-8"
-=======
       {/* Display only the search field on the home and search page */}
-      { (pathname === "/home" || pathname.startsWith("/search/")) && (
-      <form onSubmit={handleSubmit}>
-        <div className="fixed top-8 transform -translate-x-1/2">
-          <div className="relative">
-            <Autosuggest
-              {...autosuggestProps}
-              inputProps={{
-                type: "search",
-                placeholder: "Search...",
-                className: "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8",
-                onChange: (_, { newValue }) => setSearchTerm(newValue),
-                value: searchTerm,
-              }}
->>>>>>> 521592db0ea06830e0f6386191660d2dce296ee7
-            />
+      {(pathname === "/home" || pathname.startsWith("/search/")) && (
+        <form onSubmit={handleSubmit} className="z-10">
+          <div className="fixed top-8 transform -translate-x-1/2">
+            <div className="relative">
+              <div className="absolute top-0 left-0 flex items-center m-2">
+                <Image src={Search} alt="Search" width={20} height={20} />
+              </div>
+              <Autosuggest
+                {...autosuggestProps}
+                inputProps={{
+                  type: "search",
+                  placeholder: "Search...",
+                  className:
+                    "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
+                  onChange: (_, { newValue }) => setSearchTerm(newValue),
+                  value: searchTerm,
+                }}
+              />
+            </div>
           </div>
-          <div className="absolute inset-y-0 left-0 flex items-center pl-4">
-              <Image src={Search} alt="Search" width={20} height={20} />
-          </div>
-        </div>
-      </form>
+        </form>
       )}
 
       {session ? (
