@@ -8,13 +8,17 @@ export default async function Search({ params }) {
 
     // check if there's recipes in json based on search term
     if (!data || !data.documents) {
-      return <p className="font-bold px-12"> No results found for "{term}" </p>;
+      return <p className="text-3xl font-bold flex flex-col items-center justify-center h-screen"> 
+              No results found for "{decodeURIComponent(term)}". Try another recipe!
+            </p>;
     }
+
+    // <p className="font-bold px-12"> No results found for "{term}" </p>;
 
     return (
       <div>
         <p className="font-bold px-12"> 
-          {data.documents.length} results for "{term}"     {/* need to modify to have term return normal string */}
+          {data.documents.length} results for "{decodeURIComponent(term)}"     {/* need to modify to have term return normal string */}
         </p>
         <div className="m-10 grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {data.documents.map((post) => (
