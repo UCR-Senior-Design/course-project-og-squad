@@ -112,9 +112,12 @@ export default function CreatePost() {
         return;
       }
 
+      const responseData = await createPostResponse.json();
+      console.log(responseData, responseData.recipeId);
+
       // Handle successful post creation
       console.log("Post created successfully");
-      router.push(`/profile/${session?.user?.name}`);
+      router.push(`/recipes/${responseData.recipeId}`);
     } catch (error) {
       console.error("Error:", error.message);
       // Handle error
