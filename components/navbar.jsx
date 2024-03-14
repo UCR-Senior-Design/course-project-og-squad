@@ -17,9 +17,15 @@ import FavFill from "../assets/icons/favoritesfill.svg";
 import Profile from "../assets/icons/Profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
 import Autosuggest from "react-autosuggest";
+import Fuse from "fuse.js";
 import { fetchRecipeNames } from "@/constants";
-
 import Notifications from "./notifications";
+
+
+const fuseSettings = {
+  keys: ["recipe_name"], // key to search
+  threshold: 0.4, // set the threshold for fuzzy search
+};
 
 import { useSession } from "next-auth/react";
 
@@ -28,6 +34,7 @@ function Navbar() {
   const [activePath, setActivePath] = useState("");
   const [showNotifications, setShowNotifications] = useState(false); // State to control the visibility of Notifications component
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
   const { data: session } = useSession();
@@ -52,7 +59,7 @@ function Navbar() {
 
   // autocomplete feature
   useEffect(() => {
-    if (searchTerm.length > 0) {
+    if (searchTerm.length > 1) {
       fetchRecipeNames(searchTerm)
         .then((data) => setSuggestions(data?.recipeNames || []))
         .catch((error) => console.error("Error fetching recipe names:", error));
@@ -61,16 +68,32 @@ function Navbar() {
     }
   }, [searchTerm]);
 
+  // fuzzy search integration
+  const performSearch = (value) => {
+    if (!value || value.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+    const fuse = new Fuse(suggestions, fuseSettings);
+    const result = fuse.search(value);
+    setSearchResults(result.map((res) => res.item));
+  };
+
+  const handleInputChange = (_, { newValue }) => {
+    setSearchTerm(newValue);
+    performSearch(newValue);
+  };
+
   const autosuggestProps = {
-    suggestions: suggestions.slice(0, 5), // displays top 5 suggestions
+    suggestions: searchResults.slice(0, 5),   // displays top 5 suggestions
     onSuggestionsFetchRequested: ({ value }) => {
-      setSearchTerm(value);
+      performSearch(value);
     },
     onSuggestionsClearRequested: () => {
-      setSuggestions([]);
+      setSearchResults([]);
     },
-    getSuggestionValue: (suggestion) => suggestion, // dropdown
-    renderSuggestion: (suggestion, { isHighlighted }) => (
+    getSuggestionValue: (suggestion) => suggestion || '', // handle arrow key usage
+    renderSuggestion: (suggestion, { isHighlighted }) => (      //drop down
       <div
         style={{
           border: "1px solid #ccc",
@@ -78,12 +101,16 @@ function Navbar() {
           padding: "8px",
           backgroundColor: isHighlighted ? "#eee" : "white",
         }}
-      >
-        {suggestion}
+        >
+        { suggestion }    
       </div>
     ),
+    onSuggestionSelected: (_, { suggestion }) => {      //search recipes on enter key (when using dropdown)
+      window.location.href = `/search/${suggestion}`;
+      setSearchTerm("");
+    },
   };
-
+  
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
@@ -110,9 +137,8 @@ function Navbar() {
                 inputProps={{
                   type: "search",
                   placeholder: "Search...",
-                  className:
-                    "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
-                  onChange: (_, { newValue }) => setSearchTerm(newValue),
+                  className: "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
+                  onChange: handleInputChange,
                   value: searchTerm,
                 }}
               />
