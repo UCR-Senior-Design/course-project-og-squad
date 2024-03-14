@@ -52,6 +52,11 @@ function Navbar() {
 
   // sets URL to fetch recipes based on search term
   const handleSubmit = (e) => {
+    const trimmedTerm = searchTerm.trim();     // trim the search term and see if empty
+    if (!trimmedTerm) {
+      e.preventDefault();     //do nothing if search bar is empty 
+      return;
+    }
     e.preventDefault();
     window.location.href = `/search/${searchTerm}`;
     setSearchTerm("");
