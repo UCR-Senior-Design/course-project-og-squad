@@ -180,9 +180,13 @@ function Navbar() {
               height={40}
             />
           </Link>
-          <Link href="/favorites">
+          <Link href={`/favorites/${session?.user?.name}`}>
             <Image
-              src={isLinkActive("/favorites") ? FavFill : Fav}
+              src={
+                isLinkActive(`/favorites/${session?.user?.name}`)
+                  ? FavFill
+                  : Fav
+              }
               alt="Home"
               className="nav-icon cursor-pointer"
               width={40}
