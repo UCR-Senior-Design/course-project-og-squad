@@ -46,4 +46,16 @@ html, body {
 .text-bounce {
   animation: bounce 4s infinite;
 }
-  
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-fadeIn {
+  animation: fadeIn .7s ease-out;
+}

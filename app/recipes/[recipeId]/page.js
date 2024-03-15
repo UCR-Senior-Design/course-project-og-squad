@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { fetchRecipe } from "@/constants";
 import Likes from "@/components/Likes";
+import Favorites from "@/components/Favorites";
 
 export default async function RecipePage({ params }) {
   const { recipeId } = params;
@@ -31,10 +32,15 @@ export default async function RecipePage({ params }) {
       />
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-4">{data.recipe.recipe_name}</h1>
-        <Likes
-          likeCount={data.recipe.recipe_likes}
-          recipeId={data.recipe._id}
-        />
+        <div className="flex justify-between space-x-4">
+          <Likes
+            likeCount={data.recipe.recipe_likes}
+            recipeId={data.recipe._id}
+          />
+          <Favorites
+            recipeId={data.recipe._id}
+          />
+        </div>
       </div>
 
       <AttributeList

@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function SignInModal({ onClose }) {
   const router = useRouter();
@@ -7,9 +8,13 @@ export default function SignInModal({ onClose }) {
       className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex items-center justify-center"
       onClick={onClose}
     >
-      <div className="bg-white p-8 rounded-lg flex flex-col items-center">
+      <motion.div 
+        animate={{ scale: [.5, 1.2, 1.0] }}
+        transition={{ duration: .5, ease: "easeOut" }}
+        className="bg-white p-8 rounded-lg flex flex-col items-center"
+      >
         <p className="text-lg text-center mb-4">
-          You need to be signed in to like this post.
+          You need to be signed in to like or favorite this post.
         </p>
         <button
           className="bg-custom-main-dark hover:bg-orange-600 text-white px-4 py-2 rounded"
@@ -19,7 +24,7 @@ export default function SignInModal({ onClose }) {
         >
           Sign In
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 }

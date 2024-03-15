@@ -41,7 +41,7 @@ export default function Post({ post }) {
             <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
             <p className="text-xl">{user_name}</p>
           </Link>
-          <Link href={`/recipes/${_id}`} className="hover:opacity-80">
+          <Link href={`/recipes/${_id}`} className="hover:opacity-80 transition-opacity ease-linear">
             <img
               src={recipe_image}
               alt="Post Image"

@@ -4,7 +4,6 @@ import Image from "next/image";
 import { IoMdSettings } from "react-icons/io";
 import { useState, useEffect } from "react";
 import ProfileSettings from "@/components/profileSettings";
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 
 export default function Profile({ profile }) {
@@ -38,12 +37,7 @@ export default function Profile({ profile }) {
   return (
     <div className="flex">
       {/* Left side: Profile information */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="w-1/4 p-10 fixed"
-      >
+      <div className="w-1/4 p-10 fixed">
         {/* Profile picture */}
         {imageURL && (
           <div className="mb-4 flex flex-col items-center">
@@ -52,7 +46,6 @@ export default function Profile({ profile }) {
               alt="Profile Picture"
               className="rounded-full w-28 h-28 mb-2"
             />
-
             {/* Username with setting icon */}
             <div className="flex items-center mb-4">
               <p className="text-xl font-bold mr-2">{userName}</p>
@@ -96,7 +89,7 @@ export default function Profile({ profile }) {
             </div>
           </div>
         )}
-      </motion.div>
+      </div>
       {showSettings && (
         <ProfileSettings
           setShowSettings={setShowSettings}
