@@ -17,7 +17,7 @@ export default function SignInModal({ onClose }) {
           You need to be signed in to like or favorite this post.
         </p>
         <button
-          className="bg-custom-main-dark hover:bg-orange-600 text-white px-4 py-2 rounded"
+          className="bg-custom-main-dark hover:bg-orange-600 transition-colors ease-linear text-white px-4 py-2 rounded"
           onClick={() => {
             router.push("/signin");
           }}

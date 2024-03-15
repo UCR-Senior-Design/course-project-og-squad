@@ -26,10 +26,11 @@ export async function GET(req) {
     const postIds = user.favoritedPosts;
 
     // use post IDs to find the corresponding posts
-    const posts = await Post.find({ _id: { $in: postIds } });
+    const query = { _id: { $in: postIds } };
+    const documents = await Post.find(query);
 
     // return favorited posts information
-    return NextResponse.json(posts);
+    return NextResponse.json({ documents: documents });
   } catch (error) {
     console.error("Error fetching user and posts:", error);
     return NextResponse.json(

@@ -23,7 +23,7 @@ export default async function RecipePage({ params }) {
         className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70"
       >
         <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
-        <p className="text-xl ">{data.recipe.user_name}</p>
+        <p className="text-xl">{data.recipe.user_name}</p>
       </Link>
       <img
         src={data.recipe.recipe_image}

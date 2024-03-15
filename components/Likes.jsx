@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import SignInModal from "./signInModal";
 import { fetchProfile } from "@/constants";
+import { motion } from "framer-motion";
 
 export default function Likes({ likeCount, recipeId }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -66,10 +67,12 @@ export default function Likes({ likeCount, recipeId }) {
           onClick={handleLikeClick}
         />
       ) : (
-        <FaRegHeart
-          className="text-custom-main-dark text-2xl hover:cursor-pointer"
-          onClick={handleLikeClick}
-        />
+        <motion.div whileTap={{ scale: 1.5 }} >
+          <FaRegHeart
+            className="text-custom-main-dark text-2xl hover:cursor-pointer"
+            onClick={handleLikeClick}
+          />
+        </motion.div>
       )}
       <p className="text-lg text-center">{updatedLikeCount}</p>
 
