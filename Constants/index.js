@@ -86,6 +86,28 @@ export async function fetchRecipeNames(searchTerm) {
   }
 }
 
+export async function fetchFavRecipes(username) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/fetchFavRecipes?username=${username}`,
+      {
+        next: {
+          revalidate: 0, // use 0 to opt out of using cache
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch profile!");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching profile:", error.message);
+    return null; // Return null in case of error
+  }
+}
+
 export async function getHomePageRecipes() {
   const res = await fetch("http://localhost:3000/api/homeRecipes", {
     next: { revalidate: 3 },

@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const username = searchParams.get("username");
+    // const searchParams = req.nextUrl.searchParams;
+    // const username = searchParams.get("username");
 
     if (!username) {
       return NextResponse.json(
@@ -14,7 +14,7 @@ export async function GET(req) {
         { status: 400 }
       );
     }
-
+    
     await connectMongoDB();
     const user = await User.findOne({ name: username });
 
@@ -22,38 +22,14 @@ export async function GET(req) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Extract user info
-    const {
-      _id,
-      name,
-      bio,
-      followerCount,
-      followingCount,
-      postCount,
-      likedPosts,
-      favoritedPosts,
-    } = user;
+    // get favorited posts IDs from the user's document
+    const postIds = user.favoritedPosts;
 
-    // Get the post IDs from the user's document
-    const postIds = user.posts;
-
-    // Use the post IDs to find the corresponding posts
+    // use post IDs to find the corresponding posts
     const posts = await Post.find({ _id: { $in: postIds } });
 
-    // Return user info along with their posts
-    return NextResponse.json({
-      user: {
-        id: _id,
-        username: name,
-        bio,
-        followerCount,
-        followingCount,
-        postCount,
-        likedPosts,
-        favoritedPosts,
-      },
-      posts, // Return the found posts
-    });
+    // return favorited posts information
+    return NextResponse.json(posts);
   } catch (error) {
     console.error("Error fetching user and posts:", error);
     return NextResponse.json(
