@@ -10,24 +10,20 @@ jobs:
   run_dev_server:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '14'  # Adjust the Node.js version as needed
 
     - name: Install Dependencies
       run: npm install
 
     - name: Run Next.js Development Server
       run: npm run dev
+      background: true  # Run the command in the background
 
-    
     - name: Stop Next.js Development Server
-      run: kill $(lsof -ti tcp:3000)
+      run: pkill -f "node ./.next/server.js"
