@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '14'  # Adjust the Node.js version as needed
+        
+    - name: Install Dependencies
+      run: npm install
 
-    - name: Run Development Server
+    - name: Run Next.js Development Server
       run: npm run dev
