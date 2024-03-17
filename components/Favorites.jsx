@@ -78,7 +78,7 @@ export default function Favorites({ recipeId }) {
           <motion.div
             animate={{ scale: [0.5, 1.2, 1.0] }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-custom-main-dark text-white font-sand p-8 rounded-lg items-center"
+            className="bg-custom-main-dark text-white font-sand font-semibold p-8 rounded-lg items-center"
           >
             <p className="text-lg text-center">
               {isFavorited

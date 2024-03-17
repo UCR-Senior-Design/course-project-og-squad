@@ -11,7 +11,7 @@ export default async function Favorites({ params }) {
 
   return (
     <div className="h-screen">
-      <h1 className="flex flex-col items-center justify-center text-4xl text-custom-main-dark font-sand font-semibold">Saved Recipes</h1>
+      <h1 className="flex flex-col items-center justify-center text-4xl text-custom-main-dark font-sand font-semibold">Favorite Recipes</h1>
       {data.documents.length === 0 ? (
         <p className="text-2xl text-gray-500 font-light flex flex-col items-center justify-center mt-36 text-fadeIn"> No recipes saved. </p>
       ) : (

@@ -147,7 +147,7 @@ export default function CreatePost() {
             required
             value={formData.recipe_name}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
           />
         </div>
 
@@ -165,7 +165,7 @@ export default function CreatePost() {
               required
               value={formData.recipe_time}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
             />
           </div>
 
@@ -182,7 +182,7 @@ export default function CreatePost() {
               required
               value={formData.recipe_cals}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
             />
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function CreatePost() {
             required
             value={formData.recipe_description}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
           />
         </div>
 
