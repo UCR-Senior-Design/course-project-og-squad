@@ -10,6 +10,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    pfpUrl: {
+      type: String,
+    },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     postCount: {
       type: Number,

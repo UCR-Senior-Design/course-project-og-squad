@@ -1,23 +1,23 @@
 // "use server";
 
-// import { redirect } from "next/navigation"
-// import { revalidatePath } from "next/cache"
+// import { redirect } from "next/navigation";
+// import { revalidatePath } from "next/cache";
 
-// import { auth } from "@/auth"
-// import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
-// import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-// import crypto from "crypto"
+// import { auth } from "@/auth";
+// import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+// import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+// import crypto from "crypto";
 
 // const s3Client = new S3Client({
-//     region: process.env.AWS_REGION,
-//     credentials: {
-//       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-//     },
-//   });
+//   region: process.env.AWS_REGION,
+//   credentials: {
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   },
+// });
 
 // const allowedFileTypes = ["image/jpeg", "image/png"];
-// const maxFileSize = 1048576 * 10; // 10 MB
+// const maxFileSize = 1048576 * 5; // 5 MB
 
 // const generateFileName = (bytes = 32) =>
 //   crypto.randomBytes(bytes).toString("hex");
@@ -46,8 +46,8 @@
 //     ContentLength: fileSize,
 //     ChecksumSHA256: checksum,
 //     Metadata: {
-//         : session.user.id,
-//     }
+//       userId: session.user.id,
+//     },
 //   });
 
 //   const url = await getSignedUrl(

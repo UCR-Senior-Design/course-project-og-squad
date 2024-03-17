@@ -110,11 +110,10 @@ export async function fetchFavRecipes(username) {
 
 export async function getHomePageRecipes() {
   const res = await fetch("http://localhost:3000/api/homeRecipes", {
-    next: { revalidate: 3 },
+    next: { revalidate: 0 },
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
   return res.json();
 }
-
