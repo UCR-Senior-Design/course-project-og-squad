@@ -27,3 +27,7 @@ jobs:
 
     - name: Run Next.js Development Server
       run: npm run dev
+
+    
+    - name: Stop Next.js Development Server
+      run: kill $(lsof -ti tcp:3000)
