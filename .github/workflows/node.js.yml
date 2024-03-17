@@ -1,14 +1,18 @@
-name: Run Development Server
+name: Run Next.js Development Server
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
   run_dev_server:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -16,8 +20,8 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14'  # Adjust the Node.js version as needed
-        
+        node-version: ${{ matrix.node-version }}
+
     - name: Install Dependencies
       run: npm install
 
