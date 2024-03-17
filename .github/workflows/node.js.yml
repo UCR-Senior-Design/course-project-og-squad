@@ -21,8 +21,8 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Run Next.js Development Server
-      run: npm run dev
-
-    - name: Test Home Page
-      run: curl -I http://localhost:3000/home
+    - name: Run Development Server and go to Home Page
+      run: |
+        npm run dev &
+        sleep 10s  # Wait for the server to start (adjust sleep duration as needed)
+        curl -I http://localhost:3000/home
