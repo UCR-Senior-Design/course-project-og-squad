@@ -1,4 +1,4 @@
-name: Run Next.js Development Server
+name: Test SignIn Page
 
 on:
   push:
