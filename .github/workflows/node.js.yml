@@ -23,7 +23,6 @@ jobs:
 
     - name: Run Next.js Development Server
       run: npm run dev
-      background: true  # Run the command in the background
 
-    - name: Stop Next.js Development Server
-      run: pkill -f "node ./.next/server.js"
+    - name: Test Home Page
+      run: curl -I http://localhost:3000/home
