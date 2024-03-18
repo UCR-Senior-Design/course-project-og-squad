@@ -21,7 +21,8 @@ jobs:
         node-version: '18'  # Adjust the Node.js version as needed
 
     - name: Install Dependencies
-      run: npm install
+      run: npm install & 
+        npm i fuse.js
 
     - name: Run Development Server and go to Home Page
       run: |
