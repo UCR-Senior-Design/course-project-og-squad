@@ -14,13 +14,12 @@ import Post from "../assets/icons/post.svg";
 import PostFill from "../assets/icons/postfill.svg";
 import Fav from "../assets/icons/favorites.svg";
 import FavFill from "../assets/icons/favoritesfill.svg";
-import Profile from "../assets/icons/Profile.svg";
+import Profile from "../assets/icons/profile.svg";
 import ProfileFill from "../assets/icons/profilefill.svg";
 import Autosuggest from "react-autosuggest";
 import Fuse from "fuse.js";
 import { fetchRecipeNames } from "@/constants";
 import Notifications from "./notifications";
-
 
 const fuseSettings = {
   keys: ["recipe_name"], // key to search
@@ -52,6 +51,11 @@ function Navbar() {
 
   // sets URL to fetch recipes based on search term
   const handleSubmit = (e) => {
+    const trimmedTerm = searchTerm.trim(); // trim the search term and see if empty
+    if (!trimmedTerm) {
+      e.preventDefault(); //do nothing if search bar is empty
+      return;
+    }
     e.preventDefault();
     window.location.href = `/search/${searchTerm}`;
     setSearchTerm("");
@@ -85,15 +89,18 @@ function Navbar() {
   };
 
   const autosuggestProps = {
-    suggestions: searchResults.slice(0, 5),   // displays top 5 suggestions
+    suggestions: searchResults.slice(0, 5), // displays top 5 suggestions
     onSuggestionsFetchRequested: ({ value }) => {
       performSearch(value);
     },
     onSuggestionsClearRequested: () => {
       setSearchResults([]);
     },
-    getSuggestionValue: (suggestion) => suggestion || '', // handle arrow key usage
-    renderSuggestion: (suggestion, { isHighlighted }) => (      //drop down
+    getSuggestionValue: (suggestion) => suggestion || "", // handle arrow key usage
+    renderSuggestion: (
+      suggestion,
+      { isHighlighted } //drop down
+    ) => (
       <div
         style={{
           border: "1px solid #ccc",
@@ -101,16 +108,17 @@ function Navbar() {
           padding: "8px",
           backgroundColor: isHighlighted ? "#eee" : "white",
         }}
-        >
-        { suggestion }    
+      >
+        {suggestion}
       </div>
     ),
-    onSuggestionSelected: (_, { suggestion }) => {      //search recipes on enter key (when using dropdown)
+    onSuggestionSelected: (_, { suggestion }) => {
+      //search recipes on enter key (when using dropdown)
       window.location.href = `/search/${suggestion}`;
       setSearchTerm("");
     },
   };
-  
+
   return (
     <nav className="flex items-center justify-between p-4 relative mr-2">
       {/* Use the larger SnapChef.svg logo */}
@@ -137,7 +145,8 @@ function Navbar() {
                 inputProps={{
                   type: "search",
                   placeholder: "Search...",
-                  className: "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
+                  className:
+                    "w-full px-2 py-1 border-2 border-gray-300 rounded pl-8 xl:w-96",
                   onChange: handleInputChange,
                   value: searchTerm,
                 }}
@@ -175,9 +184,13 @@ function Navbar() {
               height={40}
             />
           </Link>
-          <Link href="/favorites">
+          <Link href={`/favorites/${session?.user?.name}`}>
             <Image
-              src={isLinkActive("/favorites") ? FavFill : Fav}
+              src={
+                isLinkActive(`/favorites/${session?.user?.name}`)
+                  ? FavFill
+                  : Fav
+              }
               alt="Home"
               className="nav-icon cursor-pointer"
               width={40}

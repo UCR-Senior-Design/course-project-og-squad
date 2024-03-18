@@ -22,40 +22,15 @@ export async function GET(req) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Extract user info
-    const {
-      _id,
-      name,
-      bio,
-      followerCount,
-      followingCount,
-      postCount,
-      likedPosts,
-      favoritedPosts,
-      pfpUrl,
-    } = user;
+    // get favorited posts IDs from the user's document
+    const postIds = user.favoritedPosts;
 
-    // Get the post IDs from the user's document
-    const postIds = user.posts;
+    // use post IDs to find the corresponding posts
+    const query = { _id: { $in: postIds } };
+    const documents = await Post.find(query);
 
-    // Use the post IDs to find the corresponding posts
-    const posts = await Post.find({ _id: { $in: postIds } });
-
-    // Return user info along with their posts
-    return NextResponse.json({
-      user: {
-        id: _id,
-        username: name,
-        bio,
-        followerCount,
-        followingCount,
-        postCount,
-        likedPosts,
-        favoritedPosts,
-        pfpUrl,
-      },
-      posts, // Return the found posts
-    });
+    // return favorited posts information
+    return NextResponse.json({ documents: documents });
   } catch (error) {
     console.error("Error fetching user and posts:", error);
     return NextResponse.json(

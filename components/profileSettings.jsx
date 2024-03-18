@@ -2,10 +2,14 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import defaultPfp from "../assets/icons/profile.svg";
 
 export default function ProfileSettings({ setShowSettings, profileSettings }) {
   const { id, userName, bio, profilePic } = profileSettings;
   const [updatedBio, setUpdatedBio] = useState(bio);
+
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const settingsRef = useRef();
 
@@ -15,96 +19,108 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
     }
   };
 
-  // const computeSHA256 = async (file) => {
-  //   const buffer = await file.arrayBuffer()
-  //   const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
-  //   const hashArray = Array.from(new Uint8Array(hashBuffer))
-  //   const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("")
-  //   return hashHex
-  // }
-
-  // const handleImageUpload = async (file) => {
-  //   const signedURLResult = await getSignedURL({
-  //     fileSize: file.size,
-  //     fileType: file.type,
-  //     checksum: await computeSHA256(file),
-  //   })
-  //   if (signedURLResult.failure !== undefined) {
-  //     throw new Error(signedURLResult.failure)
-  //   }
-  //   const { url, id: fileId } = signedURLResult.success
-  //   await fetch(url, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": file.type,
-  //     },
-  //     body: file,
-  //   })
-
-  //   const fileUrl = url.split("?")[0]
-  //   return fileId
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   setLoading(true)
-  //   try {
-  //     let fileId = undefined
-  //     if (file) {
-  //       setStatusMessage("Uploading...")
-  //       fileId = await handleFileUpload(file)
-  //     }
-
-  //     setStatusMessage("Posting post...")
-
-  //     await createPost({
-  //       content,
-  //       fileId: fileId,
-  //     })
-
-  //     setStatusMessage("Post Successful")
-  //   } catch (error) {
-  //     console.error(error)
-  //     setStatusMessage("Post failed")
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0] ?? null
-  //   setFile(file)
-  //   if (previewUrl) {
-  //     URL.revokeObjectURL(previewUrl)
-  //   }
-  //   if (file) {
-  //     const url = URL.createObjectURL(file)
-  //     setPreviewUrl(url)
-  //   } else {
-  //     setPreviewUrl(null)
-  //   }
-  // }
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0] ?? null;
+    setFile(file);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    } else {
+      setPreviewUrl(null);
+    }
+  };
 
   const handleConfirmClick = async () => {
     try {
-      const res = await fetch("/api/updateUserInfo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          updatedBio: updatedBio,
-        }),
-      });
-      if (res.ok) {
-        setShowSettings(false);
-        window.location.reload();
+      const updatedFields = {};
+      let presignedUrlResponse;
+
+      if (file) {
+        // Check if pre-signed URL already given
+        if (profilePic) {
+          console.log("ALREADY!", profilePic);
+          // Get existing object key from URL
+          const parts = profilePic.split("/");
+
+          // Extract the date part (2024-03-17)
+          const datePart = parts[parts.length - 2];
+
+          // Extract the object key from the parts array
+          const objectKey = parts[parts.length - 1];
+
+          // Combine the year and object key into a single string
+          const combinedString = `${datePart}/${objectKey}`;
+          presignedUrlResponse = await fetch(
+            "http://localhost:3000/api/getUploadImageURL?existingKey=" +
+              combinedString,
+            {
+              method: "GET",
+            }
+          );
+        } else {
+          // image url does not already exist
+          presignedUrlResponse = await fetch(
+            "http://localhost:3000/api/getUploadImageURL",
+            {
+              method: "GET",
+            }
+          );
+        }
+
+        if (!presignedUrlResponse.ok) {
+          throw new Error("Failed to obtain pre-signed URL for image upload");
+          return;
+        }
+
+        // Step 2: Get imageUrl and Upload image to pre-signed upload URL
+        const { uploadUrl, imageUrl } = await presignedUrlResponse.json();
+
+        const uploadImageResponse = await fetch(uploadUrl, {
+          method: "PUT",
+          body: file,
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+        });
+
+        if (!uploadImageResponse.ok) {
+          throw new Error("Failed to upload image");
+          return;
+        }
+
+        console.log("image uploaded to bucket");
+        updatedFields.updatedPfp = imageUrl;
+      }
+      if (updatedBio !== bio) {
+        // Check if bio updated
+        updatedFields.updatedBio = updatedBio;
+      }
+
+      if (Object.keys(updatedFields).length > 0) {
+        const res = await fetch("/api/updateUserInfo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            ...updatedFields,
+          }),
+        });
+        if (res.ok) {
+          setShowSettings(false);
+          window.location.reload();
+        } else {
+          console.error("Failed to update user information");
+        }
       } else {
-        console.error("Failed to update bio");
+        console.log("No changes to update");
       }
     } catch (error) {
-      console.error("Error updating bio:", error);
+      console.error("Error updating user information:", error);
     }
   };
 
@@ -121,34 +137,43 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
         className="border-solid border-2 border-custom-main-dark rounded-lg backdrop-blur-md "
       >
         <div className="bg-custom-main-dark rounded-t-lg p-3">
-          {/* Orange background for top */}
-          {/* Title */}
           <h1 className="text-black text-2xl font-bold">Edit Profile</h1>
         </div>
         <div className="bg-white rounded-b-lg p-4">
-          {/* White background for rest */}
-          {/* Settings Content */}
           <div className="flex flex-col">
             <div className="flex justify-between items-center bg-orange-100 p-2 rounded-lg my-4">
               <div className="flex justify-center items-center">
-                <Image
-                  src={profilePic}
-                  alt="Profile Picture"
-                  className="rounded-full w-16 h-16"
+                {/* Allow user to click on profile pic to select a new image */}
+                <label htmlFor="profilePic" className="cursor-pointer">
+                  <Image
+                    src={previewUrl || profilePic || defaultPfp}
+                    alt="Profile Picture"
+                    className="rounded-full w-16 h-16"
+                    width={100}
+                    height={100}
+                  />
+                </label>
+                <input
+                  type="file"
+                  id="profilePic"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
                 />
                 <div className="mx-3 px-1 font-bold text-xl border-solid border border-[#A3A3A3] rounded-xl">
                   {userName}
                 </div>
               </div>
-
-              <button className="ml-12 bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 rounded-xl font-semibold">
+              <button
+                className="ml-12 bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 rounded-xl font-semibold"
+                onClick={() => document.getElementById("profilePic").click()}
+              >
                 Change Photo
               </button>
-              {/* </form> */}
             </div>
             <p className="font-semibold mt-4">Bio</p>
             <textarea
-              maxlength="150"
+              maxLength="150"
               type="text"
               defaultValue={updatedBio}
               className="border-solid border-2 border-custom-main-dark p-2 pb-16 rounded-lg mb-4"
@@ -163,7 +188,7 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
               Log Out
             </button>
             <button
-              className=" bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
+              className="bg-custom-main-dark bg-opacity-100 hover:bg-opacity-70 transition-colors ease-linear p-2 px-8 ml-60 mt-4 mb-2 rounded-xl font-semibold"
               onClick={handleConfirmClick}
             >
               Confirm
@@ -174,3 +199,60 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
     </div>
   );
 }
+
+// const [statusMessage, setStatusMessage] = useState("");
+// const [loading, setLoading] = useState(false);
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   setLoading(true);
+//   try {
+//     let fileId = undefined;
+//     if (file) {
+//       setStatusMessage("Uploading...");
+//       fileId = await handleFileUpload(file);
+//     }
+
+//     setStatusMessage("Updating profile...");
+
+//    // update bio here is needed
+//
+//     setStatusMessage("Update Successful");
+//   } catch (error) {
+//     console.error(error);
+//     setStatusMessage("Post failed");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+// const computeSHA256 = async (file) => {
+//   const buffer = await file.arrayBuffer();
+//   const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+//   const hashArray = Array.from(new Uint8Array(hashBuffer));
+//   const hashHex = hashArray
+//     .map((b) => b.toString(16).padStart(2, "0"))
+//     .join("");
+//   return hashHex;
+// };
+
+// const handleImageUpload = async (file) => {
+//   const signedURLResult = await getSignedURL({
+//     fileSize: file.size,
+//     fileType: file.type,
+//     checksum: await computeSHA256(file),
+//   });
+//   if (signedURLResult.failure !== undefined) {
+//     throw new Error(signedURLResult.failure);
+//   }
+//   const { url, id: fileId } = signedURLResult.success;
+//   await fetch(url, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": file.type,
+//     },
+//     body: file,
+//   });
+
+//   // const fileUrl = url.split("?")[0];
+//   return fileId;
+// };

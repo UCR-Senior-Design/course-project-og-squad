@@ -6,10 +6,14 @@ import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { fetchRecipe } from "@/constants";
 import Likes from "@/components/Likes";
+import Favorites from "@/components/Favorites";
+import Image from "next/image";
 
 export default async function RecipePage({ params }) {
   const { recipeId } = params;
   const data = await fetchRecipe(recipeId);
+
+  console.log(data);
 
   if (!data) {
     return <NotFoundPage />;
@@ -19,10 +23,20 @@ export default async function RecipePage({ params }) {
     <div className="max-w-3xl mx-auto my-16">
       <Link
         href={`/profile/${data.recipe.user_name}`}
-        className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70"
+        className="flex items-center mb-1 hover:underline hover:cursor-pointer hover:opacity-70"
       >
-        <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
-        <p className="text-xl ">{data.recipe.user_name}</p>
+        {data.recipe.user_pfp ? (
+          <Image
+            src={data.recipe.user_pfp}
+            className="rounded-full mr-2"
+            height={30}
+            width={30}
+            alt={data.recipe.user_name}
+          />
+        ) : (
+          <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+        )}
+        <p className="text-xl">{data.recipe.user_name}</p>
       </Link>
       <img
         src={data.recipe.recipe_image}
@@ -31,10 +45,13 @@ export default async function RecipePage({ params }) {
       />
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-4">{data.recipe.recipe_name}</h1>
-        <Likes
-          likeCount={data.recipe.recipe_likes}
-          recipeId={data.recipe._id}
-        />
+        <div className="flex justify-between space-x-4">
+          <Likes
+            likeCount={data.recipe.recipe_likes}
+            recipeId={data.recipe._id}
+          />
+          <Favorites recipeId={data.recipe._id} />
+        </div>
       </div>
 
       <AttributeList
