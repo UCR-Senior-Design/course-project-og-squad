@@ -7,13 +7,19 @@ export async function GET(req) {
     // const existingKey = req.query.existingKey;
     const searchParams = req.nextUrl.searchParams;
     const existingKey = searchParams.get("existingKey");
-    console.log(existingKey);
+    const id = searchParams.get("id");
+
     // Configure AWS
     const s3 = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       region: process.env.AWS_REGION,
     });
+
+    if (existingKey) {
+      console.log("deleted", existingKey);
+      await s3.deleteObject({ Bucket: bucketName, Key: existingKey }).promise();
+    }
 
     // Set parameters for the S3 bucket and object
     const bucketName = process.env.AWS_BUCKET_NAME;
@@ -24,7 +30,7 @@ export async function GET(req) {
     const currentDate = new Date().toISOString().split("T")[0];
 
     // Combine UUID and date to form object key
-    const objectKey = existingKey ? existingKey : `${currentDate}/${uuid}`;
+    const objectKey = `${currentDate}/${uuid}`;
 
     // Set expiration time for the pre-signed URL (e.g., 30 min)
     const expirationSeconds = 1800;
@@ -35,7 +41,9 @@ export async function GET(req) {
       Key: objectKey,
       Expires: expirationSeconds,
       ContentType: "image/jpeg",
+      Metadata: { user_id: id },
     };
+
     const uploadUrl = await s3.getSignedUrlPromise("putObject", params);
     const imageUrl = "https://d205s045u32g9w.cloudfront.net/" + objectKey;
 
