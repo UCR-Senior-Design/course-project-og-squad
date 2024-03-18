@@ -2,9 +2,11 @@ name: Test SignIn Page
 
 on:
   push:
-    branches: [main]
+    branches-ignore:
+      - '*'
   pull_request:
-    branches: [main]
+    branches: [ '*' ]
+
 
 jobs:
   run_dev_server:
