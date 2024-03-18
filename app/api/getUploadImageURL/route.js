@@ -2,8 +2,12 @@ import AWS from "aws-sdk";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-export async function GET() {
+export async function GET(req) {
   try {
+    // const existingKey = req.query.existingKey;
+    const searchParams = req.nextUrl.searchParams;
+    const existingKey = searchParams.get("existingKey");
+    console.log(existingKey);
     // Configure AWS
     const s3 = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -20,7 +24,7 @@ export async function GET() {
     const currentDate = new Date().toISOString().split("T")[0];
 
     // Combine UUID and date to form object key
-    const objectKey = `${currentDate}/${uuid}`;
+    const objectKey = existingKey ? existingKey : `${currentDate}/${uuid}`;
 
     // Set expiration time for the pre-signed URL (e.g., 30 min)
     const expirationSeconds = 1800;

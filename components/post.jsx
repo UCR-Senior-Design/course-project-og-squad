@@ -6,12 +6,13 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Post({ post }) {
   const {
     _id,
     user_name,
-    user_pfp, //not yet implemented; not yet in DB
+    user_pfp,
     recipe_name,
     recipe_image, // stores image url from cloudfront stored in s3 bucket
     recipe_description,
@@ -38,10 +39,23 @@ export default function Post({ post }) {
             href={`/profile/${user_name}`}
             className="flex items-center hover:underline hover:cursor-pointer hover:opacity-70 transition-opacity ease-linear"
           >
-            <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+            {user_pfp ? (
+              <Image
+                src={user_pfp}
+                className="rounded-full mr-2"
+                height={24}
+                width={24}
+                alt={user_name}
+              />
+            ) : (
+              <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+            )}
             <p className="text-xl">{user_name}</p>
           </Link>
-          <Link href={`/recipes/${_id}`} className="hover:opacity-80 transition-opacity ease-linear">
+          <Link
+            href={`/recipes/${_id}`}
+            className="hover:opacity-80 transition-opacity ease-linear"
+          >
             <img
               src={recipe_image}
               alt="Post Image"

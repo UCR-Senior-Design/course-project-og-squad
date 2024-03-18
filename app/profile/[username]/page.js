@@ -3,7 +3,6 @@ import Profile from "@/components/profile";
 import ProfilePosts from "@/components/profilePosts";
 import Link from "next/link";
 import { fetchProfile } from "@/constants";
-import profileImage from "../../../assets/abu_yezan.png";
 
 export default async function ProfilePage({ params }) {
   const { username } = params;
@@ -23,13 +22,17 @@ export default async function ProfilePage({ params }) {
           followerCount: profile?.user?.followerCount,
           followingCount: profile?.user?.followingCount,
           bio: profile?.user?.bio,
-          imageURL: profileImage,
+          imageURL: profile?.user?.pfpUrl,
         }}
       />
       {profile?.user?.postCount > 0 ? (
         <div className="grid gap-y-10 my-10 ml-96 mr-28 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {profile.posts.map((post) => (
-            <Link key={post._id} href={`/recipes/${post._id}`} className="hover:opacity-90 transition-opacity ease-linear">
+            <Link
+              key={post._id}
+              href={`/recipes/${post._id}`}
+              className="hover:opacity-90 transition-opacity ease-linear"
+            >
               <ProfilePosts
                 posts={{
                   title: post.recipe_name,

@@ -1,0 +1,28 @@
+name: Create Page Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run_dev_server:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Adjust the Node.js version as needed
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Development Server and go to Home Page
+      run: |
+        npm run dev &
+        sleep 10s  # Wait for the server to start (adjust sleep duration as needed)
+        curl -I http://localhost:3000/create

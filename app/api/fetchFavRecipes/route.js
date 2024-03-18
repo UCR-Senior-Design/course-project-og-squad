@@ -14,7 +14,7 @@ export async function GET(req) {
         { status: 400 }
       );
     }
-    
+
     await connectMongoDB();
     const user = await User.findOne({ name: username });
 

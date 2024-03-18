@@ -4,7 +4,7 @@ import SortFilterDropdown from "@/components/filterOptions";
 
 export default async function Home() {
   const data = await getHomePageRecipes(); // needed fix: shouldn't get all the recipe posts in the DB
-
+  console.log(data);
   return (
     <div>
       <div className="flex justify-end"> 
