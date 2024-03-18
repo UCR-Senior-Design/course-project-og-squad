@@ -47,10 +47,16 @@ export default function Profile({ profile }) {
             alt="Profile Picture"
             width={100}
             height={100}
+            style={{
+              width: imageURL ? "100px" : "110px", // Change width based on imageURL presence
+              height: imageURL ? "100px" : "110px", // Change height based on imageURL presence
+              objectFit: "cover",
+              border: imageURL ? "2px solid black": "",
+            }}
             className="rounded-full"
           />
           {/* Username with setting icon */}
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 mt-2">
             <p className="text-xl font-bold mr-2">{userName}</p>
             {isCurrentUserProfile && (
               <IoMdSettings
