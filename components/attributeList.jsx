@@ -6,13 +6,21 @@ import { GiWheat } from "react-icons/gi";
 
 export default function AttributeList({ attributes, time, cals }) {
   // Map attribute names to their respective icons
-  const attributeIcons = {
-    highProtein: (
-      <GiChickenOven style={{ color: "orange", fontSize: "24px" }} />
-    ),
-    vegan: <LuVegan style={{ color: "green", fontSize: "24px" }} />,
-    glutenFree: <GiWheat style={{ color: "brown", fontSize: "24px" }} />,
+  const attributeData = {
+    highProtein: {
+      icon: <GiChickenOven style={{ color: "orange", fontSize: "24px" }} />,
+      text: "High Protein",
+    },
+    vegan: {
+      icon: <LuVegan style={{ color: "green", fontSize: "24px" }} />,
+      text: "Vegan",
+    },
+    glutenFree: {
+      icon: <GiWheat style={{ color: "brown", fontSize: "24px" }} />,
+      text: "Gluten Free",
+    },
   };
+  
   return (
     <div>
       <div className="flex items-center">
@@ -24,10 +32,10 @@ export default function AttributeList({ attributes, time, cals }) {
           <FaFireFlameCurved className="text-red-500 text-2xl" />
           <p className="font-sans text-xs mt-1 text-gray-500">{cals} cals</p>
         </div>
-
         {attributes.map((attribute, index) => (
-          <div key={index} className="flex items-center justify-center ml-7 mb-5">
-            {attributeIcons[attribute]}
+          <div key={index} className="flex flex-col items-center justify-center ml-6">
+            {attributeData[attribute].icon}
+            <p className="font-sans text-xs mt-1 text-gray-500">{attributeData[attribute].text}</p>
           </div>
         ))}
       </div>

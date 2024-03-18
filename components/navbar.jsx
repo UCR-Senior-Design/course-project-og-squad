@@ -133,7 +133,7 @@ function Navbar() {
         />
       </Link>
       {/* Display only the search field on the home and search page */}
-      {(pathname === "/home" || pathname.startsWith("/search/")) && (
+      {(pathname === "/home" || pathname.startsWith("/search/") || pathname.startsWith("/filter/")) && (
         <form onSubmit={handleSubmit} className="z-10">
           <div className="fixed top-8 transform -translate-x-1/2">
             <div className="relative">

@@ -54,14 +54,14 @@ export default function StepSection({ formData, setFormData }) {
                 } // Display default if not changed
                 onChange={(e) => handleHeaderChange(index, e.target.value)}
                 placeholder={`Step ${index + 1}`} // Placeholder for the input
-                className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+                className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
               />
             </div>
             <textarea
               rows={3}
               value={step.description}
               onChange={(e) => handleStepChange(index, e.target.value)}
-              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500"
+              className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark"
               required
             />
             <button

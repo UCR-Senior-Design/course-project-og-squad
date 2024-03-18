@@ -1,5 +1,7 @@
+import React from 'react';
 import Post from "@/components/post";
 import { fetchSearchTerm } from "@/constants";
+import SortFilterDropdown from "@/components/filterOptions";
 
 export default async function Search({ params }) {
   try {
@@ -8,16 +10,26 @@ export default async function Search({ params }) {
 
     // check if there's recipes in json based on search term
     if (!data || !data.documents) {
-      return <p className="text-3xl text-gray-500 font-light flex flex-col items-center justify-center h-screen text-fadeIn"> 
-              No results found for "{decodeURIComponent(term)}". Try another recipe!
-            </p>;
+      return (
+        <div>
+          <div className="flex justify-end"> 
+            <SortFilterDropdown/>
+          </div>
+          <p className="text-3xl text-gray-500 font-light flex flex-col items-center justify-center h-screen text-fadeIn"> 
+            No results found for "{decodeURIComponent(term)}". Try another recipe!
+          </p>
+        </div>
+      );
     }
 
     return (
       <div>
-        <p className="font-light text-lg px-12"> 
-          {data.documents.length} results for "{decodeURIComponent(term)}"
-        </p>
+        <div className="flex justify-between">
+          <p className="font-light text-xl px-12 mt-3"> 
+            {data.documents.length} results for "<strong>{decodeURIComponent(term)}</strong>"
+          </p>
+          <SortFilterDropdown/>
+        </div>
         <div className="m-10 grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {data.documents.map((post) => (
             <Post key={post._id} post={post} />
