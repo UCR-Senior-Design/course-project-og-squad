@@ -4,16 +4,20 @@ import StepList from "@/components/stepList";
 import NotFoundPage from "@/app/not-found";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-import { fetchRecipe } from "@/constants";
+import { fetchRecipe, fetchComments } from "@/constants";
 import Likes from "@/components/Likes";
 import Favorites from "@/components/Favorites";
 import Image from "next/image";
+import CommentBox from "@/components/commentBox";
+import CommentSection from "@/components/commentSection";
 
 export default async function RecipePage({ params }) {
   const { recipeId } = params;
   const data = await fetchRecipe(recipeId);
+  const commentData = await fetchComments(recipeId);
 
-  console.log(data);
+  //console.log(data);
+  //console.log(commentData);
 
   if (!data) {
     return <NotFoundPage />;
@@ -72,6 +76,8 @@ export default async function RecipePage({ params }) {
         </div>
         <IngredientList ingredients={data.recipe.recipe_ingredients} />
       </div>
+        <CommentSection commentData={commentData} />
+        <CommentBox recipeId = {data.recipe._id} />
     </div>
   );
 }
