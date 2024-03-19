@@ -33,6 +33,7 @@ export async function GET(req) {
       likedPosts,
       favoritedPosts,
       pfpUrl,
+      following,
     } = user;
 
     // Get the post IDs from the user's document
@@ -53,6 +54,7 @@ export async function GET(req) {
         likedPosts,
         favoritedPosts,
         pfpUrl,
+        following,
       },
       posts, // Return the found posts
     });
