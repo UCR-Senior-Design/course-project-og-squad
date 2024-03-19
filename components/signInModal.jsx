@@ -14,7 +14,7 @@ export default function SignInModal({ onClose }) {
         className="bg-white p-8 rounded-lg flex flex-col items-center"
       >
         <p className="text-lg text-center mb-4">
-          You need to be signed in to like or favorite this post.
+          You need to be signed in to like, comment, or favorite this post.
         </p>
         <button
           className="bg-custom-main-dark hover:bg-orange-600 transition-colors ease-linear text-white px-4 py-2 rounded"
