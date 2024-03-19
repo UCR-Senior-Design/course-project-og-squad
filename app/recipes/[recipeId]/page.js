@@ -29,14 +29,20 @@ export default async function RecipePage({ params }) {
           <Image
             src={data.recipe.user_pfp}
             className="rounded-full mr-2"
-            height={30}
-            width={30}
+            height={50}
+            width={50}
+            style={{
+              width: "50px",
+              height: "50px",
+              objectFit: "cover",
+              border: "2px solid black",
+            }}
             alt={data.recipe.user_name}
           />
         ) : (
           <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
         )}
-        <p className="text-xl">{data.recipe.user_name}</p>
+        <p className="text-2xl">{data.recipe.user_name}</p>
       </Link>
       <img
         src={data.recipe.recipe_image}

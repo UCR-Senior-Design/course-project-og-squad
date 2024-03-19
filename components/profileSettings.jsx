@@ -41,7 +41,6 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
       if (file) {
         // Check if pre-signed URL already given
         if (profilePic) {
-          console.log("ALREADY!", profilePic);
           // Get existing object key from URL
           const parts = profilePic.split("/");
 
@@ -49,13 +48,12 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
           const datePart = parts[parts.length - 2];
 
           // Extract the object key from the parts array
-          const objectKey = parts[parts.length - 1];
+          const idPart = parts[parts.length - 1];
 
           // Combine the year and object key into a single string
-          const combinedString = `${datePart}/${objectKey}`;
+          const objectKey = `${datePart}/${idPart}`;
           presignedUrlResponse = await fetch(
-            "http://localhost:3000/api/getUploadImageURL?existingKey=" +
-              combinedString,
+            `http://localhost:3000/api/getUploadImageURL?id=${id}?existingKey=${objectKey}`,
             {
               method: "GET",
             }
@@ -63,7 +61,7 @@ export default function ProfileSettings({ setShowSettings, profileSettings }) {
         } else {
           // image url does not already exist
           presignedUrlResponse = await fetch(
-            "http://localhost:3000/api/getUploadImageURL",
+            `http://localhost:3000/api/getUploadImageURL?id=${id}`,
             {
               method: "GET",
             }

@@ -60,9 +60,12 @@ export default function CreatePost() {
 
     try {
       // Step 1: Get pre-signed URL for image upload
-      const presignedUrlResponse = await fetch("api/getUploadImageURL", {
-        method: "GET",
-      });
+      const presignedUrlResponse = await fetch(
+        "api/getUploadImageURL?id=" + session?.user?.name,
+        {
+          method: "GET",
+        }
+      );
 
       if (!presignedUrlResponse.ok) {
         throw new Error("Failed to obtain pre-signed URL for image upload");
