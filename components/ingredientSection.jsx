@@ -47,7 +47,7 @@ export default function IngredientSection({ formData, setFormData }) {
                   type="text"
                   value={ingredient.name}
                   onChange={(e) => handleIngredientChange(index, e.target.value)}
-                  className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-blue-500 flex-grow"
+                  className="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-custom-main-dark flex-grow"
                   required
                 />
                 <button
