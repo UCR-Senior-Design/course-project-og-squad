@@ -42,15 +42,20 @@ export default function Post({ post }) {
             {user_pfp ? (
               <Image
                 src={user_pfp}
-                className="rounded-full mr-2"
-                height={24}
-                width={24}
+                className="rounded-full mr-2 mb-1"
+                height={30}
+                width={30}
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  objectFit: "cover",
+                }}
                 alt={user_name}
               />
             ) : (
-              <FaUserCircle className="mr-2 text-xl text-custom-main-dark" />
+              <FaUserCircle className="mr-2 text-2xl text-custom-main-dark" />
             )}
-            <p className="text-xl">{user_name}</p>
+            <p className="text-xl mb-1">{user_name}</p>
           </Link>
           <Link
             href={`/recipes/${_id}`}
