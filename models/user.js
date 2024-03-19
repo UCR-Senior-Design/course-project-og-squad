@@ -32,10 +32,8 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
-    followingCount: {
-      type: Number,
-      default: 0,
-    },
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );

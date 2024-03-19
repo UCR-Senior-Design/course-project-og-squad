@@ -24,7 +24,12 @@ export default function ProfilePosts({ posts }) {
               className="mb-2"
               height={200}
               width={200}
-              style={{ width: "200px", height: "200px", objectFit: "cover",  borderRadius: "10px", border: "2px solid #000",}}  //remove border if wanting to remove black outline
+              style={{
+                width: "200px",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "10px",
+              }} //remove border if wanting to remove black outline
             />
 
             {/* Title with Likes */}

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import ProfileSettings from "@/components/profileSettings";
 import { useSession } from "next-auth/react";
 import defaultPfp from "../assets/icons/profile.svg";
+import FollowButton from "./followButton";
 
 export default function Profile({ profile }) {
   const {
@@ -52,13 +53,15 @@ export default function Profile({ profile }) {
           {/* Username with setting icon */}
           <div className="flex items-center mb-4">
             <p className="text-xl font-bold mr-2">{userName}</p>
-            {isCurrentUserProfile && (
+            {isCurrentUserProfile ? (
               <IoMdSettings
                 className="cursor-pointer"
                 onClick={handleSettingsClick}
                 color={showSettings ? "#FF9103" : "#A3A3A3"}
                 size={30}
               />
+            ) : (
+              <FollowButton targetId={id} />
             )}
           </div>
 
